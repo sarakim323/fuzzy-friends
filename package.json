@@ -1,0 +1,13 @@
+{
+  "name": "fuzzy-friends",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "pnpm --stream -r test",
+    "dev": "pnpm --stream -r run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
