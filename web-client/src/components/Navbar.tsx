@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
 
-const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
+interface NavbarProps {
+  menuOpen: boolean;
+  setMenuOpen: (newValue: boolean) => void;
+}
+const Navbar: React.FC<NavbarProps> = ({ menuOpen, setMenuOpen }) => {
+  console.log(menuOpen);
   return (
     <nav className="bg-gray-800 p-4 mt-0 fixed w-full z-10 top-0">
       <div className="container mx-auto flex flex-wrap items-center">
-        <div className="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+        <div className="flex space-x-4 w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {' '}
+            <MenuIcon />
+          </button>
           <a
             className="text-white no-underline hover:text-white hover:no-underline"
             href="#"
