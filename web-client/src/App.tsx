@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Navbar, Sidebar } from './components/';
+import { useState } from 'react';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
