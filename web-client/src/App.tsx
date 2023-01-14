@@ -1,8 +1,14 @@
 import { useState } from 'react';
-import { Navbar } from './components/';
+import { Navbar, Sidebar } from './components/';
 
 function App() {
-  return <Navbar />;
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  return (
+    <>
+      <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <Sidebar />
+    </>
+  );
 }
 
 export default App;
