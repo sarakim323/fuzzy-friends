@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Navbar } from '../components';
 
 import MatchList from '../components/chat/MatchList';
 import ChatBox from '../components/chat/ChatBox';
