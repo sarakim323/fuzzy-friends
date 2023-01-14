@@ -24,23 +24,15 @@ const Discovery = () => {
       </div>
 
       {/* Carousel */}
-      <div className="flex flex-row justify-center">
+      <div className="flex flex-row justify-center max-h-80 object-contain items-center">
         {/* Images */}
         {imageArray.map((image, index) => (
-          <div className="relative mx-5" key={index}>
-            {/* Background */}
-            <img
-              src={image}
-              className="object-stretch absolute blur-lg rounded-3xl top-0 h-full w-full"
-              alt=""
-              style={{ zIndex: '-1'}}
-            />
+          <div className="mx-5" key={index}>
             {/* Main Image */}
             <img
               src={image}
-              className="z-20 h-96 w-72 rounded-3xl object-contain"
+              className="z-20 object-contain rounded-3xl"
               alt=""
-              style={{borderRadius: '100px'}}
             />
           </div>
         ))}
