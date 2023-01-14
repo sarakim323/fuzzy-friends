@@ -15,6 +15,14 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <div className="flex flex-col">
+        <div className="p-2 bg-black rounded-lg hover:bg-regal-blue hover:scale-150">
+          hello
+        </div>
+        <div className="p-2">hello</div>
+        <div className="p-2">hello</div>
+      </div>
+
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
