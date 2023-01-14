@@ -7,10 +7,10 @@ const Discovery = () => {
     'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=0.672xw:1.00xh;0.166xw,0&resize=640:*',
   ];
 
-  useEffect(() => {
-    axios.post('https://api.cloudinary.com/v1_1/demo/image/upload', {}, {})
-      .then(url => {});
-  }, [])
+  // useEffect(() => {
+  //   axios.post('https://api.cloudinary.com/v1_1/demo/image/upload', {}, {})
+  //     .then(url => {});
+  // }, [])
 
   return (
     <div>
@@ -24,16 +24,12 @@ const Discovery = () => {
       </div>
 
       {/* Carousel */}
-      <div className="flex flex-row justify-center max-h-80 object-contain items-center">
+      <div className="flex items-center">
         {/* Images */}
         {imageArray.map((image, index) => (
-          <div className="mx-5" key={index}>
+          <div className="" key={index}>
             {/* Main Image */}
-            <img
-              src={image}
-              className="z-20 object-contain rounded-3xl"
-              alt=""
-            />
+            <img src={image} className="max-h-[85vh]" alt="" />
           </div>
         ))}
       </div>
