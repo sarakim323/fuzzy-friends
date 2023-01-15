@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
-            pnpm install
+            pnpm -r install
       - run:
           name: Run tests
           command: |
