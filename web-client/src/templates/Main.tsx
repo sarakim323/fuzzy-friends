@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar, Sidebar } from '../pages';
+import { Navbar, Sidebar, ScheduleDateModal } from '../pages';
 import '../index.css';
 interface IProps {
   section: React.ReactNode;
@@ -15,6 +15,7 @@ export const Main: React.FC<IProps> = ({ section }) => {
         {menuOpen && <Sidebar />}
       </div>
       {section}
+      <ScheduleDateModal />
     </div>
   );
 };
