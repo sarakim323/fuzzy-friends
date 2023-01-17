@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Carousel } from '@trendyol-js/react-carousel';
+import ProfileInfo from '../components/discover/ProfileInfo';
 
 // interface User {
 //   id: number;
 //   friends: [];
 // }
-interface Profile {
+export interface Profile {
   id: number;
   UserId: number;
   photos: string[];
   name: string;
   city: string;
 }
-interface CurrentUser {
+export interface CurrentUser {
   user: Profile;
   index: number;
 }
@@ -132,12 +133,7 @@ const Discovery = () => {
             </div>
 
             {/* Profile info */}
-            <div className="flex flex-row justify-evenly text-5xl">
-              <div>{currentUser.user.name}</div>
-            </div>
-            <div className="flex flex-row justify-evenly text-2xl">
-              <div>{currentUser.user.city}</div>
-            </div>
+            <ProfileInfo currentUser={currentUser} />
           </div>
         </>
       ) : ranApiCall === true ? (
