@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+// import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
+// import { io } from 'socket.io-client';
+// import { allUsersRoute, host } from '../utils/APIRoutes';
 
 import MatchList from '../components/chat/MatchList';
 import ChatBox from '../components/chat/ChatBox';
+import Welcome from '../components/chat/Welcome';
 import ProfileBox from '../components/chat/ProfileBox';
 
 function ChatPage() {
@@ -67,10 +72,14 @@ function ChatPage() {
     <div>
       <div className="flex">
         <div className="flex-1 w-10">
-          <MatchList matchedUsers={dummyData} />
+          <MatchList matches={matches} changeChat={handleChatChange} />
         </div>
         <div className="flex-1 w-20">
-          <ChatBox />
+          {currentChat === undefined ? (
+            <Welcome />
+          ) : (
+            <ChatBox currentChat={currentChat} socket={socket} />
+          )}
         </div>
         <div>
           <ProfileBox />
