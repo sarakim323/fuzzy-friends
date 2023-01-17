@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function MatchList({ matchedUsers }) {
+function MatchList({ matches, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentUserSelected, setCurrentUserSelected] = useState(undefined);
