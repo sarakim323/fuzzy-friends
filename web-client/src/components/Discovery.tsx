@@ -9,6 +9,9 @@ interface User {
 interface Profile {
   id: number;
   UserId: number;
+  photos: string[];
+  name: string;
+  city: string;
 }
 interface CurrentUser {
   user: Profile;
@@ -19,54 +22,57 @@ const Discovery = (user: User) => {
     'fa-solid rounded-full p-3 text-md hover:cursor-pointer bg-[#E3DCD9]';
   const barkSniffClasses =
     'rounded-2xl text-md hover:cursor-pointer text-center bg-[#E3DCD9] px-5 py-2 text-lg';
-  const imageArray: string[] = [
-    'https://images.unsplash.com/photo-1587402092301-725e37c70fd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHVwcHklMjBkb2d8ZW58MHx8MHx8&w=1000&q=80',
-    'https://thumbs.dreamstime.com/b/beautiful-happy-reddish-havanese-puppy-dog-sitting-frontal-looking-camera-isolated-white-background-46868560.jpg',
-    'https://images.unsplash.com/photo-1587402092301-725e37c70fd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHVwcHklMjBkb2d8ZW58MHx8MHx8&w=1000&q=80',
-    'https://thumbs.dreamstime.com/b/beautiful-happy-reddish-havanese-puppy-dog-sitting-frontal-looking-camera-isolated-white-background-46868560.jpg',
-  ];
+  // const imageArray: string[] = [
+  //   'https://images.unsplash.com/photo-1587402092301-725e37c70fd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHVwcHklMjBkb2d8ZW58MHx8MHx8&w=1000&q=80',
+  //   'https://thumbs.dreamstime.com/b/beautiful-happy-reddish-havanese-puppy-dog-sitting-frontal-looking-camera-isolated-white-background-46868560.jpg',
+  //   'https://images.unsplash.com/photo-1587402092301-725e37c70fd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHVwcHklMjBkb2d8ZW58MHx8MHx8&w=1000&q=80',
+  //   'https://thumbs.dreamstime.com/b/beautiful-happy-reddish-havanese-puppy-dog-sitting-frontal-looking-camera-isolated-white-background-46868560.jpg',
+  // ];
   const [ranApiCall, setRanApiCall] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<CurrentUser>({
-    user: { id: 0, UserId: 0 },
+    user: { id: 0, UserId: 0, photos: [], name: '', city: '' },
     index: 0,
   });
   const [profileArray, setProfileArray] = useState<Profile[]>([]);
 
   const handleBark = () => {
-    axios.put(`/users/${user.id}/friends/${currentUser.user.id}`).then(() => {
-      setCurrentUser({
-        user: profileArray[currentUser.index + 1],
-        index: (currentUser.index += 1),
-      });
+    setCurrentUser({
+      user: profileArray[currentUser.index + 1],
+      index: (currentUser.index += 1),
     });
   };
 
   const handleSniff = () => {
-    axios.put(`/users/${user.id}/friends/${currentUser.user.id}`).then(() => {
-      setCurrentUser({
-        user: profileArray[currentUser.index + 1],
-        index: (currentUser.index += 1),
+    axios
+      .put(
+        `http://54.144.2.231:3000/users/${user.id}/friends/${currentUser.user.id}`
+      )
+      .then(() => {
+        setCurrentUser({
+          user: profileArray[currentUser.index + 1],
+          index: (currentUser.index += 1),
+        });
       });
-    });
   };
 
   useEffect(() => {
     setRanApiCall(false);
     axios
-      .get(`/users/:id/discover`)
+      .get(`http://54.144.2.231:3000/users/3/discover`)
       .then((data) => {
         setRanApiCall(true);
         setCurrentUser({ user: data.data[0], index: 0 });
         setProfileArray(data.data);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         setRanApiCall(true);
       });
   }, []);
 
   return (
     <div className="">
-      {ranApiCall && user ? (
+      {ranApiCall && currentUser.user.id !== 0 ? (
         <>
           {/* Navbar example */}
           <div className="flex flex-row text-lg bg-white border-2 border-black justify-center">
@@ -98,7 +104,7 @@ const Discovery = (user: User) => {
               transition={0.5}
             >
               {/* Images */}
-              {imageArray.map((image, index) => (
+              {currentUser.user.photos.map((image, index) => (
                 <div
                   className="flex-row justify-center items-center"
                   key={index}
@@ -129,15 +135,13 @@ const Discovery = (user: User) => {
 
             {/* Profile info */}
             <div className="flex flex-row justify-evenly text-5xl">
-              <div>First Name & Location</div>
+              <div>{currentUser.user.name}</div>
             </div>
             <div className="flex flex-row justify-evenly text-2xl">
-              <div>Profile information</div>
+              <div>{currentUser.user.city}</div>
             </div>
           </div>
         </>
-      ) : ranApiCall === false ? (
-        <>Loading Discover Mode</>
       ) : ranApiCall === true ? (
         <>
           Please login <a href="/callback">here</a>
@@ -146,5 +150,7 @@ const Discovery = (user: User) => {
     </div>
   );
 };
+// ) : ranApiCall === false ? (
+//   <>Loading Discover Mode</>
 
 export default Discovery;
