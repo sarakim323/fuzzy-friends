@@ -36,23 +36,25 @@ export const CalendarView: React.FC<CalendarView> = ({
 
   return (
     <tbody>
-      {[0, 1, 2, 3, 4].map((week) => {
-        return (
-          <tr key={week} className="text-center h-20">
-            {[0, 1, 2, 3, 4, 5, 6].map((dayOfWeek) => {
-              if (week === 0 && dayOfWeek < startDay) {
-                return <DayCell key={`blank-${week}+${dayOfWeek}`} />;
-              }
+      {[0, 1, 2, 3, 4, 5].map((week) => {
+        if (date < numOfDays) {
+          return (
+            <tr key={week} className="text-center h-20">
+              {[0, 1, 2, 3, 4, 5, 6].map((dayOfWeek) => {
+                if (week === 0 && dayOfWeek < startDay) {
+                  return <DayCell key={`blank-${week}+${dayOfWeek}`} />;
+                }
 
-              date++;
-              if (date > numOfDays) {
-                return <DayCell key={date} />;
-              } else {
-                return <DayCell key={date} date={date} />;
-              }
-            })}
-          </tr>
-        );
+                date++;
+                if (date > numOfDays) {
+                  return <DayCell key={date} />;
+                } else {
+                  return <DayCell key={date} date={date} />;
+                }
+              })}
+            </tr>
+          );
+        }
       })}
     </tbody>
   );

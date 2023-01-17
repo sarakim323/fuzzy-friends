@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { CalendarView } from './CalendarView';
 
 const monthsIdx = [
@@ -18,8 +18,12 @@ const monthsIdx = [
 
 export const Calendar: React.FC = () => {
   const [date, setDate] = useState(new Date());
-  const numOfDays = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
-  const startDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  let numOfDays = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    0
+  ).getDate();
+  let startDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
 
   const handleClick = (e: React.MouseEvent) => {
     if (e.currentTarget.id === 'previousMonth') {
@@ -27,16 +31,18 @@ export const Calendar: React.FC = () => {
     } else {
       date.setMonth(date.getMonth() + 1);
     }
-    console.log('setting new date');
     const newDate = new Date();
     newDate.setMonth(date.getMonth());
     newDate.setFullYear(date.getFullYear());
+    numOfDays = new Date(
+      newDate.getFullYear(),
+      newDate.getMonth(),
+      0
+    ).getDate();
+    startDay = new Date(newDate.getFullYear(), newDate.getMonth(), 1).getDay();
+
     setDate(newDate);
   };
-
-  useEffect(() => {
-    console.log(date);
-  }, [date]);
 
   return (
     <div className="container mx-auto mt-10">
