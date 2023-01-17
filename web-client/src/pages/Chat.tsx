@@ -12,11 +12,11 @@ import ProfileBox from '../components/chat/ProfileBox';
 const ChatPage = () => {
   const navigate = useNavigate();
   // const socket = useRef();
-  const [matches, setMatches] = useState([]);
+  const [matches, setMatches] = useState(dummyData);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
 
-  const [dummyData, setDummyData] = useState([
+  const dummyData = [
     {
       name: 'Sophie',
       age: 4,
@@ -72,7 +72,7 @@ const ChatPage = () => {
       ],
       calendar_invite: [],
     },
-  ]);
+  ];
 
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
