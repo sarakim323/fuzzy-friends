@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "target": "ES2020",
+    "moduleResolution": "NodeNext",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "outDir": "build/",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["./node_modules", "./**/*.ts.spec"]
+}
