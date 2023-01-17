@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Carousel } from '@trendyol-js/react-carousel';
 
-interface User {
-  id: number;
-  friends: [];
-}
+// interface User {
+//   id: number;
+//   friends: [];
+// }
 interface Profile {
   id: number;
   UserId: number;
@@ -17,7 +17,7 @@ interface CurrentUser {
   user: Profile;
   index: number;
 }
-const Discovery = (user: User) => {
+const Discovery = () => {
   const buttonClassNames =
     'fa-solid rounded-full p-3 text-md hover:cursor-pointer bg-[#E3DCD9]';
   const barkSniffClasses =
@@ -33,6 +33,9 @@ const Discovery = (user: User) => {
     user: { id: 0, UserId: 0, photos: [], name: '', city: '' },
     index: 0,
   });
+  const user = {
+    id: 1,
+  };
   const [profileArray, setProfileArray] = useState<Profile[]>([]);
 
   const handleBark = () => {
@@ -74,11 +77,6 @@ const Discovery = (user: User) => {
     <div className="">
       {ranApiCall && currentUser.user.id !== 0 ? (
         <>
-          {/* Navbar example */}
-          <div className="flex flex-row text-lg bg-white border-2 border-black justify-center">
-            <div>Navbar</div>
-          </div>
-
           {/* Title */}
           <div className="flex flex-row justify-center text-6xl">
             <div>Discover Mode</div>
@@ -106,13 +104,13 @@ const Discovery = (user: User) => {
               {/* Images */}
               {currentUser.user.photos.map((image, index) => (
                 <div
-                  className="flex-row justify-center items-center"
+                  className="flex-col justify-center items-center"
                   key={index}
                 >
                   {/* Main Image */}
                   <img
                     src={image}
-                    className="max-h-[50vh] max-w-[500px] object-center rounded-3xl"
+                    className="h-[50vh] w-[500px] object-none object-center rounded-3xl"
                     alt=""
                   />
                 </div>

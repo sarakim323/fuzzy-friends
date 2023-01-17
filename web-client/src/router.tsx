@@ -3,7 +3,15 @@ import { useAuth0 } from '@auth0/auth0-react';
 import PageLoader from './components/authentication/PageLoader';
 
 import { Main } from './templates/Main';
-import { Home, NotFound, Chat, Profile, Callback, CalendarPage, Discover } from './pages';
+import {
+  Home,
+  NotFound,
+  Chat,
+  Profile,
+  Callback,
+  CalendarPage,
+  Discover,
+} from './pages';
 
 export const Router = () => {
   const { isLoading } = useAuth0();
