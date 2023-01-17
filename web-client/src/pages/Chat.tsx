@@ -67,7 +67,7 @@ function ChatPage() {
     <div>
       <div className="flex">
         <div className="flex-1 w-10">
-          <MatchList />
+          <MatchList matchedUsers={dummyData} />
         </div>
         <div className="flex-1 w-20">
           <ChatBox />
