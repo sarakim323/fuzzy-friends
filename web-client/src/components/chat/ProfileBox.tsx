@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navbar } from '../';
+// import { Navbar } from '../';
 
 function ProfileBox() {
   return <div>ProfileBox</div>;
