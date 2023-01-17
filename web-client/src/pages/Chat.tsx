@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-// import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 // import { io } from 'socket.io-client';
 // import { allUsersRoute, host } from '../utils/APIRoutes';
 
@@ -10,7 +10,7 @@ import Welcome from '../components/chat/Welcome';
 import ProfileBox from '../components/chat/ProfileBox';
 
 const ChatPage = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const socket = useRef();
   const [matches, setMatches] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
