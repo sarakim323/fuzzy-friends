@@ -10,7 +10,9 @@ import Welcome from '../components/chat/Welcome';
 import ProfileBox from '../components/chat/ProfileBox';
 
 function ChatPage() {
-  const [dummyData, setDummyData] = useState([
+  const [currentChat, setCurrentChat] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const [matches, setMatches] = useState([
     {
       name: 'Sophie',
       age: 4,
@@ -68,19 +70,23 @@ function ChatPage() {
     },
   ]);
 
+  const handleChatChange = (chat) => {
+    setCurrentChat(chat);
+  };
+
   return (
     <div>
       <div className="flex">
         <div className="flex-1 w-10">
           <MatchList matches={matches} changeChat={handleChatChange} />
         </div>
-        <div className="flex-1 w-20">
+        {/* <div className="flex-1 w-20">
           {currentChat === undefined ? (
             <Welcome />
           ) : (
             <ChatBox currentChat={currentChat} socket={socket} />
           )}
-        </div>
+        </div> */}
         <div>
           <ProfileBox />
         </div>
