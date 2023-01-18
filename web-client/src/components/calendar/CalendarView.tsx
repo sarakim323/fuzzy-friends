@@ -1,10 +1,37 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+
+interface EventCellProps {
+  title: string;
+  start: string;
+  end: string;
+}
+
+const EventCell: React.FC<EventCellProps> = ({ title, start, end }) => {
+  return (
+    <div className="event bg-purple-400 text-white rounded p-1 text-sm mb-1">
+      <span className="event-name block">{title}</span>
+      <span className="time">
+        {start}-{end}
+      </span>
+    </div>
+  );
+};
+
+interface Event {
+  id: string;
+  date: Date;
+  title: string;
+  start: string;
+  end: string;
+}
 
 interface DayCellProps {
   date?: number;
+  events?: Event[];
 }
 
-const DayCell: React.FC<DayCellProps> = ({ date }) => {
+const DayCell: React.FC<DayCellProps> = ({ date, events }) => {
   let containerClass =
     'border p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ';
 
@@ -18,21 +45,66 @@ const DayCell: React.FC<DayCellProps> = ({ date }) => {
         <div className="top h-5 w-full">
           <span className="text-gray-500">{date}</span>
         </div>
+        <div className="bottom flex-grow h-30 py-1 w-full cursor-pointer">
+          {events?.map((event) => {
+            return (
+              <EventCell
+                key={event.id}
+                title={event.title}
+                start={event.start}
+                end={event.end}
+              />
+            );
+          })}
+        </div>
       </div>
     </td>
   );
 };
 
 interface CalendarView {
+  month: number;
+  year: number;
   startDay: number;
   numOfDays: number;
 }
 
 export const CalendarView: React.FC<CalendarView> = ({
+  month,
+  year,
   startDay,
   numOfDays,
 }) => {
+  const [events, setEvents] = useState<Event[] | undefined>(undefined);
   let date = 0;
+
+  const daysEvents = (date: number) => {
+    if (events === undefined) {
+      return [];
+    }
+
+    return events.filter((evt) => {
+      const evtDate = new Date(evt.date);
+      return (
+        evtDate.getFullYear() === year &&
+        evtDate.getMonth() === month &&
+        evtDate.getDate() === date
+      );
+    });
+  };
+
+  useEffect(() => {
+    // use axios
+    axios
+      .get('http://127.0.0.1:3000/users/test/events')
+      .then((resp) => {
+        console.log('what is the response:', resp);
+        setEvents(resp.data);
+      })
+      .catch((err) => {
+        console.log('got an error message', err);
+      });
+  }, []);
 
   return (
     <tbody>
@@ -49,7 +121,8 @@ export const CalendarView: React.FC<CalendarView> = ({
                 if (date > numOfDays) {
                   return <DayCell key={date} />;
                 } else {
-                  return <DayCell key={date} date={date} />;
+                  const events = daysEvents(date);
+                  return <DayCell key={date} date={date} events={events} />;
                 }
               })}
             </tr>
