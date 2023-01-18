@@ -20,10 +20,12 @@ export const Router = () => {
   return (
     <Routes>
       <Route index element={<Main section={<Home />} />} />
-      {/* <Route path="/chat" element={<Main section={<Chat />} />} /> */}
-      {/* <Route path="/profile" element={<Main section={<Profile />} />} /> */}
-      {/* <Route path="/calendar" element={<Main section={<CalendarPage />} />} /> */}
-      <Route path="/chat" element={<ProtectedRoute section={<Chat />} />} />
+      <Route path="/chat" element={<Main section={<Chat />} />} />
+      <Route path="/profile" element={<Main section={<Profile />} />} />
+      <Route path="/calendar" element={<Main section={<CalendarPage />} />} />
+
+      {/* Add Protected Route here */}
+      {/* <Route path="/chat" element={<ProtectedRoute section={<Chat />} />} />
       <Route
         path="/profile"
         element={<ProtectedRoute section={<Profile />} />}
@@ -31,7 +33,8 @@ export const Router = () => {
       <Route
         path="/calendar"
         element={<ProtectedRoute section={<CalendarPage />} />}
-      />
+      /> */}
+
       <Route path="/callback" element={<Main section={<Callback />} />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

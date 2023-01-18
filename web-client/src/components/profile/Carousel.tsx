@@ -33,8 +33,6 @@ const CarouselCard = () => {
   return (
     <div className="flex flex-col h-[90vh] justify-center items-center m-auto w-[100%]">
       <Carousel
-        // leftArrow={<i className="w-3 h-3 rounded-full"></i>}
-        // rightArrow={<i className="w-3 h-3 rounded-full"></i>}
         show={1}
         slide={1}
         swiping={true}

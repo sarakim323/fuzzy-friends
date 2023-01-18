@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import LoginButton from '../components/authentication/LoginButton';
-import SignupButton from '../components/authentication/SignupButton';
+import { LoginButton } from '../components/authentication/LoginButton';
+import { SignupButton } from '../components/authentication/SignupButton';
 
 export const Home = () => {
   const { isAuthenticated, user } = useAuth0();
