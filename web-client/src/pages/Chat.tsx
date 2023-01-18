@@ -14,6 +14,7 @@ function ChatPage() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [matches, setMatches] = useState([
     {
+      id: 1,
       name: 'Sophie',
       age: 4,
       breed: 'Siberian Husky',
@@ -25,9 +26,11 @@ function ChatPage() {
         'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-1.jpg',
         'https://i.pinimg.com/236x/56/e8/ba/56e8ba281d0cce55c4db6e3ee10f0ea4--happy-puppy-puppy-love.jpg',
       ],
+      messages: [{ 2: ['Hi, Kuma', 'Hi Sophie', 'How are you?'] }],
       calendar_invite: [],
     },
     {
+      id: 2,
       name: 'Kuma',
       age: 3,
       breed: 'Goldendoodle',
@@ -38,9 +41,11 @@ function ChatPage() {
         'https://www.happygodoodle.com/wp-content/uploads/2022/04/apricot-colored-miniature-goldendoodle-720x720.jpg.webp',
         'https://a-z-animals.com/media/2021/06/Petite-Goldendoodle-puppy-1024x535.jpg',
       ],
+      messages: [[{ 1: ['Hi, Kuma', 'Hi Sophie', 'How are you?'] }]],
       calendar_invite: [],
     },
     {
+      id: 3,
       name: 'dog',
       age: 2,
       breed: 'shih tzu',
@@ -52,9 +57,11 @@ function ChatPage() {
         'https://i.pinimg.com/originals/8b/ee/0b/8bee0bf219b91167f191f5268febae96.jpg',
         'http://3.bp.blogspot.com/-7pNCBrtPl_A/TaeOAW-3_xI/AAAAAAAA8_s/F4oAN5WLAug/s1600/Dogo.jpg',
       ],
+      messages: [],
       calendar_invite: [],
     },
     {
+      id: 4,
       name: 'cat',
       age: 4,
       breed: 'maltese',
@@ -66,6 +73,7 @@ function ChatPage() {
         'https://www.omlet.us/images/cache/1024/693/Dog-Pomeranian-Three_lovely_Pomeranians,_each_with_big,_bushy_tails_and_beautiful_pointed_ears.jpg',
         'https://www.allthingsdogs.com/wp-content/uploads/2020/01/White-Pomeranian-Feature-678x381.jpg',
       ],
+      messages: [],
       calendar_invite: [],
     },
   ]);
@@ -80,15 +88,15 @@ function ChatPage() {
         <div className="flex-1 w-10">
           <MatchList matches={matches} changeChat={handleChatChange} />
         </div>
-        {/* <div className="flex-1 w-20">
+        <div className="flex-1 w-20">
           {currentChat === undefined ? (
             <Welcome />
           ) : (
-            <ChatBox currentChat={currentChat} socket={socket} />
+            <ChatBox currentChat={currentChat} />
           )}
-        </div> */}
-        <div>
-          <ProfileBox />
+        </div>
+        <div className="flex-1 w-20">
+          <ProfileBox matches={matches} />
         </div>
       </div>
     </div>
