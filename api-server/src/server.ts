@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 const app = express();
 const port = 3000;
-import { discover, friends, messages } from './mock_data';
+import { discover, friends, messages, sampleEvents } from './mock_data';
 import { Request, Response } from 'express';
 
 app.use(express.json());
@@ -30,6 +30,16 @@ app.put('/users/:id/friends/*', (req: Request, res: Response) => {
 
 app.get('/users/:id/discover', (req: Request, res: Response) => {
   res.send(discover);
+});
+
+/*
+  GET /events
+  params:
+    - month
+    - year
+*/
+app.get('/users/:id/events', (req, res) => {
+  res.send(sampleEvents);
 });
 
 app.listen(port, () => {
