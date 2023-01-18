@@ -3,16 +3,16 @@ import { withAuthenticationRequired } from '@auth0/auth0-react';
 import PageLoader from './PageLoader';
 
 interface Props {
-  component: React.FC;
+  section: React.ReactNode;
 }
 
-export const ProtectedRoute: React.FC<Props> = ({ component }) => {
-  const Component = withAuthenticationRequired(component, {
+export const ProtectedRoute: React.FC<Props> = ({ section }) => {
+  const Section = withAuthenticationRequired(section, {
     onRedirecting: () => (
       <div>
         <PageLoader />
       </div>
     ),
   });
-  return <Component />;
+  return <Section />;
 };
