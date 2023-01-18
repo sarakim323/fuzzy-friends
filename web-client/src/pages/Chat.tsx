@@ -8,17 +8,48 @@ import MatchList from '../components/chat/MatchList';
 import ChatBox from '../components/chat/ChatBox';
 import ProfileBox from '../components/chat/ProfileBox';
 
-// function ChatPage() {
-//   const [currentChat, setCurrentChat] = useState(undefined);
-//   const [currentUser, setCurrentUser] = useState(undefined);
-
-//   //useEffect to retrieve data via GET (users/:id/friends)
-//   const [matches, setMatches] = useState([
-//     {
-//       id: 2,
 const ChatPage: React.FC = () => {
-  const [currentChat, setCurrentChat] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
+  const [user, setUser] = useState<User[]>({
+    _id: '9',
+    name: 'Henry',
+    age: 7,
+    breed: 'Golden Retriever',
+    gender: 'male',
+    profilePic:
+      'https://images.unsplash.com/photo-1615233500064-caa995e2f9dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+    pictures: [
+      'https://images.unsplash.com/photo-1611003229186-80e40cd54966?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
+      'https://images.unsplash.com/photo-1591160690567-a6b0215b67ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1026&q=80',
+    ],
+    calendarInvite: [],
+    description: 'Hello my name is Henry, and I would love to chat with you!',
+  });
+  // CLICKED (CURRENT) MATE
+  const [mate, setMate] = useState<Mate[]>({
+    _id: '1',
+    name: 'Sophie',
+    age: 4,
+    breed: 'Siberian Husky',
+    gender: 'female',
+    profilePic:
+      'https://canineowners.com/wp-content/uploads/2016/06/Corgi-Husky.png',
+    pictures: [
+      'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-2-150x150.jpg',
+      'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-1.jpg',
+      'https://i.pinimg.com/236x/56/e8/ba/56e8ba281d0cce55c4db6e3ee10f0ea4--happy-puppy-puppy-love.jpg',
+    ],
+    calendarInvite: [],
+    description: 'Hi, my name is Sophie, and I like huskies',
+  });
+
+  // CLICKED (CURRENT) MATE - CHAT
+  const [currentChat, setCurrentChat] = useState<Chat[]>([
+    { 2: 'User would like to match with you' },
+    { 1: 'Hey! Wassup?' },
+    { 2: 'Nm - wbu?' },
+  ]);
+
+  // MATCH LIST
   const [matches, setMatches] = useState<Match[]>([
     {
       _id: '1',
@@ -33,11 +64,6 @@ const ChatPage: React.FC = () => {
         'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-1.jpg',
         'https://i.pinimg.com/236x/56/e8/ba/56e8ba281d0cce55c4db6e3ee10f0ea4--happy-puppy-puppy-love.jpg',
       ],
-      messages: [{ 2: ['Hi, Kuma', 'Hi Sophie', 'How are you?'] }],
-      calendar_invite: [],
-    },
-    {
-      id: 3,
       calendarInvite: [],
     },
     {
@@ -52,11 +78,10 @@ const ChatPage: React.FC = () => {
         'https://www.happygodoodle.com/wp-content/uploads/2022/04/apricot-colored-miniature-goldendoodle-720x720.jpg.webp',
         'https://a-z-animals.com/media/2021/06/Petite-Goldendoodle-puppy-1024x535.jpg',
       ],
-      messages: [[{ 1: ['Hi, Kuma', 'Hi Sophie', 'How are you?'] }]],
-      calendar_invite: [],
+      calendarInvite: [],
     },
     {
-      id: '4',
+      _id: '4',
       name: 'dog',
       age: 2,
       breed: 'shih tzu',
@@ -68,11 +93,10 @@ const ChatPage: React.FC = () => {
         'https://i.pinimg.com/originals/8b/ee/0b/8bee0bf219b91167f191f5268febae96.jpg',
         'http://3.bp.blogspot.com/-7pNCBrtPl_A/TaeOAW-3_xI/AAAAAAAA8_s/F4oAN5WLAug/s1600/Dogo.jpg',
       ],
-      messages: [],
-      calendar_invite: [],
+      calendarInvite: [],
     },
     {
-      id: '5',
+      _id: '5',
       name: 'cat',
       age: 4,
       breed: 'maltese',
@@ -84,8 +108,69 @@ const ChatPage: React.FC = () => {
         'https://www.omlet.us/images/cache/1024/693/Dog-Pomeranian-Three_lovely_Pomeranians,_each_with_big,_bushy_tails_and_beautiful_pointed_ears.jpg',
         'https://www.allthingsdogs.com/wp-content/uploads/2020/01/White-Pomeranian-Feature-678x381.jpg',
       ],
-      messages: [],
-      calendar_invite: [],
+      calendarInvite: [],
+    },
+  ]);
+
+  const [tempMatches, setTempMatches] = useState<TempMatch[]>([
+    {
+      _id: '1',
+      name: 'Sophie',
+      age: 4,
+      breed: 'Siberian Husky',
+      gender: 'female',
+      profilePic:
+        'https://canineowners.com/wp-content/uploads/2016/06/Corgi-Husky.png',
+      pictures: [
+        'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-2-150x150.jpg',
+        'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-1.jpg',
+        'https://i.pinimg.com/236x/56/e8/ba/56e8ba281d0cce55c4db6e3ee10f0ea4--happy-puppy-puppy-love.jpg',
+      ],
+      calendarInvite: [],
+    },
+    {
+      _id: '2',
+      name: 'Kuma',
+      age: 3,
+      breed: 'Goldendoodle',
+      gender: 'male',
+      profilePic:
+        'https://www.rainfieldgoldendoodles.com/wp-content/uploads/2019/11/20191118_162055-1-200x300.jpg',
+      pictures: [
+        'https://www.happygodoodle.com/wp-content/uploads/2022/04/apricot-colored-miniature-goldendoodle-720x720.jpg.webp',
+        'https://a-z-animals.com/media/2021/06/Petite-Goldendoodle-puppy-1024x535.jpg',
+      ],
+      calendarInvite: [],
+    },
+    {
+      _id: '4',
+      name: 'dog',
+      age: 2,
+      breed: 'shih tzu',
+      gender: 'male',
+      profilePic:
+        'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2021%2F07%2F21%2Fdogo-argentino-lying-on-cement-1309087955-2000.jpg',
+      pictures: [
+        'https://www.akc.org/wp-content/uploads/2017/11/Dogo-Argentino.jpg',
+        'https://i.pinimg.com/originals/8b/ee/0b/8bee0bf219b91167f191f5268febae96.jpg',
+        'http://3.bp.blogspot.com/-7pNCBrtPl_A/TaeOAW-3_xI/AAAAAAAA8_s/F4oAN5WLAug/s1600/Dogo.jpg',
+      ],
+      calendarInvite: [],
+    },
+    {
+      _id: '5',
+      name: 'cat',
+      age: 4,
+      breed: 'maltese',
+      gender: 'female',
+      profilePic:
+        'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2021%2F03%2F12%2Fpomeranian-white-puppy-921029690-2000.jpg',
+      pictures: [
+        'https://cdn.britannica.com/41/233841-050-4FFECCF1/Pomeranian-dog.jpg',
+        'https://www.omlet.us/images/cache/1024/693/Dog-Pomeranian-Three_lovely_Pomeranians,_each_with_big,_bushy_tails_and_beautiful_pointed_ears.jpg',
+        'https://www.allthingsdogs.com/wp-content/uploads/2020/01/White-Pomeranian-Feature-678x381.jpg',
+      ],
+      calendarInvite: [],
     },
   ]);
 
@@ -93,17 +178,27 @@ const ChatPage: React.FC = () => {
   //if not logged in, then direct to log in page?
   //if logged in, setCurrentUser to user with latest message? or we display welcome message and allow user to select chat of his or her choice
 
-  const handleChatChange = (chat: string) => {
-    console.log(chat);
-    // setCurrentChat(chat);
-    //setCurrentUser
+  const getChatHistory = (mateID) => {
+    // GET chat req - param (mateID)
+    // .then((res) => {setCurrentChat(res)})
+  };
+
+  const handleMateChange = (mateInfo) => {
+    console.log(mateInfo._id);
+    setMate(mateInfo);
+    // change the chat container
+    getChatHistory(mateInfo._id);
   };
 
   return (
     <div>
       <div className="flex">
         <div className="flex-1 w-20">
-          <MatchList matches={matches} changeChat={handleChatChange} />
+          <MatchList
+            matches={matches}
+            tempMatches={tempMatches}
+            changeMate={handleMateChange}
+          />
         </div>
         <div className="flex-1 w-20">
           {/* {currentChat === undefined ? (
@@ -111,11 +206,11 @@ const ChatPage: React.FC = () => {
           ) : (
             <ChatBox currentChat={currentChat} />
           )} */}
-          <ChatBox matches={matches} />
+          <ChatBox currentChat={currentChat} mate={mate} user={user} />
         </div>
         <div className="flex-1 w-20">
           {/* pass down current user down to profileBox */}
-          <ProfileBox matches={matches} />
+          <ProfileBox mate={mate} />
         </div>
       </div>
     </div>
