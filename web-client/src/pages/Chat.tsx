@@ -12,6 +12,8 @@ import ProfileBox from '../components/chat/ProfileBox';
 function ChatPage() {
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
+
+  //useEffect to retrieve data via GET (users/:id/friends)
   const [matches, setMatches] = useState([
     {
       id: 1,
@@ -78,8 +80,14 @@ function ChatPage() {
     },
   ]);
 
+  //useEffect to check if user is logged in
+  //if not logged in, then direct to log in page?
+  //if logged in, setCurrentUser to user with latest message? or we display welcome message and allow user to select chat of his or her choice
+
   const handleChatChange = (chat) => {
-    setCurrentChat(chat);
+    console.log(chat);
+    // setCurrentChat(chat);
+    //setCurrentUser
   };
 
   return (
@@ -97,6 +105,7 @@ function ChatPage() {
           <ChatBox matches={matches} />
         </div>
         <div className="flex-1 w-20">
+          {/* pass down current user down to profileBox */}
           <ProfileBox matches={matches} />
         </div>
       </div>
