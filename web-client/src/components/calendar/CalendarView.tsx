@@ -9,7 +9,7 @@ interface EventCellProps {
 const EventCell: React.FC<EventCellProps> = ({ title, start, end }) => {
   return (
     <div className="event bg-purple-400 text-white rounded p-1 text-sm mb-1">
-      <span className="event-name">{title}</span>
+      <span className="event-name block">{title}</span>
       <span className="time">
         {start}-{end}
       </span>
@@ -62,6 +62,8 @@ const DayCell: React.FC<DayCellProps> = ({ date, events }) => {
 };
 
 interface CalendarView {
+  month: number;
+  year: number;
   startDay: number;
   numOfDays: number;
 }
@@ -99,19 +101,19 @@ const sampleEvents: Event[] = [
 ];
 
 export const CalendarView: React.FC<CalendarView> = ({
+  month,
+  year,
   startDay,
   numOfDays,
 }) => {
   let date = 0;
 
-  const daysEvents = (date: Date) => {
+  const daysEvents = (date: number) => {
     return sampleEvents.filter((evt) => {
-      console.log('event:', evt.date);
-      console.log('date', date);
       return (
-        evt.date.getFullYear() === date.getFullYear() &&
-        evt.date.getMonth() === date.getMonth() &&
-        evt.date.getDate() === date.getDate()
+        evt.date.getFullYear() === year &&
+        evt.date.getMonth() === month &&
+        evt.date.getDate() === date
       );
     });
   };
@@ -131,7 +133,7 @@ export const CalendarView: React.FC<CalendarView> = ({
                 if (date > numOfDays) {
                   return <DayCell key={date} />;
                 } else {
-                  const events = daysEvents(new Date(`2023-01-${date}`));
+                  const events = daysEvents(date);
                   return <DayCell key={date} date={date} events={events} />;
                 }
               })}
