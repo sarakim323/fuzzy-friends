@@ -89,11 +89,12 @@ function ChatPage() {
           <MatchList matches={matches} changeChat={handleChatChange} />
         </div>
         <div className="flex-1 w-20">
-          {currentChat === undefined ? (
+          {/* {currentChat === undefined ? (
             <Welcome />
           ) : (
             <ChatBox currentChat={currentChat} />
-          )}
+          )} */}
+          <ChatBox matches={matches} />
         </div>
         <div className="flex-1 w-20">
           <ProfileBox matches={matches} />
