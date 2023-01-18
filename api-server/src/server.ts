@@ -13,12 +13,12 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.post('/users/:id/messages/', (req: Request, res: Response) => {
-  res.sendStatus(200)
-})
+  res.sendStatus(200);
+});
 
 app.get('/user/:id/messages/:friendId', (req: Request, res: Response) => {
-  res.send(messages)
-})
+  res.send(messages);
+});
 
 app.get('/users/:id/friends', (req: Request, res: Response) =>
   res.send(friends)

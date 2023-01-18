@@ -79,3 +79,5 @@ export const friends = [
     ],
   },
 ];
+
+export const messages = { hello: 'world' };
