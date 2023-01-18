@@ -7,6 +7,7 @@ specifiers:
   '@emotion/styled': ^11.10.5
   '@mui/icons-material': ^5.11.0
   '@mui/material': ^5.11.4
+  '@trendyol-js/react-carousel': ^3.0.0
   '@types/auth0': ^2.35.9
   '@types/node': ^18.11.18
   '@types/react': ^18.0.26
@@ -28,6 +29,7 @@ dependencies:
   '@emotion/styled': 11.10.5_jp5djshq6aqfasno3mth3hguci
   '@mui/icons-material': 5.11.0_6zueiyxsk3wwk7ardr4xipkxnu
   '@mui/material': 5.11.4_lskpmcsdi7ipu6qpuapyu56ihm
+  '@trendyol-js/react-carousel': 3.0.0_react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.6.2_biqbaboplfbrettd7655fr4n2y
@@ -851,6 +853,14 @@ packages:
   /@remix-run/router/1.2.1:
     resolution: {integrity: sha512-XiY0IsyHR+DXYS5vBxpoBe/8veTeoRpMHP+vDosLZxL5bnpetzI0igkxkLZS235ldLzyfkxF+2divEwWHP3vMQ==}
     engines: {node: '>=14'}
+    dev: false
+
+  /@trendyol-js/react-carousel/3.0.0_react@18.2.0:
+    resolution: {integrity: sha512-3BzdDGBtMsAQgFcddjpD98xqOzfW4pZVhdTXmn7/FOIiGWg+ipomWLp1iN1hFe4fXSGTx7+xFg2pObkJlz3BPg==}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@types/auth0/2.35.9:

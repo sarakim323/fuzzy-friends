@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import Description from '../components/profile/Description';
 import EditForm from '../components/profile/EditForm';
+import CarouselCard from '../components/profile/Carousel';
 
 const Profile = () => {
   // const { user } = useAuth0();
@@ -93,8 +94,8 @@ const Profile = () => {
   }
 
   return (
-    <>
-      <div className="m-10 p-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-110 grid grid-cols-1 gap-2 content-center">
+    <div className="flow-root">
+      <div className="float-left m-10 p-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-110 grid grid-cols-1 gap-2 content-center">
         {/* Profile Pic */}
         <div className="relative w-48 h-48 ml-16">
           <img
@@ -114,12 +115,18 @@ const Profile = () => {
         </div>
         {/* Profile Name */}
         <div className="p-5">
-          <h5 className="mb-2 ml-28 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="ml-28 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            Lani, 5
+          </h5>
+        </div>
+        {/* Profile Breed */}
+        <div className="p-5">
+          <h5 className="mb-4 pb-5 ml-32 text-m font-bold tracking-tight text-gray-900 dark:text-white">
             Corgi
           </h5>
         </div>
         {/* Description */}
-        <div className="mb-5 font-normal text-gray-700 dark:text-gray-400 text-center">
+        <div className="mb-4 font-normal text-gray-700 dark:text-gray-400 text-center">
           {!all.length ? (
             <div>
               <li>There is no description yet.</li>
@@ -136,7 +143,10 @@ const Profile = () => {
           )}
         </div>
       </div>
-    </>
+      <div>
+        <CarouselCard />
+      </div>
+    </div>
   );
 };
 
