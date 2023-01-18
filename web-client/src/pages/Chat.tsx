@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+// import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
 // import { io } from 'socket.io-client';
 // import { allUsersRoute, host } from '../utils/APIRoutes';
 
@@ -9,14 +9,10 @@ import ChatBox from '../components/chat/ChatBox';
 import Welcome from '../components/chat/Welcome';
 import ProfileBox from '../components/chat/ProfileBox';
 
-const ChatPage = () => {
-  const navigate = useNavigate();
-  // const socket = useRef();
-  const [matches, setMatches] = useState(dummyData);
+function ChatPage() {
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
-
-  const dummyData = [
+  const [matches, setMatches] = useState([
     {
       name: 'Sophie',
       age: 4,
@@ -72,7 +68,7 @@ const ChatPage = () => {
       ],
       calendar_invite: [],
     },
-  ];
+  ]);
 
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
@@ -85,18 +81,14 @@ const ChatPage = () => {
           <MatchList matches={matches} changeChat={handleChatChange} />
         </div>
         <div className="flex-1 w-20">
-          {currentChat === undefined ? (
-            <Welcome />
-          ) : (
-            <ChatBox currentChat={currentChat} socket={socket} />
-          )}
+          <ChatBox matches={matches} />
         </div>
-        <div>
-          <ProfileBox />
+        <div className="flex-1 w-20">
+          <ProfileBox matches={matches} />
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default ChatPage;
