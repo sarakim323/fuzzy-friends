@@ -1,20 +1,29 @@
-import Fastify from 'fastify';
-
-const server = Fastify({});
-
-const host = 'localhost';
+import express from 'express';
+import cors from 'cors';
+const app = express();
 const port = 3000;
-(async () => {
-  console.log(`API server started: http://${host}:${port}`);
-  try {
-    await server.listen({ host, port });
-  } catch (err) {
-    console.log('unable to start api server:', err);
-    process.exit(1);
-  }
-})();
+import { discover, friends } from './mock_data';
+import { Request, Response } from 'express';
 
-process.on('SIGTERM', () => {
-  console.log('shutting down api server');
-  server.close();
+app.use(express.json());
+app.use(cors());
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello World!');
+});
+
+app.get('/users/:id/friends', (req: Request, res: Response) =>
+  res.send(friends)
+);
+
+app.put('/users/:id/friends/*', (req: Request, res: Response) => {
+  res.send(200);
+});
+
+app.get('/users/:id/discover', (req: Request, res: Response) => {
+  res.send(discover);
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
