@@ -1,8 +1,9 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const LoginButton = () => {
+export const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
+
   const handleLogin = async () => {
     await loginWithRedirect({
       appState: {
@@ -10,6 +11,7 @@ const LoginButton = () => {
       },
     });
   };
+
   return (
     <button
       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
@@ -19,5 +21,3 @@ const LoginButton = () => {
     </button>
   );
 };
-
-export default LoginButton;
