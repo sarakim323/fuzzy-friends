@@ -45,6 +45,7 @@ const Discovery = () => {
       user: profileArray[currentUser.index + 1],
       index: (currentUser.index += 1),
     });
+    setReRender(true);
   };
 
   const handleSniff = () => {
