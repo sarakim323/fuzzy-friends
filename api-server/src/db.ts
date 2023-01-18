@@ -37,17 +37,21 @@ const InvitesSchema = new mongoose.Schema(
 const Invite = mongoose.model('Invite', InvitesSchema);
 
 const EventsSchema = new mongoose.Schema({
-  time: Date,
-  coordinates: String,
-  location: String,
+  title: String,
   description: String,
+  friend: String,
+  location: String,
+  start: String,
+  end: String,
 });
-const Event = mongoose.model('Event', EventsSchema);
+
+export const Event = mongoose.model('Event', EventsSchema);
 
 const UserEventsSchema = new mongoose.Schema({
   UserId: String,
   EventId: String,
 });
+
 const UserEvent = mongoose.model('UserEvent', UserEventsSchema);
 
 export const db = {
