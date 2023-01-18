@@ -11,7 +11,33 @@ function MatchList({ matches, changeChat }) {
   //useEffect to retrieve data via GET (users/:id/friends)
   //below dummydata
 
-  const data = {};
+  const data = [
+    {
+      2: [
+        { 2: ['User would like to match with you', '1 Day Ago'] },
+        { 1: ['Hey! Wassup?', '1hr'] },
+        { 2: ['Nm - wbu?', '50min'] },
+      ],
+    },
+    {
+      3: [
+        { 3: ['User would like to match with you', '1 Day Ago'] },
+        { 1: ['How do you do?', '4hr'] },
+        { 3: ['Hiii', '25min'] },
+      ],
+    },
+    {
+      4: [
+        { 1: ['You sent a match request to User', '10hrs'] },
+        { 4: ['What do you like to do', '2hr'] },
+        { 2: ['Dont talk to me', '12min'] },
+      ],
+    },
+    {
+      5: [{ 5: ['User would like to match with you', '30min'] }],
+    },
+  ];
+
   const doSearch = (event) => {
     event.preventDefault();
     // handleSubmit(searchQuery);
@@ -48,6 +74,7 @@ function MatchList({ matches, changeChat }) {
       <ul className="w-full overflow-auto h-[32rem]">
         <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
         <div className="matchList">
+          {/* matches instead of data? */}
           {matches.map((match, index) => {
             return (
               <div

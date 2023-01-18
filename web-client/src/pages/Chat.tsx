@@ -16,7 +16,7 @@ function ChatPage() {
   //useEffect to retrieve data via GET (users/:id/friends)
   const [matches, setMatches] = useState([
     {
-      id: 1,
+      id: 2,
       name: 'Sophie',
       age: 4,
       breed: 'Siberian Husky',
@@ -32,7 +32,7 @@ function ChatPage() {
       calendar_invite: [],
     },
     {
-      id: 2,
+      id: 3,
       name: 'Kuma',
       age: 3,
       breed: 'Goldendoodle',
@@ -47,7 +47,7 @@ function ChatPage() {
       calendar_invite: [],
     },
     {
-      id: 3,
+      id: 4,
       name: 'dog',
       age: 2,
       breed: 'shih tzu',
@@ -63,7 +63,7 @@ function ChatPage() {
       calendar_invite: [],
     },
     {
-      id: 4,
+      id: 5,
       name: 'cat',
       age: 4,
       breed: 'maltese',
