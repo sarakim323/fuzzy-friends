@@ -52,18 +52,11 @@ const ChatPage: React.FC = () => {
         'https://www.happygodoodle.com/wp-content/uploads/2022/04/apricot-colored-miniature-goldendoodle-720x720.jpg.webp',
         'https://a-z-animals.com/media/2021/06/Petite-Goldendoodle-puppy-1024x535.jpg',
       ],
-<<<<<<< HEAD
       messages: [[{ 1: ['Hi, Kuma', 'Hi Sophie', 'How are you?'] }]],
       calendar_invite: [],
     },
     {
-      id: 4,
-=======
-      calendarInvite: [],
-    },
-    {
-      _id: '3',
->>>>>>> ee5211dfb67dece32a8103c415b767c34251e39a
+      id: '4',
       name: 'dog',
       age: 2,
       breed: 'shih tzu',
@@ -75,18 +68,11 @@ const ChatPage: React.FC = () => {
         'https://i.pinimg.com/originals/8b/ee/0b/8bee0bf219b91167f191f5268febae96.jpg',
         'http://3.bp.blogspot.com/-7pNCBrtPl_A/TaeOAW-3_xI/AAAAAAAA8_s/F4oAN5WLAug/s1600/Dogo.jpg',
       ],
-<<<<<<< HEAD
       messages: [],
       calendar_invite: [],
     },
     {
-      id: 5,
-=======
-      calendarInvite: [],
-    },
-    {
-      _id: '4',
->>>>>>> ee5211dfb67dece32a8103c415b767c34251e39a
+      id: '5',
       name: 'cat',
       age: 4,
       breed: 'maltese',
@@ -98,7 +84,6 @@ const ChatPage: React.FC = () => {
         'https://www.omlet.us/images/cache/1024/693/Dog-Pomeranian-Three_lovely_Pomeranians,_each_with_big,_bushy_tails_and_beautiful_pointed_ears.jpg',
         'https://www.allthingsdogs.com/wp-content/uploads/2020/01/White-Pomeranian-Feature-678x381.jpg',
       ],
-<<<<<<< HEAD
       messages: [],
       calendar_invite: [],
     },
@@ -108,18 +93,10 @@ const ChatPage: React.FC = () => {
   //if not logged in, then direct to log in page?
   //if logged in, setCurrentUser to user with latest message? or we display welcome message and allow user to select chat of his or her choice
 
-  const handleChatChange = (chat) => {
+  const handleChatChange = (chat: string) => {
     console.log(chat);
     // setCurrentChat(chat);
     //setCurrentUser
-=======
-      calendarInvite: [],
-    },
-  ]);
-
-  const handleChatChange = (chat: string) => {
-    setCurrentChat(chat);
->>>>>>> ee5211dfb67dece32a8103c415b767c34251e39a
   };
 
   return (

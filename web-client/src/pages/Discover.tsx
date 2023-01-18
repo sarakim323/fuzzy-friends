@@ -23,12 +23,7 @@ const Discovery = () => {
     'fa-solid rounded-full p-3 text-md hover:cursor-pointer bg-[#E3DCD9]';
   const barkSniffClasses =
     'rounded-2xl text-md hover:cursor-pointer text-center bg-[#E3DCD9] px-5 py-2 text-lg';
-  // const imageArray: string[] = [
-  //   'https://images.unsplash.com/photo-1587402092301-725e37c70fd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHVwcHklMjBkb2d8ZW58MHx8MHx8&w=1000&q=80',
-    'https://thumbs.dreamstime.com/b/beautiful-happy-reddish-havanese-puppy-dog-sitting-frontal-looking-camera-isolated-white-background-46868560.jpg',
-  //   'https://images.unsplash.com/photo-1587402092301-725e37c70fd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHVwcHklMjBkb2d8ZW58MHx8MHx8&w=1000&q=80',
-  //   'https://thumbs.dreamstime.com/b/beautiful-happy-reddish-havanese-puppy-dog-sitting-frontal-looking-camera-isolated-white-background-46868560.jpg',
-  // ];
+
   const [ranApiCall, setRanApiCall] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<CurrentUser>({
     user: { id: 0, UserId: 0, photos: [], name: '', city: '' },
