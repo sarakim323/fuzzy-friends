@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface MatchListProps {
   matches: Match[];
-  changeChat: (chat: string) => void;
+  tempMatches: TempMatch[];
+  changeMate: (chat: string) => void;
 }
 
-const MatchList: React.FC<MatchListProps> = ({ matches, changeChat }) => {
+const MatchList: React.FC<MatchListProps> = ({
+  matches,
+  tempMatches,
+  changeMate,
+}) => {
   const [currentUserSelected, setCurrentUserSelected] = useState(undefined);
 
   const [searchQuery, setSearchQuery] = useState('');
-
-  //useEffect to retrieve data via GET (users/:id/friends)
-  //below dummydata
-  // console.log(matches[0].profilePic, '12');
-  // const pic = matches[0].profilePic;
-
+  const [tempData, setTempData] = useState(matches);
+  const [currentData, setCurrentData] = useState(matches);
   const data = [
     {
       2: [
@@ -44,17 +45,21 @@ const MatchList: React.FC<MatchListProps> = ({ matches, changeChat }) => {
 
   const doSearch = (event: React.FormEvent) => {
     event.preventDefault();
-    // handleSubmit(searchQuery);
+    if (searchQuery === '') {
+      setCurrentData(tempData);
+    }
+    const searchArr = [];
+    for (let i = 0; i < tempMatches.length; i++) {
+      if (tempMatches[i].name.toLowerCase() === searchQuery.toLowerCase()) {
+        searchArr.push(tempMatches[i]);
+      }
+    }
+    setCurrentData(searchArr);
     setSearchQuery('');
   };
 
   const whileSearching = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
-  };
-
-  const changeCurrentChat = (index, match) => {
-    setCurrentUserSelected(index);
-    changeChat(match);
   };
 
   return (
@@ -79,19 +84,19 @@ const MatchList: React.FC<MatchListProps> = ({ matches, changeChat }) => {
         <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
         <div className="matchList">
           {/* matches instead of data? */}
-          {matches.map((match, index) => {
+          {currentData.map((match, index) => {
             return (
               <div
                 key={match._id}
-                className={`contact ${
+                className={`match ${
                   index === currentUserSelected ? 'selected' : ''
                 }`}
-                // onClick={() => changeCurrentChat(index, contact)}
+                onClick={() => changeMate(match)}
               >
                 <a className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
                   <img
                     className="object-cover w-10 h-10 rounded-full"
-                    src={match.profile_pic}
+                    src={match.profilePic}
                     alt=""
                   />
                   <div className="w-full pb-2">
@@ -101,11 +106,11 @@ const MatchList: React.FC<MatchListProps> = ({ matches, changeChat }) => {
                       </span>
                       <span className="block ml-2 text-sm text-gray-600">
                         {/* <MatchListItem recentTime={data[match.id][1]} /> */}
-                        {/* {console.log(data[match.id], '123')} */}
+                        {console.log(data[match.id], '123')}
                       </span>
                     </div>
                     <span className="block ml-2 text-sm text-gray-600">
-                      <h3>{'Nm - wbu?'}</h3>
+                      {/* <h3>{'Nm - wbu?'}</h3> */}
                     </span>
                   </div>
                 </a>
