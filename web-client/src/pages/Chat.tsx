@@ -9,8 +9,44 @@ import ChatBox from '../components/chat/ChatBox';
 import ProfileBox from '../components/chat/ProfileBox';
 
 const ChatPage: React.FC = () => {
-  const [currentChat, setCurrentChat] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
+  const [user, setUser] = useState<User[]>({
+    _id: '9',
+    name: 'Henry',
+    age: 7,
+    breed: 'Golden Retriever',
+    gender: 'male',
+    profilePic:
+      'https://images.unsplash.com/photo-1615233500064-caa995e2f9dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+    pictures: [
+      'https://images.unsplash.com/photo-1611003229186-80e40cd54966?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
+      'https://images.unsplash.com/photo-1591160690567-a6b0215b67ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1026&q=80',
+    ],
+    calendarInvite: [],
+    description: 'Hello my name is Henry, and I would love to chat with you!',
+  });
+  const [mate, setMate] = useState<Mate[]>({
+    _id: '1',
+    name: 'Sophie',
+    age: 4,
+    breed: 'Siberian Husky',
+    gender: 'female',
+    profilePic:
+      'https://canineowners.com/wp-content/uploads/2016/06/Corgi-Husky.png',
+    pictures: [
+      'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-2-150x150.jpg',
+      'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-1.jpg',
+      'https://i.pinimg.com/236x/56/e8/ba/56e8ba281d0cce55c4db6e3ee10f0ea4--happy-puppy-puppy-love.jpg',
+    ],
+    calendarInvite: [],
+    description: 'Hi, my name is Sophie, and I like huskies',
+  });
+
+  const [currentChat, setCurrentChat] = useState([
+    { 2: 'User would like to match with you' },
+    { 1: 'Hey! Wassup?' },
+    { 2: 'Nm - wbu?' },
+  ]);
+
   const [matches, setMatches] = useState<Match[]>([
     {
       _id: '1',
@@ -26,6 +62,7 @@ const ChatPage: React.FC = () => {
         'https://i.pinimg.com/236x/56/e8/ba/56e8ba281d0cce55c4db6e3ee10f0ea4--happy-puppy-puppy-love.jpg',
       ],
       calendarInvite: [],
+      description: 'Hey there! My name is Sophie!',
     },
     {
       _id: '2',
@@ -40,9 +77,10 @@ const ChatPage: React.FC = () => {
         'https://a-z-animals.com/media/2021/06/Petite-Goldendoodle-puppy-1024x535.jpg',
       ],
       calendarInvite: [],
+      description: 'I like warm hugs',
     },
     {
-      _id: '3',
+      _id: '4',
       name: 'dog',
       age: 2,
       breed: 'shih tzu',
@@ -55,9 +93,10 @@ const ChatPage: React.FC = () => {
         'http://3.bp.blogspot.com/-7pNCBrtPl_A/TaeOAW-3_xI/AAAAAAAA8_s/F4oAN5WLAug/s1600/Dogo.jpg',
       ],
       calendarInvite: [],
+      description: 'Hello, my name is dog.',
     },
     {
-      _id: '4',
+      _id: '5',
       name: 'cat',
       age: 4,
       breed: 'maltese',
@@ -70,24 +109,43 @@ const ChatPage: React.FC = () => {
         'https://www.allthingsdogs.com/wp-content/uploads/2020/01/White-Pomeranian-Feature-678x381.jpg',
       ],
       calendarInvite: [],
+      description: 'I am a cat, but I like to hang out with dogs.',
     },
   ]);
 
-  const handleChatChange = (chat: string) => {
-    setCurrentChat(chat);
+  //useEffect to check if user is logged in
+  //if not logged in, then direct to log in page?
+  //if logged in, setCurrentUser to user with latest message? or we display welcome message and allow user to select chat of his or her choice
+
+  const getChatHistory = (mateID) => {
+    // GET chat req - param (mateID)
+    // .then((res) => {setCurrentChat(res)})
+  };
+
+  const handleMateChange = (mateInfo) => {
+    console.log(mateInfo._id);
+    setMate(mateInfo);
+    // change the chat container
+    getChatHistory(mateInfo._id);
   };
 
   return (
     <div>
       <div className="flex">
         <div className="flex-1 w-20">
-          <MatchList matches={matches} changeChat={handleChatChange} />
+          <MatchList matches={matches} changeMate={handleMateChange} />
         </div>
         <div className="flex-1 w-20">
-          <ChatBox matches={matches} />
+          {/* {currentChat === undefined ? (
+            <Welcome />
+          ) : (
+            <ChatBox currentChat={currentChat} />
+          )} */}
+          <ChatBox mate={mate} user={user} />
         </div>
         <div className="flex-1 w-20">
-          <ProfileBox matches={matches} />
+          {/* pass down current user down to profileBox */}
+          <ProfileBox mate={mate} />
         </div>
       </div>
     </div>

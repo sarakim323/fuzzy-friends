@@ -2,26 +2,27 @@ import React from 'react';
 
 interface ChatBoxProps {
   matches: Match[];
+  mate: Mate[];
+  user: User[];
+  chat: Chat[];
 }
 
-const ChatBox: React.FC<ChatBoxProps> = ({ matches }) => {
+const ChatBox: React.FC<ChatBoxProps> = ({ mate, user }) => {
   // const [messages, setMessages] = useState([]);
   // const scrollRef = useRef();
   // const [arrivalMessage, setArrivalMessage] = useState(null);
-  const pic = matches[0].profilePic;
-  const pic2 = matches[1].profilePic;
   return (
     <div className="m-10 max-w-sm min-h-fit flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center">
       <div className="flex items-center justify-between border-b p-5">
         <div className="flex items-center">
-          <img className="rounded-full w-10 h-10" src={pic} />
+          <img className="rounded-full w-10 h-10" src={mate.profilePic} />
           <div className="pl-2">
             <div className="font-semibold">
               <a className="hover:underline" href="#">
-                {matches[0].name}
+                {mate.name}
               </a>
             </div>
-            <div className="text-xs text-gray-600">{matches[0].breed}</div>
+            <div className="text-xs text-gray-600">{mate.breed}</div>
           </div>
         </div>
         <div>
@@ -48,9 +49,9 @@ const ChatBox: React.FC<ChatBoxProps> = ({ matches }) => {
       </div>
       <div className="flex items-center mb-4 p-5">
         <div className="flex-none flex flex-col items-center space-y-1 mr-4">
-          <img className="rounded-full w-10 h-10" src={pic} />
+          <img className="rounded-full w-10 h-10" src={user.profilePic} />
           <a href="#" className="block text-xs hover:underline">
-            {matches[0].name}
+            {user.name}
           </a>
         </div>
         <div className="flex-1 bg-indigo-100 text-gray-800 p-2 rounded-lg mb-2 relative">
@@ -60,13 +61,13 @@ const ChatBox: React.FC<ChatBoxProps> = ({ matches }) => {
       </div>
       <div className="flex items-center flex-row-reverse mb-4 p-5">
         <div className="flex-none flex flex-col items-center space-y-1 ml-4">
-          <img className="rounded-full w-10 h-10" src={pic2} />
+          <img className="rounded-full w-10 h-10" src={mate.profilePic} />
           <a href="#" className="block text-xs hover:underline">
-            {matches[1].name}
+            {mate.name}
           </a>
         </div>
         <div className="flex-1 bg-indigo-400 text-white p-2 rounded-lg mb-2 relative">
-          <div>Nm - wbu?</div>
+          <div>That&apos;s for me to know and you to find out :D</div>
           <div className="absolute right-0 top-1/2 transform translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-400"></div>
         </div>
       </div>
@@ -98,7 +99,6 @@ const ChatBox: React.FC<ChatBoxProps> = ({ matches }) => {
           </svg>
         </button>
       </div>
-      <div></div>
     </div>
   );
 };
