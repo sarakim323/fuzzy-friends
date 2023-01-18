@@ -5,6 +5,7 @@ const port = 3000;
 import { discover, friends, messages, sampleEvents } from './mock_data';
 import { Request, Response } from 'express';
 import { db } from './db';
+import { request } from 'axios';
 
 app.use(express.json());
 app.use(cors());
@@ -19,23 +20,56 @@ app.post('/users/:id/messages/:mateId', (req: Request, res: Response) => {
     .catch((err) => res.send(err));
 });
 
-app.get('/user/:id/messages/:mateId', (req: Request, res: Response) => {
-  // res.send(messages);
-  try {
-    const messages = db.getMessages(req.params.id, req.params.mateId);
-    res.send(messages);
-  } catch (err) {
-    res.sendStatus(401);
-  }
+app.get('/users/:id/messages/:mateId', (req: Request, res: Response) => {
+  db.getMessages(req.params.id, req.params.mateId)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
 
-app.get('/users/:id/friends', (req: Request, res: Response) =>
-  res.send(friends)
-);
-
-app.put('/users/:id/friends/*', (req: Request, res: Response) => {
-  res.sendStatus(200);
+app.get('/users/:id/friends', (req: Request, res: Response) => {
+  db.getFriends(req.params.id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
+
+app.post('/users/:id/friends/:mateId', (req: Request, res: Response) => {
+  db.addFriend(req.params.id, req.params.mateId)
+    .then(() => res.sendStatus(201))
+    .catch((err) => res.send(err));
+});
+
+app.get('/users/:id/requests', (req: Request, res: Response) => {
+  db.getRequests(req.params.id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.post('/users/:id/requests/:mateId', (req: Request, res: Response) => {
+  db.addRequest(req.params.id, req.params.mateId)
+    .then(() => {
+      res.send(201);
+    })
+    .catch(() => {
+      res.send(501);
+    });
+});
+
+// app.put('/users/:id/friends/*', (req: Request, res: Response) => {
+//   db.
+//   res.sendStatus(200);
+// });
 
 app.get('/users/:id/discover', (req: Request, res: Response) => {
   res.send(discover);
