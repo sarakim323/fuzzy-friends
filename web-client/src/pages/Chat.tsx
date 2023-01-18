@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 // import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
 // import { io } from 'socket.io-client';
@@ -6,22 +6,27 @@ import { useEffect, useState, useRef } from 'react';
 
 import MatchList from '../components/chat/MatchList';
 import ChatBox from '../components/chat/ChatBox';
-import Welcome from '../components/chat/Welcome';
 import ProfileBox from '../components/chat/ProfileBox';
 
-function ChatPage() {
-  const [currentChat, setCurrentChat] = useState(undefined);
-  const [currentUser, setCurrentUser] = useState(undefined);
+// function ChatPage() {
+//   const [currentChat, setCurrentChat] = useState(undefined);
+//   const [currentUser, setCurrentUser] = useState(undefined);
 
-  //useEffect to retrieve data via GET (users/:id/friends)
-  const [matches, setMatches] = useState([
+//   //useEffect to retrieve data via GET (users/:id/friends)
+//   const [matches, setMatches] = useState([
+//     {
+//       id: 2,
+const ChatPage: React.FC = () => {
+  const [currentChat, setCurrentChat] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  const [matches, setMatches] = useState<Match[]>([
     {
-      id: 2,
+      _id: '1',
       name: 'Sophie',
       age: 4,
       breed: 'Siberian Husky',
       gender: 'female',
-      profile_pic:
+      profilePic:
         'https://canineowners.com/wp-content/uploads/2016/06/Corgi-Husky.png',
       pictures: [
         'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-2-150x150.jpg',
@@ -33,11 +38,15 @@ function ChatPage() {
     },
     {
       id: 3,
+      calendarInvite: [],
+    },
+    {
+      _id: '2',
       name: 'Kuma',
       age: 3,
       breed: 'Goldendoodle',
       gender: 'male',
-      profile_pic:
+      profilePic:
         'https://www.rainfieldgoldendoodles.com/wp-content/uploads/2019/11/20191118_162055-1-200x300.jpg',
       pictures: [
         'https://www.happygodoodle.com/wp-content/uploads/2022/04/apricot-colored-miniature-goldendoodle-720x720.jpg.webp',
@@ -47,12 +56,12 @@ function ChatPage() {
       calendar_invite: [],
     },
     {
-      id: 4,
+      id: '4',
       name: 'dog',
       age: 2,
       breed: 'shih tzu',
       gender: 'male',
-      profile_pic:
+      profilePic:
         'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2021%2F07%2F21%2Fdogo-argentino-lying-on-cement-1309087955-2000.jpg',
       pictures: [
         'https://www.akc.org/wp-content/uploads/2017/11/Dogo-Argentino.jpg',
@@ -63,12 +72,12 @@ function ChatPage() {
       calendar_invite: [],
     },
     {
-      id: 5,
+      id: '5',
       name: 'cat',
       age: 4,
       breed: 'maltese',
       gender: 'female',
-      profile_pic:
+      profilePic:
         'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2021%2F03%2F12%2Fpomeranian-white-puppy-921029690-2000.jpg',
       pictures: [
         'https://cdn.britannica.com/41/233841-050-4FFECCF1/Pomeranian-dog.jpg',
@@ -84,7 +93,7 @@ function ChatPage() {
   //if not logged in, then direct to log in page?
   //if logged in, setCurrentUser to user with latest message? or we display welcome message and allow user to select chat of his or her choice
 
-  const handleChatChange = (chat) => {
+  const handleChatChange = (chat: string) => {
     console.log(chat);
     // setCurrentChat(chat);
     //setCurrentUser
@@ -111,6 +120,6 @@ function ChatPage() {
       </div>
     </div>
   );
-}
+};
 
 export default ChatPage;

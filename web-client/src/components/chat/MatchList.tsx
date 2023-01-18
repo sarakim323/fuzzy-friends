@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import MatchListItem from './MatchListItem';
+import React, { useState } from 'react';
 
-function MatchList({ matches, changeChat }) {
-  const [currentUserName, setCurrentUserName] = useState(undefined);
-  const [currentUserImage, setCurrentUserImage] = useState(undefined);
+interface MatchListProps {
+  matches: Match[];
+  changeChat: (chat: string) => void;
+}
+
+const MatchList: React.FC<MatchListProps> = ({ matches, changeChat }) => {
   const [currentUserSelected, setCurrentUserSelected] = useState(undefined);
 
   const [searchQuery, setSearchQuery] = useState('');
 
   //useEffect to retrieve data via GET (users/:id/friends)
   //below dummydata
+  // console.log(matches[0].profilePic, '12');
+  // const pic = matches[0].profilePic;
 
   const data = [
     {
@@ -38,13 +42,13 @@ function MatchList({ matches, changeChat }) {
     },
   ];
 
-  const doSearch = (event) => {
+  const doSearch = (event: React.FormEvent) => {
     event.preventDefault();
     // handleSubmit(searchQuery);
     setSearchQuery('');
   };
 
-  const whileSearching = (event) => {
+  const whileSearching = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 
@@ -82,7 +86,7 @@ function MatchList({ matches, changeChat }) {
                 className={`contact ${
                   index === currentUserSelected ? 'selected' : ''
                 }`}
-                onClick={() => changeCurrentChat(index, match)}
+                // onClick={() => changeCurrentChat(index, contact)}
               >
                 <a className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
                   <img
@@ -97,7 +101,7 @@ function MatchList({ matches, changeChat }) {
                       </span>
                       <span className="block ml-2 text-sm text-gray-600">
                         {/* <MatchListItem recentTime={data[match.id][1]} /> */}
-                        {console.log(data[match.id], '123')}
+                        {/* {console.log(data[match.id], '123')} */}
                       </span>
                     </div>
                     <span className="block ml-2 text-sm text-gray-600">
@@ -113,6 +117,6 @@ function MatchList({ matches, changeChat }) {
     </div>
     // </div>
   );
-}
+};
 
 export default MatchList;
