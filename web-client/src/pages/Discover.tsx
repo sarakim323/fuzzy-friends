@@ -30,6 +30,7 @@ const Discovery = () => {
   //   'https://thumbs.dreamstime.com/b/beautiful-happy-reddish-havanese-puppy-dog-sitting-frontal-looking-camera-isolated-white-background-46868560.jpg',
   // ];
   const [ranApiCall, setRanApiCall] = useState<boolean>(false);
+  const [reRender, setReRender] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<CurrentUser>({
     user: { id: 0, UserId: 0, photos: [], name: '', city: '' },
     index: 0,
@@ -52,10 +53,13 @@ const Discovery = () => {
         `http://54.144.2.231:3000/users/${user.id}/friends/${currentUser.user.id}`
       )
       .then(() => {
-        setCurrentUser({
+        const newUser = {
           user: profileArray[currentUser.index + 1],
           index: (currentUser.index += 1),
-        });
+        };
+        setCurrentUser(newUser);
+        setReRender(true);
+        console.log('NEW PHOTOS', currentUser.user.photos);
       });
   };
 
@@ -73,6 +77,11 @@ const Discovery = () => {
         setRanApiCall(true);
       });
   }, []);
+  useEffect(() => {
+    if (reRender) {
+      setReRender(false);
+    }
+  }, [reRender]);
 
   return (
     <div className="">
@@ -89,34 +98,37 @@ const Discovery = () => {
 
           {/* Carousel */}
           <div className="flex flex-col h-[90vh] justify-center items-center m-auto w-[100%]">
-            <Carousel
-              leftArrow={
-                <i className={buttonClassNames + ' fa-arrow-left'}></i>
-              }
-              rightArrow={
-                <i className={buttonClassNames + ' fa-arrow-right'}></i>
-              }
-              show={3}
-              slide={1}
-              swiping={true}
-              className="flex flex-row justify-evenly items-center max-w-[1000px] max-h-[80vh]"
-              transition={0.5}
-            >
-              {/* Images */}
-              {currentUser.user.photos.map((image, index) => (
-                <div
-                  className="flex-col justify-center items-center"
-                  key={index}
-                >
-                  {/* Main Image */}
-                  <img
-                    src={image}
-                    className={`h-[60vh] max-w-[333.33px] object-cover object-center rounded-lg`}
-                    alt=""
-                  />
-                </div>
-              ))}
-            </Carousel>
+            {!reRender && (
+              <Carousel
+                leftArrow={
+                  <i className={buttonClassNames + ' fa-arrow-left'}></i>
+                }
+                rightArrow={
+                  <i className={buttonClassNames + ' fa-arrow-right'}></i>
+                }
+                show={3}
+                slide={1}
+                swiping={true}
+                className="flex flex-row justify-evenly items-center max-w-[1000px] max-h-[80vh]"
+                transition={0.5}
+              >
+                {/* Images */}
+                {currentUser.user.photos &&
+                  currentUser.user.photos.map((image, index) => (
+                    <div
+                      className="flex-col justify-center items-center"
+                      key={index}
+                    >
+                      {/* Main Image */}
+                      <img
+                        src={image}
+                        className={`h-[60vh] max-w-[333.33px] object-cover object-center rounded-lg`}
+                        alt=""
+                      />
+                    </div>
+                  ))}
+              </Carousel>
+            )}
 
             {/* Yes/No buttons */}
             <div className="flex flex-row justify-between w-[50%] mt-[-5vh] mb-[8vh] z-[10]">
