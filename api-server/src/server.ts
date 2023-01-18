@@ -4,8 +4,7 @@ const app = express();
 const port = 3000;
 import { discover, friends, messages, sampleEvents } from './mock_data';
 import { Request, Response } from 'express';
-import { db } from './db';
-import { request } from 'axios';
+import { db, Event } from './db';
 
 app.use(express.json());
 app.use(cors());
@@ -92,6 +91,35 @@ app.get('/test', (req, res) => {
 
 app.get('/users/:id/events', (req, res) => {
   res.send(sampleEvents);
+});
+
+app.post('/users/:id/events', async (req, res) => {
+  const event = new Event(req.body);
+  try {
+    const result = await event.save();
+    console.log('what does mongoose send back?', result);
+    res.status(201).send(result);
+  } catch (err) {
+    console.log('what is the error:', err);
+    res.sendStatus(500);
+  }
+});
+
+app.put('/users/:id/events', async (req, res) => {
+  if (req.body._id === undefined) {
+    return res.sendStatus(400);
+  }
+
+  try {
+    const result = await Event.updateOne({ _id: req.body._id }, req.body);
+    if (result.modifiedCount === 0) {
+      return res.sendStatus(404);
+    }
+    return res.sendStatus(200);
+  } catch (err) {
+    console.log('PUT events error:', err);
+    res.sendStatus(500);
+  }
 });
 
 app.listen(port, () => {

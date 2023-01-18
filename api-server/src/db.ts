@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://127.0.0.1:27017/fuzzy-friends');
+mongoose
+  .connect('mongodb://127.0.0.1:27017/fuzzy-friends')
+  .catch((err) => console.log('unable to open mongodb', err));
+
 const UserSchema = new mongoose.Schema(
   {
     userId: String,
@@ -43,17 +46,21 @@ const InvitesSchema = new mongoose.Schema(
 const Invite = mongoose.model('Invite', InvitesSchema);
 
 const EventsSchema = new mongoose.Schema({
-  time: Date,
-  coordinates: String,
-  location: String,
+  title: String,
   description: String,
+  friend: String,
+  location: String,
+  start: String,
+  end: String,
 });
-const Event = mongoose.model('Event', EventsSchema);
+
+export const Event = mongoose.model('Event', EventsSchema);
 
 const UserEventsSchema = new mongoose.Schema({
   UserId: String,
   EventId: String,
 });
+
 const UserEvent = mongoose.model('UserEvent', UserEventsSchema);
 
 const messageSchema = new mongoose.Schema(
