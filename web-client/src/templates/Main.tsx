@@ -15,7 +15,6 @@ export const Main: React.FC<IProps> = ({ section }) => {
         {menuOpen && <Sidebar />}
       </div>
       {section}
-      {/* <ScheduleDateModal /> */}
     </div>
   );
 };

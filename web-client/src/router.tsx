@@ -30,10 +30,9 @@ export const Router = () => {
       <Route path="/chat" element={<Main section={<Chat />} />} />
       <Route path="/discover" element={<Main section={<Discover />} />} />
       <Route path="/profile" element={<Main section={<Profile />} />} />
-      <Route path="/callback" element={<Main section={<Callback />} />} />
+      <Route path="/callback" element={<Callback />} />
       <Route path="/calendar" element={<Main section={<CalendarPage />} />} />
       <Route path="*" element={<NotFound />} />
-      {/* <Route path="/test" element={<Test />} /> */}
     </Routes>
   );
 };
