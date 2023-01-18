@@ -13,12 +13,20 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
-app.post('/users/:id/messages/', (req: Request, res: Response) => {
-  res.sendStatus(200);
+app.post('/users/:id/messages/:mateId', (req: Request, res: Response) => {
+  db.addMessage(req.params.id, req.params.mateId, req.body.content)
+    .then(() => res.sendStatus(201))
+    .catch((err) => res.send(err));
 });
 
-app.get('/user/:id/messages/:friendId', (req: Request, res: Response) => {
-  res.send(messages);
+app.get('/user/:id/messages/:mateId', (req: Request, res: Response) => {
+  // res.send(messages);
+  try {
+    const messages = db.getMessages(req.params.id, req.params.mateId);
+    res.send(messages);
+  } catch (err) {
+    res.sendStatus(401);
+  }
 });
 
 app.get('/users/:id/friends', (req: Request, res: Response) =>
