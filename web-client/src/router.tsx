@@ -3,7 +3,15 @@ import { useAuth0 } from '@auth0/auth0-react';
 import PageLoader from './components/authentication/PageLoader';
 
 import { Main } from './templates/Main';
-import { Home, NotFound, Chat, Profile, Callback, CalendarPage } from './pages';
+import {
+  Home,
+  NotFound,
+  Chat,
+  Profile,
+  Callback,
+  CalendarPage,
+  Discover,
+} from './pages';
 
 export const Router = () => {
   const { isLoading } = useAuth0();
@@ -20,10 +28,12 @@ export const Router = () => {
     <Routes>
       <Route index element={<Main section={<Home />} />} />
       <Route path="/chat" element={<Main section={<Chat />} />} />
+      <Route path="/discover" element={<Main section={<Discover />} />} />
       <Route path="/profile" element={<Main section={<Profile />} />} />
       <Route path="/callback" element={<Main section={<Callback />} />} />
       <Route path="/calendar" element={<Main section={<CalendarPage />} />} />
       <Route path="*" element={<NotFound />} />
+      {/* <Route path="/test" element={<Test />} /> */}
     </Routes>
   );
 };

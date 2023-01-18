@@ -10,6 +10,8 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
+    "@trendyol-js/react-carousel": "^3.0.0",
+    "axios": "^1.2.2",
     "@auth0/auth0-react": "^1.12.1",
     "@babel/core": "^7.20.12",
     "@emotion/react": "^11.10.5",
