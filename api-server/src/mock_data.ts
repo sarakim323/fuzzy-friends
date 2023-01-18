@@ -62,7 +62,7 @@ export const friends = [
       'https://www.akc.org/wp-content/uploads/2017/11/Dogo-Argentino.jpg',
       'https://i.pinimg.com/originals/8b/ee/0b/8bee0bf219b91167f191f5268febae96.jpg',
       'http://3.bp.blogspot.com/-7pNCBrtPl_A/TaeOAW-3_xI/AAAAAAAA8_s/F4oAN5WLAug/s1600/Dogo.jpg',
-      'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2021%2F07%2F21%2Fdogo-argentino-lying-on-cement-1309087955-2000.jpg'
+      'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2021%2F07%2F21%2Fdogo-argentino-lying-on-cement-1309087955-2000.jpg',
     ],
   },
   {
