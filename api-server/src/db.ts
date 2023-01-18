@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://127.0.0.1:27017/fuzzy-friends')
+mongoose.connect('mongodb://127.0.0.1:27017/fuzzy-friends');
 const UserSchema = new mongoose.Schema(
   {
     name: String,
@@ -55,7 +55,7 @@ export const db = {
 
   // },
   addUser: () => {
-    const newUser = new User({ name: 'test', friends: ['1', '2']});
+    const newUser = new User({ name: 'test', friends: ['1', '2'] });
     return newUser.save();
   },
 };
