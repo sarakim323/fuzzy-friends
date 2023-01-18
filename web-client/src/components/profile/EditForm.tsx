@@ -1,4 +1,5 @@
 import React from 'react';
+import Upload from './Upload';
 
 interface Props {
   content: string;
@@ -34,6 +35,9 @@ const EditForm = ({
             placeholder="description"
             required
           />
+        </div>
+        <div>
+          <Upload />
         </div>
         <button
           title="update changes"
