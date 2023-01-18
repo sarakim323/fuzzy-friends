@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-function MatchList({ matches, changeChat }) {
-  const [currentUserName, setCurrentUserName] = useState(undefined);
-  const [currentUserImage, setCurrentUserImage] = useState(undefined);
+interface MatchListProps {
+  matches: Match[];
+  changeChat: (chat: string) => void;
+}
+
+const MatchList: React.FC<MatchListProps> = ({ matches, changeChat }) => {
   const [currentUserSelected, setCurrentUserSelected] = useState(undefined);
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  console.log(matches[0].profile_pic, '12');
-  const pic = matches[0].profile_pic;
+  console.log(matches[0].profilePic, '12');
+  const pic = matches[0].profilePic;
 
   // useEffect(() => {}, []);
   {
@@ -21,15 +24,16 @@ function MatchList({ matches, changeChat }) {
         </div> */
   }
 
-  const doSearch = (event) => {
+  const doSearch = (event: React.FormEvent) => {
     event.preventDefault();
     // handleSubmit(searchQuery);
     setSearchQuery('');
   };
 
-  const whileSearching = (event) => {
+  const whileSearching = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
+
   return (
     <div>
       <div className="m-10 p-20 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-warmGray-700 dark:border-gray- h-auto gap-2 content-center">
@@ -54,7 +58,7 @@ function MatchList({ matches, changeChat }) {
                 className={`contact ${
                   index === currentUserSelected ? 'selected' : ''
                 }`}
-                onClick={() => changeCurrentChat(index, contact)}
+                // onClick={() => changeCurrentChat(index, contact)}
               >
                 <div className="avatar">
                   {/* <img
@@ -72,6 +76,6 @@ function MatchList({ matches, changeChat }) {
       </div>
     </div>
   );
-}
+};
 
 export default MatchList;
