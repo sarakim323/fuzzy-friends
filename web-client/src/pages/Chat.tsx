@@ -80,7 +80,7 @@ const ChatPage: React.FC = () => {
   return (
     <div>
       <div className="flex">
-        <div className="flex-1 w-10">
+        <div className="flex-1 w-20">
           <MatchList matches={matches} changeChat={handleChatChange} />
         </div>
         <div className="flex-1 w-20">
