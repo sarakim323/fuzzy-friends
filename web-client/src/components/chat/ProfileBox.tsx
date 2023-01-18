@@ -1,12 +1,12 @@
-import { useState } from 'react';
-// import { Navbar } from '../';
+import React from 'react';
 
-function ProfileBox({ matches }) {
-  console.log(matches[0].profile_pic, '12');
-  const pic = matches[0].profile_pic;
-  const [currentUserName, setCurrentUserName] = useState(undefined);
-  const [currentUserImage, setCurrentUserImage] = useState(undefined);
-  const [currentUserSelected, setCurrentUserSelected] = useState(undefined);
+interface ProfileBoxProps {
+  matches: Match[];
+}
+
+const ProfileBox: React.FC<ProfileBoxProps> = ({ matches }) => {
+  console.log(matches[0].profilePic, '12');
+  const pic = matches[0].profilePic;
 
   return (
     <div className="flex bg-warmGray-200">
@@ -22,6 +22,6 @@ function ProfileBox({ matches }) {
       </div>
     </div>
   );
-}
+};
 
 export default ProfileBox;

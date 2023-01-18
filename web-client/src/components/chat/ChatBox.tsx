@@ -1,15 +1,15 @@
-import { useState, useRef } from 'react';
-// import { v4 as uuidv4 } from 'uuid';
-// import axios from 'axios';
-// import { sendMessageRoute, receiveMessageRoute } from '../utils/APIRoutes';
-// import ChatInput from './ChatBox';
+import React from 'react';
 
-function ChatBox({ matches }) {
+interface ChatBoxProps {
+  matches: Match[];
+}
+
+const ChatBox: React.FC<ChatBoxProps> = ({ matches }) => {
   // const [messages, setMessages] = useState([]);
   // const scrollRef = useRef();
   // const [arrivalMessage, setArrivalMessage] = useState(null);
-  const pic = matches[0].profile_pic;
-  const pic2 = matches[1].profile_pic;
+  const pic = matches[0].profilePic;
+  const pic2 = matches[1].profilePic;
   return (
     <div className="my-10 w-90 h-96 flex flex-col border shadow-md bg-white rounded">
       <div className="flex items-center justify-between border-b p-5">
@@ -122,6 +122,6 @@ function ChatBox({ matches }) {
       </div>
     </div>
   );
-}
+};
 
 export default ChatBox;
