@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 import { discover, friends, messages, sampleEvents } from './mock_data';
 import { Request, Response } from 'express';
-import { db } from './db';
+import { db, Event } from './db';
 
 app.use(express.json());
 app.use(cors());
@@ -50,6 +50,19 @@ app.get('/test', (req, res) => {
 
 app.get('/users/:id/events', (req, res) => {
   res.send(sampleEvents);
+});
+
+app.post('/users/:id/events', async (req, res) => {
+  //
+  const event = new Event(req.body);
+  try {
+    const result = await event.save();
+    console.log('what does mongoose send back?', result);
+    res.status(201).send(result);
+  } catch (err) {
+    console.log('what is the error:', err);
+    res.sendStatus(500);
+  }
 });
 
 app.listen(port, () => {
