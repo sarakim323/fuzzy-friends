@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 interface EventCellProps {
   title: string;
@@ -68,55 +69,42 @@ interface CalendarView {
   numOfDays: number;
 }
 
-const today = new Date();
-const sampleEvents: Event[] = [
-  {
-    id: '1',
-    title: 'Play date with Lola',
-    date: new Date(today.getFullYear(), 0, today.getDate()),
-    start: '13:00',
-    end: '15:00',
-  },
-  {
-    id: '2',
-    title: 'Group play at Majors Hill Park',
-    date: new Date(today.getFullYear(), 0, today.getDate() + 5),
-    start: '13:00',
-    end: '16:00',
-  },
-  {
-    id: '3',
-    title: 'Coffee time w/ Banshee',
-    date: new Date(today.getFullYear(), 0, today.getDate() + 6),
-    start: '11:00',
-    end: '12:30',
-  },
-  {
-    id: '4',
-    title: 'Sarge Bday',
-    date: new Date(today.getFullYear(), 0, today.getDate() + 8),
-    start: '17:00',
-    end: '19:00',
-  },
-];
-
 export const CalendarView: React.FC<CalendarView> = ({
   month,
   year,
   startDay,
   numOfDays,
 }) => {
+  const [events, setEvents] = useState<Event[] | undefined>(undefined);
   let date = 0;
 
   const daysEvents = (date: number) => {
-    return sampleEvents.filter((evt) => {
+    if (events === undefined) {
+      return [];
+    }
+
+    return events.filter((evt) => {
+      const evtDate = new Date(evt.date);
       return (
-        evt.date.getFullYear() === year &&
-        evt.date.getMonth() === month &&
-        evt.date.getDate() === date
+        evtDate.getFullYear() === year &&
+        evtDate.getMonth() === month &&
+        evtDate.getDate() === date
       );
     });
   };
+
+  useEffect(() => {
+    // use axios
+    axios
+      .get('http://127.0.0.1:3000/users/test/events')
+      .then((resp) => {
+        console.log('what is the response:', resp);
+        setEvents(resp.data);
+      })
+      .catch((err) => {
+        console.log('got an error message', err);
+      });
+  }, []);
 
   return (
     <tbody>
