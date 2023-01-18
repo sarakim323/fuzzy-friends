@@ -1,10 +1,16 @@
-import { useState } from 'react';
-// import { Navbar } from '../';
+import React from 'react';
 
-function ProfileBox({ matches }) {
-  const [currentUserName, setCurrentUserName] = useState(undefined);
-  const [currentUserImage, setCurrentUserImage] = useState(undefined);
-  const [currentUserSelected, setCurrentUserSelected] = useState(undefined);
+// function ProfileBox({ matches }) {
+// const [currentUserName, setCurrentUserName] = useState(undefined);
+// const [currentUserImage, setCurrentUserImage] = useState(undefined);
+// const [currentUserSelected, setCurrentUserSelected] = useState(undefined);
+interface ProfileBoxProps {
+  matches: Match[];
+}
+
+const ProfileBox: React.FC<ProfileBoxProps> = ({ matches }) => {
+  console.log(matches[0].profilePic, '12');
+  const pic = matches[0].profilePic;
 
   //mockdata of currentUser below
 
@@ -71,6 +77,6 @@ function ProfileBox({ matches }) {
       </div>
     </>
   );
-}
+};
 
 export default ProfileBox;
