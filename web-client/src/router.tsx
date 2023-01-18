@@ -46,7 +46,6 @@ export const Router = () => {
 
       <Route path="/callback" element={<Main section={<Callback />} />} />
       <Route path="*" element={<NotFound />} />
-      {/* <Route path="/test" element={<Test />} /> */}
     </Routes>
   );
 };
