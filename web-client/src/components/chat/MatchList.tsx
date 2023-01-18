@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+// import MatchListItem from 'MatchListItem.js';
 
 function MatchList({ matches, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
@@ -6,20 +7,6 @@ function MatchList({ matches, changeChat }) {
   const [currentUserSelected, setCurrentUserSelected] = useState(undefined);
 
   const [searchQuery, setSearchQuery] = useState('');
-
-  console.log(matches[0].profile_pic, '12');
-  const pic = matches[0].profile_pic;
-
-  // useEffect(() => {}, []);
-  {
-    /* <div className="relative w-48 h-48 ml-16">
-          <img
-            className="absolute rounded-full border border-gray-300 shadow=sm"
-            src={pic}
-            alt="profile photo"
-          />
-        </div> */
-  }
 
   const doSearch = (event) => {
     event.preventDefault();
@@ -31,21 +18,25 @@ function MatchList({ matches, changeChat }) {
     setSearchQuery(event.target.value);
   };
   return (
-    <div>
-      <div className="m-10 p-20 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-warmGray-700 dark:border-gray- h-auto gap-2 content-center">
-        <div>Chats</div>
-        <div className="searchForm">
+    // <div>
+    <div className="m-10 max-w-sm min-h-fit flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center">
+      <div className="flex items-center justify-between border-b p-5">
+        <div className="flex items-center">
           <form onSubmit={doSearch}>
             <input
               type="search"
               id="default-search"
-              className="block w-full p-2 pl-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-500 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full p-2 pl-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-100"
               placeholder="Search for name..."
               value={searchQuery}
               onChange={whileSearching}
             />
           </form>
         </div>
+      </div>
+
+      <ul className="w-full overflow-auto h-[22rem]">
+        <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
         <div className="matchList">
           {matches.map((match, index) => {
             return (
@@ -56,21 +47,33 @@ function MatchList({ matches, changeChat }) {
                 }`}
                 onClick={() => changeCurrentChat(index, contact)}
               >
-                <div className="avatar">
-                  {/* <img
-                    src={}
+                <a className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
+                  <img
+                    className="object-cover w-10 h-10 rounded-full"
+                    src={match.profile_pic}
                     alt=""
-                  /> */}
-                </div>
-                <div className="username">
-                  <h3>{match.name}</h3>
-                </div>
+                  />
+                  <div className="w-full pb-2">
+                    <div className="flex justify-between">
+                      <span className="block ml-2 font-semibold text-gray-600">
+                        <h3>{match.name}</h3>
+                      </span>
+                      <span className="block ml-2 text-sm text-gray-600">
+                        <h3>{'50min'}</h3>
+                      </span>
+                    </div>
+                    <span className="block ml-2 text-sm text-gray-600">
+                      <h3>{'Nm - wbu?'}</h3>
+                    </span>
+                  </div>
+                </a>
               </div>
             );
           })}
         </div>
-      </div>
+      </ul>
     </div>
+    // </div>
   );
 }
 
