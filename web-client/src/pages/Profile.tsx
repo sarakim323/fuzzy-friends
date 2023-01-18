@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 import Description from '../components/profile/Description';
 import EditForm from '../components/profile/EditForm';
 
@@ -38,7 +37,7 @@ const Profile = () => {
   const [isCreateNewDescription, setIsCreateNewDescription] = useState(false);
 
   const saveDescriptionContentToState = (
-    event: React.FormEvent<HTMLTextAreaElement | HTMLInputElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setContent(event.currentTarget.value);
   };
@@ -57,7 +56,7 @@ const Profile = () => {
   };
 
   const updateDescription = (
-    event: React.FormEvent<HTMLTextAreaElement | HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     event.preventDefault();
     const updatedDescription = all.map((each) => {
@@ -81,13 +80,15 @@ const Profile = () => {
     console.log('description is ', description);
     return (
       <>
-        <EditForm
-          content={description.content}
-          updateDescription={updateDescription}
-          saveDescriptionContentToState={saveDescriptionContentToState}
-          toggleCreateNewDescription={toggleCreateNewDescription}
-          toggleEdit={toggleEdit}
-        />
+        {description && (
+          <EditForm
+            content={description.content}
+            updateDescription={updateDescription}
+            saveDescriptionContentToState={saveDescriptionContentToState}
+            toggleCreateNewDescription={toggleCreateNewDescription}
+            toggleEdit={toggleEdit}
+          />
+        )}
       </>
     );
   }
