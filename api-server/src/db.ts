@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://127.0.0.1:27017/fuzzy-friends');
+mongoose
+  .connect('mongodb://127.0.0.1:27017/fuzzy-friends')
+  .catch((err) => console.log('unable to open mongodb', err));
+
 const UserSchema = new mongoose.Schema(
   {
     name: String,
