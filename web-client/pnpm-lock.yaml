@@ -37,6 +37,7 @@ dependencies:
   '@emotion/styled': 11.10.5_jp5djshq6aqfasno3mth3hguci
   '@mui/icons-material': 5.11.0_6zueiyxsk3wwk7ardr4xipkxnu
   '@mui/material': 5.11.4_lskpmcsdi7ipu6qpuapyu56ihm
+<<<<<<< HEAD
   '@mui/system': 5.11.4_ogriz7mfahdh34qnfautfro5yu
   '@mui/x-date-pickers': 5.0.14_bf4y4hp7qiw5cnlcxcy5tjibxm
   autosuggest-highlight: 3.3.4
@@ -44,6 +45,9 @@ dependencies:
   '@trendyol-js/react-carousel': 3.0.0_react@18.2.0
   axios: 1.2.3
   emoji-picker-react: 4.4.7_react@18.2.0
+=======
+  '@trendyol-js/react-carousel': 3.0.0_react@18.2.0
+>>>>>>> working
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.7.1_react@18.2.0
@@ -1250,6 +1254,14 @@ packages:
       {
         integrity: sha512-3BzdDGBtMsAQgFcddjpD98xqOzfW4pZVhdTXmn7/FOIiGWg+ipomWLp1iN1hFe4fXSGTx7+xFg2pObkJlz3BPg==,
       }
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@trendyol-js/react-carousel/3.0.0_react@18.2.0:
+    resolution: {integrity: sha512-3BzdDGBtMsAQgFcddjpD98xqOzfW4pZVhdTXmn7/FOIiGWg+ipomWLp1iN1hFe4fXSGTx7+xFg2pObkJlz3BPg==}
     peerDependencies:
       react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
