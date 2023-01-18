@@ -8,6 +8,9 @@ function MatchList({ matches, changeChat }) {
 
   const [searchQuery, setSearchQuery] = useState('');
 
+  //useEffect to retrieve data via GET (users/:id/friends)
+  //below dummydata
+  const data = {};
   const doSearch = (event) => {
     event.preventDefault();
     // handleSubmit(searchQuery);
@@ -35,7 +38,7 @@ function MatchList({ matches, changeChat }) {
         </div>
       </div>
 
-      <ul className="w-full overflow-auto h-[22rem]">
+      <ul className="w-full overflow-auto h-[32rem]">
         <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
         <div className="matchList">
           {matches.map((match, index) => {
