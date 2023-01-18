@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import MatchListItem from 'MatchListItem.js';
+import MatchListItem from './MatchListItem';
 
 function MatchList({ matches, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
@@ -16,7 +16,7 @@ function MatchList({ matches, changeChat }) {
       2: [
         { 2: ['User would like to match with you', '1 Day Ago'] },
         { 1: ['Hey! Wassup?', '1hr'] },
-        { 2: ['Nm - wbu?', '50min'] },
+        { 2: ['Nm - wbu?', '49min'] },
       ],
     },
     {
@@ -96,7 +96,8 @@ function MatchList({ matches, changeChat }) {
                         <h3>{match.name}</h3>
                       </span>
                       <span className="block ml-2 text-sm text-gray-600">
-                        <h3>{'50min'}</h3>
+                        {/* <MatchListItem recentTime={data[match.id][1]} /> */}
+                        {console.log(data[match.id], '123')}
                       </span>
                     </div>
                     <span className="block ml-2 text-sm text-gray-600">
