@@ -1,10 +1,36 @@
 import React from 'react';
 
-interface DayCellProps {
-  date?: number;
+interface EventCellProps {
+  title: string;
+  start: string;
+  end: string;
 }
 
-const DayCell: React.FC<DayCellProps> = ({ date }) => {
+const EventCell: React.FC<EventCellProps> = ({ title, start, end }) => {
+  return (
+    <div className="event bg-purple-400 text-white rounded p-1 text-sm mb-1">
+      <span className="event-name block">{title}</span>
+      <span className="time">
+        {start}-{end}
+      </span>
+    </div>
+  );
+};
+
+interface Event {
+  id: string;
+  date: Date;
+  title: string;
+  start: string;
+  end: string;
+}
+
+interface DayCellProps {
+  date?: number;
+  events?: Event[];
+}
+
+const DayCell: React.FC<DayCellProps> = ({ date, events }) => {
   let containerClass =
     'border p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ';
 
@@ -18,21 +44,79 @@ const DayCell: React.FC<DayCellProps> = ({ date }) => {
         <div className="top h-5 w-full">
           <span className="text-gray-500">{date}</span>
         </div>
+        <div className="bottom flex-grow h-30 py-1 w-full cursor-pointer">
+          {events?.map((event) => {
+            return (
+              <EventCell
+                key={event.id}
+                title={event.title}
+                start={event.start}
+                end={event.end}
+              />
+            );
+          })}
+        </div>
       </div>
     </td>
   );
 };
 
 interface CalendarView {
+  month: number;
+  year: number;
   startDay: number;
   numOfDays: number;
 }
 
+const today = new Date();
+const sampleEvents: Event[] = [
+  {
+    id: '1',
+    title: 'Play date with Lola',
+    date: new Date(today.getFullYear(), 0, today.getDate()),
+    start: '13:00',
+    end: '15:00',
+  },
+  {
+    id: '2',
+    title: 'Group play at Majors Hill Park',
+    date: new Date(today.getFullYear(), 0, today.getDate() + 5),
+    start: '13:00',
+    end: '16:00',
+  },
+  {
+    id: '3',
+    title: 'Coffee time w/ Banshee',
+    date: new Date(today.getFullYear(), 0, today.getDate() + 6),
+    start: '11:00',
+    end: '12:30',
+  },
+  {
+    id: '4',
+    title: 'Sarge Bday',
+    date: new Date(today.getFullYear(), 0, today.getDate() + 8),
+    start: '17:00',
+    end: '19:00',
+  },
+];
+
 export const CalendarView: React.FC<CalendarView> = ({
+  month,
+  year,
   startDay,
   numOfDays,
 }) => {
   let date = 0;
+
+  const daysEvents = (date: number) => {
+    return sampleEvents.filter((evt) => {
+      return (
+        evt.date.getFullYear() === year &&
+        evt.date.getMonth() === month &&
+        evt.date.getDate() === date
+      );
+    });
+  };
 
   return (
     <tbody>
@@ -49,7 +133,8 @@ export const CalendarView: React.FC<CalendarView> = ({
                 if (date > numOfDays) {
                   return <DayCell key={date} />;
                 } else {
-                  return <DayCell key={date} date={date} />;
+                  const events = daysEvents(date);
+                  return <DayCell key={date} date={date} events={events} />;
                 }
               })}
             </tr>
