@@ -19,8 +19,8 @@ const Navbar: React.FC<NavbarProps> = ({ menuOpen, setMenuOpen }) => {
             className="text-white no-underline hover:text-white hover:no-underline"
             href="#"
           >
-            <span className="text-2xl pl-2">
-              <i className="em em-grinning"></i> Logo
+            <span className="text-2xl pl-2 mb-5">
+              <i className="em em-grinning"></i> Fuzzy Friends
             </span>
           </a>
         </div>
