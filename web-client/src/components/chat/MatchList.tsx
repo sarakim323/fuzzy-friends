@@ -10,6 +10,7 @@ function MatchList({ matches, changeChat }) {
 
   //useEffect to retrieve data via GET (users/:id/friends)
   //below dummydata
+
   const data = {};
   const doSearch = (event) => {
     event.preventDefault();
@@ -20,6 +21,12 @@ function MatchList({ matches, changeChat }) {
   const whileSearching = (event) => {
     setSearchQuery(event.target.value);
   };
+
+  const changeCurrentChat = (index, match) => {
+    setCurrentUserSelected(index);
+    changeChat(match);
+  };
+
   return (
     // <div>
     <div className="m-10 max-w-sm min-h-fit flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center">
@@ -48,7 +55,7 @@ function MatchList({ matches, changeChat }) {
                 className={`contact ${
                   index === currentUserSelected ? 'selected' : ''
                 }`}
-                onClick={() => changeCurrentChat(index, contact)}
+                onClick={() => changeCurrentChat(index, match)}
               >
                 <a className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
                   <img
