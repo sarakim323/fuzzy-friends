@@ -8,43 +8,30 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
-
+::-webkit-scrollbar {
+  /* width: 8px;
+  background-color: #494036; */
+  width: 0px;
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  /* background: #e3dcd9;
+  border-radius: 2rem; */
+  display: none;
+}
 a {
   text-decoration: none;
   color: black;
 }
-.category-btn:hover {
-  background-color: #5b585c !important;
-  color: #472c55 !important;
-}
 
-.category-btn:hover span {
-  color: white !important;
-}
-
-.category-btn {
-  font-weight: bold !important;
-  text-transform: capitalize;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: pointer;
-  background: transparent;
-  outline: none;
-  border: none;
-
-  padding: 7px 15px;
-  margin: 0.3em 0px;
-  transition: all 0.3s ease;
-}
 .sidebar {
   transition: all 0.3s ease-in-out;
-  transform: translateY(-100%);
+  transform: translateX(-100%);
   height: 0;
 }
 
 .sidebar.open {
-  transform: translateY(0%);
+  transform: translateX(0%);
   height: auto;
 }
 
