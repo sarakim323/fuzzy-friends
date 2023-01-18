@@ -14,11 +14,8 @@ specifiers:
   '@types/react-dom': ^18.0.9
   '@vitejs/plugin-react': ^3.0.0
   autoprefixer: ^10.4.13
-<<<<<<< HEAD
   axios: ^1.2.2
-=======
   emoji-picker-react: ^4.4.7
->>>>>>> fc2b02ae83418876b622558bffedae095c934cd1
   postcss: ^8.4.21
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -35,12 +32,9 @@ dependencies:
   '@emotion/styled': 11.10.5_jp5djshq6aqfasno3mth3hguci
   '@mui/icons-material': 5.11.0_6zueiyxsk3wwk7ardr4xipkxnu
   '@mui/material': 5.11.4_lskpmcsdi7ipu6qpuapyu56ihm
-<<<<<<< HEAD
   '@trendyol-js/react-carousel': 3.0.0_react@18.2.0
   axios: 1.2.3
-=======
   emoji-picker-react: 4.4.7_react@18.2.0
->>>>>>> fc2b02ae83418876b622558bffedae095c934cd1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.7.1_react@18.2.0
