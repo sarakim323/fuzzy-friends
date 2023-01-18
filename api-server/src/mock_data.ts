@@ -81,3 +81,35 @@ export const friends = [
 ];
 
 export const messages = { hello: 'world' };
+
+const today = new Date();
+export const sampleEvents = [
+  {
+    id: '1',
+    title: 'Play date with Lola',
+    date: new Date(today.getFullYear(), 0, today.getDate()),
+    start: '13:00',
+    end: '15:00',
+  },
+  {
+    id: '2',
+    title: 'Group play at Majors Hill Park',
+    date: new Date(today.getFullYear(), 0, today.getDate() + 5),
+    start: '13:00',
+    end: '16:00',
+  },
+  {
+    id: '3',
+    title: 'Coffee time w/ Banshee',
+    date: new Date(today.getFullYear(), 0, today.getDate() + 6),
+    start: '11:00',
+    end: '12:30',
+  },
+  {
+    id: '4',
+    title: 'Sarge Bday',
+    date: new Date(today.getFullYear(), 0, today.getDate() + 8),
+    start: '17:00',
+    end: '19:00',
+  },
+];
