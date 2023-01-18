@@ -1,4 +1,3 @@
-import React from 'react';
 import { Stack } from '@mui/material';
 import { categories } from '../assets/icons';
 
@@ -6,10 +5,13 @@ const Sidebar = () => {
   return (
     // Stack component with props applied
     <Stack
-      direction="row" // set the direction of the stack to row
+      direction="row"
       sx={{
         overflowY: 'auto', // set the overflow-y style to 'auto'
-        height: { sx: 'auto', md: '95%' }, // set the height style to 'auto' for small screens and '95%' for medium screens
+        height: { sx: 'auto', md: '100%' }, // set the height style to 'auto' for small screens and '95%' for medium screens
+        width: { sx: 'auto', md: '170px' },
+        flexDirection: { md: 'column' },
+        background: 'gray',
       }}
     >
       {
