@@ -1,2 +1,5 @@
 node_modules
-build
+pnpm-lock.yaml
+web-client/pnpm-lock.yaml
+web-client/package-lock.json
+api-server/pnpm-lock.yaml
