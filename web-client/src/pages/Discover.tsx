@@ -96,10 +96,10 @@ const Discovery = () => {
               rightArrow={
                 <i className={buttonClassNames + ' fa-arrow-right'}></i>
               }
-              show={2}
+              show={3}
               slide={1}
               swiping={true}
-              className="flex flex-row justify-evenly items-center max-w-[60%]"
+              className="flex flex-row justify-evenly items-center max-w-[1000px] max-h-[80vh]"
               transition={0.5}
             >
               {/* Images */}
@@ -111,7 +111,7 @@ const Discovery = () => {
                   {/* Main Image */}
                   <img
                     src={image}
-                    className="h-[50vh] w-[500px] object-none object-center rounded-3xl"
+                    className={`h-[60vh] max-w-[333.33px] object-cover object-center rounded-lg`}
                     alt=""
                   />
                 </div>
