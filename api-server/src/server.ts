@@ -4,6 +4,7 @@ const app = express();
 const port = 3000;
 import { discover, friends, messages } from './mock_data';
 import { Request, Response } from 'express';
+import { db } from './db';
 
 app.use(express.json());
 app.use(cors());
@@ -30,6 +31,14 @@ app.put('/users/:id/friends/*', (req: Request, res: Response) => {
 
 app.get('/users/:id/discover', (req: Request, res: Response) => {
   res.send(discover);
+});
+
+app.get('/test', (req, res) => {
+  db.addUser()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch(() => res.sendStatus(404));
 });
 
 app.listen(port, () => {
