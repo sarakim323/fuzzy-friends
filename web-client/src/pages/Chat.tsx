@@ -194,19 +194,17 @@ const ChatPage: React.FC = () => {
   };
 
   const handleMateChange = (mateInfo) => {
-    //mateInfo = obj w mateid2
-    console.log('changed mate info: ', mateInfo);
-    setMate(mateInfo); // not working
-    console.log('registered mate in chat.tsx: ', mateInfo._id);
+    // console.log('changed mate info: ', mateInfo);
+    setMate(mateInfo);
+    // console.log('registered mate in chat.tsx: ', mateInfo._id);
     getChatHistory(mateInfo._id);
   };
 
-  //getting chat history of all messages - user: 9, mate: 1
   useEffect(() => {
     axios
       .get(`http://54.144.2.231:3000/users/${user._id}/messages/${mate._id}`)
       .then((data) => {
-        console.log('initial chat history: ', data.data);
+        // console.log('initial chat history: ', data.data);
         setCurrentChat(data.data);
       })
       .catch((err) => {
