@@ -28,11 +28,11 @@ const Profile = ( { setUser, user } ) => {
     // setUser(user);
     if (user._id === undefined && Auth0User && Auth0User.sub) {
       axios
-        .get(`http://54.144.2.231:3000/users/${Auth0User.sub}`)
+        .get(`http://34.238.117.39:3000/users/${Auth0User.sub}`)
         .then((data) => {
           if (data.data._id === undefined) {
             return axios.post(
-              `http://54.144.2.231:3000/users/${Auth0User.sub}`
+              `http://34.238.117.39:3000/users/${Auth0User.sub}`
             );
           } else {
             setUser(data.data);
