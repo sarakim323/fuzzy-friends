@@ -18,7 +18,7 @@ export interface CurrentUser {
   user: Profile;
   index: number;
 }
-const Discovery = () => {
+const Discovery = ({ user }) => {
   const buttonClassNames =
     'fa-solid rounded-full p-3 text-md hover:cursor-pointer bg-[#E3DCD9]';
   const barkSniffClasses =
@@ -30,9 +30,7 @@ const Discovery = () => {
     user: { id: 0, UserId: 0, photos: [], name: '', city: '' },
     index: 0,
   });
-  const user = {
-    id: 1,
-  };
+  console.log('USER', user);
   const [profileArray, setProfileArray] = useState<Profile[]>([]);
 
   const handleBark = () => {
