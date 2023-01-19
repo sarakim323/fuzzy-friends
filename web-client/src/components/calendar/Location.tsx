@@ -7,7 +7,8 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import parse from 'autosuggest-highlight/parse';
 import { debounce } from '@mui/material/utils';
-import { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
+import * as PropTypes from 'prop-types';
 
 const GOOGLE_API_KEY = 'AIzaSyBq8hYpUG-E-9i2qTAD3-9ic9Lzq0RUNyA';
 function loadScript(src: string, position: HTMLElement | null, id: string) {
@@ -37,13 +38,22 @@ interface PlaceType {
   description: string;
   structured_formatting: StructuredFormatting;
 }
+interface Props {
+  handleLocation: (value: string) => void;
+}
 
-export default function Location() {
+const Location: React.FC<Props> = ({ handleLocation }) => {
   const [value, setValue] = useState<PlaceType | null>(null);
   //value.description for the address as a string
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState<readonly PlaceType[]>([]);
   const loaded = useRef(false);
+
+  useEffect(() => {
+    if (value?.description) {
+      handleLocation(value?.description);
+    }
+  }, [value]);
 
   if (typeof window !== 'undefined' && !loaded.current) {
     if (!document.querySelector('#google-maps')) {
@@ -177,4 +187,9 @@ export default function Location() {
       }}
     />
   );
-}
+};
+
+Location.propTypes = {
+  handleLocation: PropTypes.func.isRequired,
+};
+export default Location;

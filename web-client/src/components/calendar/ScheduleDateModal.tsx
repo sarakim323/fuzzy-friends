@@ -6,6 +6,7 @@ import { default as TimeSelectors } from './TimeSelectors';
 import { default as FriendSelector } from './FriendSelector';
 import { default as Location } from './Location';
 import { default as Description } from './Description';
+import { Dayjs } from 'dayjs';
 
 const style = {
   position: 'absolute',
@@ -20,6 +21,56 @@ const style = {
 };
 const ScheduleDateModal = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [playEvent, setPlayEvent] = useState<object>({
+    title: 'Playdate',
+    friend: '',
+    description: '',
+    location: '',
+    start: '',
+    end: '',
+  });
+  console.log(playEvent);
+
+  const handleTime = (start: Dayjs | null, end: Dayjs | null) => {
+    if (start !== null && end !== null) {
+      const startTime = start.toDate();
+      const formattedStartTime = startTime.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: false,
+      });
+      const endTime = end.toDate();
+      const formattedEndTime = endTime.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: false,
+      });
+      setPlayEvent({
+        ...playEvent,
+        ['start']: formattedStartTime,
+        ['end']: formattedEndTime,
+      });
+    }
+  };
+  const handleLocation = (str: string) => {
+    const name = 'location';
+    const value = str;
+
+    setPlayEvent({ ...playEvent, [name]: value });
+  };
+  const handleFriend = (str: string) => {
+    const name = 'friend';
+    const value = str;
+    setPlayEvent({ ...playEvent, [name]: value });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setPlayEvent({ ...playEvent, [name]: value });
+  };
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -96,14 +147,18 @@ const ScheduleDateModal = () => {
                 id="outlined-basic"
                 label="Playdate Title"
                 variant="outlined"
+                name="title"
                 defaultValue="Playdate"
                 required={true}
                 size="medium"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleChange(e)
+                }
               />
-              <TimeSelectors />
-              <Location />
-              <FriendSelector />
-              <Description />
+              <TimeSelectors handleTime={handleTime} />
+              <Location handleLocation={handleLocation} />
+              <FriendSelector handleFriend={handleFriend} />
+              <Description handleChange={handleChange} />
               <Box
                 sx={{
                   display: 'flex',
