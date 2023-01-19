@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import ChatInput from './ChatInput';
 import ScrollToBottom from 'react-scroll-to-bottom';
 
@@ -12,15 +13,24 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
   const [newMessage, setnewMessage] = useState('');
 
   const sendMessage = async () => {
-    console.log('message sent');
+    let messageData;
+    const sendId = user._id;
+    const receiveId = mate._id;
+    console.log(newMessage, 'hi');
     if (newMessage !== '') {
-      const messageData = {
-        senderId: '',
-        receiverId: '',
-        messageContent: newMessage,
-      };
-      // POST message request
-      setnewMessage('');
+      messageData = { content: newMessage };
+      await axios
+        .post(
+          `http://54.144.2.231:3000/users/${sendId}/messages/${receiveId}`,
+          messageData
+        )
+        .then((data) => {
+          console.log(data);
+          setnewMessage('');
+        })
+        .catch((err) => {
+          console.log('message did not ge sent', err);
+        });
     }
   };
 
@@ -52,7 +62,10 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
         })}
       </ScrollToBottom>
       <div className="flex items-center mb-4 p-4 w-full">
-        <form className="w-full rounded-full border border-gray-200 px-4">
+        <form
+          className="w-full rounded-full border border-gray-200 px-4"
+          onSubmit={sendMessage}
+        >
           <input
             type="text"
             value={newMessage}
