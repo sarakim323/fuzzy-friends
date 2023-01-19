@@ -1,16 +1,17 @@
 import React from 'react';
+import ChatInput from './ChatInput';
 
 interface ChatBoxProps {
-  matches: Match[];
-  mate: Mate[];
-  user: User[];
-  chat: Chat[];
+  mate: Mate;
+  user: User;
+  currentChat: Chat[];
 }
 
-const ChatBox: React.FC<ChatBoxProps> = ({ mate, user }) => {
+const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
   // const [messages, setMessages] = useState([]);
   // const scrollRef = useRef();
   // const [arrivalMessage, setArrivalMessage] = useState(null);
+  // console.log('currentChat: ', currentChat); // passing
   return (
     <div className="m-10 max-w-sm min-h-fit flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center">
       <div className="flex items-center justify-between border-b p-5">
@@ -47,38 +48,26 @@ const ChatBox: React.FC<ChatBoxProps> = ({ mate, user }) => {
           </button>
         </div>
       </div>
-      <div className="flex items-center mb-4 p-5">
-        <div className="flex-none flex flex-col items-center space-y-1 mr-4">
-          <img className="rounded-full w-10 h-10" src={user.profilePic} />
-          <a href="#" className="block text-xs hover:underline">
-            {user.name}
-          </a>
-        </div>
-        <div className="flex-1 bg-indigo-100 text-gray-800 p-2 rounded-lg mb-2 relative">
-          <div>Hey! Wassup?</div>
-          <div className="absolute left-0 top-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-100"></div>
-        </div>
-      </div>
-      <div className="flex items-center flex-row-reverse mb-4 p-5">
-        <div className="flex-none flex flex-col items-center space-y-1 ml-4">
-          <img className="rounded-full w-10 h-10" src={mate.profilePic} />
-          <a href="#" className="block text-xs hover:underline">
-            {mate.name}
-          </a>
-        </div>
-        <div className="flex-1 bg-indigo-400 text-white p-2 rounded-lg mb-2 relative">
-          <div>That&apos;s for me to know and you to find out :D</div>
-          <div className="absolute right-0 top-1/2 transform translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-400"></div>
-        </div>
-      </div>
+      {currentChat.map((message) => {
+        return (
+          <ChatInput
+            key={message.userId}
+            message={message}
+            mate={mate}
+            user={user}
+          />
+        );
+      })}
       <div className="flex items-center mb-4 p-4">
-        <input
-          className="w-full rounded-full border border-gray-200 px-4"
-          type="text"
-          value=""
-          placeholder="Aa"
-          autoFocus
-        />
+        <form>
+          <input
+            className="w-full rounded-full border border-gray-200 px-4"
+            type="text"
+            value=""
+            placeholder="Aa"
+            autoFocus
+          />
+        </form>
         <button
           className="inline-flex hover:bg-indigo-50 rounded-full p-2"
           type="button"

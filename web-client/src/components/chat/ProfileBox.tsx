@@ -1,7 +1,6 @@
 import React from 'react';
 
 interface ProfileBoxProps {
-  matches: Match[];
   mate: Mate[];
 }
 

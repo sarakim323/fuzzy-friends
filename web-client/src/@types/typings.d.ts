@@ -7,6 +7,7 @@ interface Match {
   profilePic: string;
   pictures: string[];
   calendarInvite: string[];
+  description: string;
 }
 
 interface Mate {
@@ -34,5 +35,6 @@ interface User {
 }
 
 interface Chat {
-  integer: string;
+  userId: string;
+  message: string;
 }

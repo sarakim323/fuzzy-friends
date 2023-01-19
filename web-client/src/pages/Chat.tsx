@@ -9,7 +9,7 @@ import ChatBox from '../components/chat/ChatBox';
 import ProfileBox from '../components/chat/ProfileBox';
 
 const ChatPage: React.FC = () => {
-  const [user, setUser] = useState<User[]>({
+  const [user, setUser] = useState<User>({
     _id: '9',
     name: 'Henry',
     age: 7,
@@ -24,7 +24,7 @@ const ChatPage: React.FC = () => {
     calendarInvite: [],
     description: 'Hello my name is Henry, and I would love to chat with you!',
   });
-  const [mate, setMate] = useState<Mate[]>({
+  const [mate, setMate] = useState<Mate>({
     _id: '1',
     name: 'Sophie',
     age: 4,
@@ -42,9 +42,9 @@ const ChatPage: React.FC = () => {
   });
 
   const [currentChat, setCurrentChat] = useState([
-    { 2: 'User would like to match with you' },
-    { 1: 'Hey! Wassup?' },
-    { 2: 'Nm - wbu?' },
+    { userId: '1', message: 'User would like to match with you' },
+    { userId: '9', message: 'Hey! Wassup?' },
+    { userId: '1', message: 'Nm - wbu?' },
   ]);
 
   const [matches, setMatches] = useState<Match[]>([
@@ -136,12 +136,7 @@ const ChatPage: React.FC = () => {
           <MatchList matches={matches} changeMate={handleMateChange} />
         </div>
         <div className="flex-1 w-20">
-          {/* {currentChat === undefined ? (
-            <Welcome />
-          ) : (
-            <ChatBox currentChat={currentChat} />
-          )} */}
-          <ChatBox mate={mate} user={user} />
+          <ChatBox currentChat={currentChat} mate={mate} user={user} />
         </div>
         <div className="flex-1 w-20">
           {/* pass down current user down to profileBox */}
