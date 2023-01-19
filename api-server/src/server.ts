@@ -19,6 +19,11 @@ app.post('/users/:id/messages/:mateId', (req: Request, res: Response) => {
     .catch((err) => res.send(err));
 });
 
+app.post('/users/:id/update', (req: Request, res: Response) => {
+  db.updateProfile(req.params.id, req.body)
+    .then(() => res.sendStatus(201))
+    .catch((err) => res.send(err));
+});
 
 app.get('/users/:id/messages/:mateId', (req: Request, res: Response) => {
   db.getMessages(req.params.id, req.params.mateId)
@@ -63,8 +68,8 @@ app.delete('/users/:id/requests/:mateId', (req: Request, res: Response) => {
     })
     .catch((err) => {
       res.send(err);
-    })
-})
+    });
+});
 
 app.post('/users/:id/requests/:mateId', (req: Request, res: Response) => {
   db.addRequest(req.params.id, req.params.mateId)
@@ -82,17 +87,23 @@ app.post('/users/:id/requests/:mateId', (req: Request, res: Response) => {
 // });
 
 app.get('/users/:id/discover', (req: Request, res: Response) => {
-  res.send(discover);
+  db.getProfiles(req.params.id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
 
 app.get('/users/:id', (req: Request, res: Response) => {
   db.getUser(req.params.id)
     .then((data) => {
-      res.send(data)
+      res.send(data);
     })
     .catch((err) => {
-      res.send(err)
-    })
+      res.send(err);
+    });
 });
 
 app.post('/users/:id', (req: Request, res: Response) => {
@@ -110,7 +121,7 @@ app.post('/users/:id', (req: Request, res: Response) => {
     - year
 */
 
-app.get('/users/:id/events', (req, res) => {
+app.get('/users/:id/events/:year/:month', (req, res) => {
   res.send(sampleEvents);
 });
 
