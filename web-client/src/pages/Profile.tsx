@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 import Description from '../components/profile/Description';
 import EditForm from '../components/profile/EditForm';
 import CarouselCard from '../components/profile/Carousel';
 
-const Profile = () => {
-  // const { user } = useAuth0();
+const Profile = ( { setUser, user } ) => {
+
+  const Auth0User = useAuth0().user;
 
   // if (!user) {
   //   return 'Not a VALID user!';
@@ -21,6 +24,31 @@ const Profile = () => {
   //     </div>
   //   </div>
   // );
+  useEffect(() => {
+    // setUser(user);
+    if (user._id === undefined && Auth0User && Auth0User.sub) {
+      axios
+        .get(`http://54.144.2.231:3000/users/${Auth0User.sub}`)
+        .then((data) => {
+          if (data.data._id === undefined) {
+            return axios.post(
+              `http://54.144.2.231:3000/users/${Auth0User.sub}`
+            );
+          } else {
+            setUser(data.data);
+            console.log('SET USER TO:', data.data);
+          }
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            setUser(data.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [Auth0User]);
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -117,7 +145,7 @@ const Profile = () => {
         {/* Profile Name */}
         <div className="p-5">
           <h5 className="ml-28 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Lani, 5
+            {user ? `${user.name}` : null}
           </h5>
         </div>
         {/* Profile Breed */}

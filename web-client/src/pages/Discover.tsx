@@ -9,7 +9,7 @@ import ProfileInfo from '../components/discover/ProfileInfo';
 // }
 export interface Profile {
   id: number;
-  UserId: number;
+  userId: number;
   photos: string[];
   name: string;
   city: string;
@@ -18,7 +18,7 @@ export interface CurrentUser {
   user: Profile;
   index: number;
 }
-const Discovery = () => {
+const Discovery = ({ user }) => {
   const buttonClassNames =
     'fa-solid rounded-full p-3 text-md hover:cursor-pointer bg-[#E3DCD9]';
   const barkSniffClasses =
@@ -27,13 +27,12 @@ const Discovery = () => {
   const [ranApiCall, setRanApiCall] = useState<boolean>(false);
   const [reRender, setReRender] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<CurrentUser>({
-    user: { id: 0, UserId: 0, photos: [], name: '', city: '' },
+    user: { id: 0, userId: 0, photos: [], name: '', city: '' },
     index: 0,
   });
-  const user = {
-    id: 1,
-  };
+  console.log('USER', user);
   const [profileArray, setProfileArray] = useState<Profile[]>([]);
+  console.log('PROFILE ARRAY');
 
   const handleBark = () => {
     setCurrentUser({
@@ -45,8 +44,8 @@ const Discovery = () => {
 
   const handleSniff = () => {
     axios
-      .put(
-        `http://54.144.2.231:3000/users/${user.id}/friends/${currentUser.user.id}`
+      .post(
+        `http://54.144.2.231:3000/users/${user.userId}/friends/${currentUser.user.userId}`
       )
       .then(() => {
         const newUser = {
@@ -62,10 +61,11 @@ const Discovery = () => {
   useEffect(() => {
     setRanApiCall(false);
     axios
-      .get(`http://54.144.2.231:3000/users/3/discover`)
+      .get(`http://54.144.2.231:3000/users/${user.userId}/discover`)
       .then((data) => {
         setRanApiCall(true);
         setCurrentUser({ user: data.data[0], index: 0 });
+        console.log('GET DISCOVER', data.data)
         setProfileArray(data.data);
       })
       .catch((err) => {
@@ -77,11 +77,12 @@ const Discovery = () => {
     if (reRender) {
       setReRender(false);
     }
+    console.log('PROFILE ARRAy', profileArray);
   }, [reRender]);
 
   return (
     <div className="">
-      {ranApiCall && currentUser.user.id !== 0 ? (
+      {ranApiCall && currentUser.user.userId !== 0 ? (
         <>
           {/* Title */}
           <div className="flex flex-row justify-center text-6xl">
@@ -109,7 +110,7 @@ const Discovery = () => {
                 transition={0.5}
               >
                 {/* Images */}
-                {currentUser.user.photos &&
+                {Array.isArray(currentUser.user.photos) &&
                   currentUser.user.photos.map((image, index) => (
                     <div
                       className="flex-col justify-center items-center"

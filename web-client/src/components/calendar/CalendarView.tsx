@@ -29,9 +29,10 @@ interface Event {
 interface DayCellProps {
   date?: number;
   events?: Event[];
+  handleDayClick: () => void;
 }
 
-const DayCell: React.FC<DayCellProps> = ({ date, events }) => {
+const DayCell: React.FC<DayCellProps> = ({ date, events, handleDayClick }) => {
   let containerClass =
     'border p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ';
 
@@ -39,8 +40,12 @@ const DayCell: React.FC<DayCellProps> = ({ date, events }) => {
     containerClass += ' bg-gray-100';
   }
 
+  const handleClick = () => {
+    handleDayClick();
+  };
+
   return (
-    <td className={containerClass}>
+    <td className={containerClass} onClick={handleClick}>
       <div className="flex flex-col h-40 mx-auto xl:w-40 lg:w-30 md:w-30 sm:w-full w-10 mx-auto overflow-hidden">
         <div className="top h-5 w-full">
           <span className="text-gray-500">{date}</span>
@@ -67,6 +72,7 @@ interface CalendarView {
   year: number;
   startDay: number;
   numOfDays: number;
+  handleDayClick: () => void;
 }
 
 export const CalendarView: React.FC<CalendarView> = ({
@@ -74,8 +80,10 @@ export const CalendarView: React.FC<CalendarView> = ({
   year,
   startDay,
   numOfDays,
+  handleDayClick,
 }) => {
   const [events, setEvents] = useState<Event[] | undefined>(undefined);
+
   let date = 0;
 
   const daysEvents = (date: number) => {
@@ -114,15 +122,27 @@ export const CalendarView: React.FC<CalendarView> = ({
             <tr key={week} className="text-center h-20">
               {[0, 1, 2, 3, 4, 5, 6].map((dayOfWeek) => {
                 if (week === 0 && dayOfWeek < startDay) {
-                  return <DayCell key={`blank-${week}+${dayOfWeek}`} />;
+                  return (
+                    <DayCell
+                      key={`blank-${week}+${dayOfWeek}`}
+                      handleDayClick={handleDayClick}
+                    />
+                  );
                 }
 
                 date++;
                 if (date > numOfDays) {
-                  return <DayCell key={date} />;
+                  return <DayCell key={date} handleDayClick={handleDayClick} />;
                 } else {
                   const events = daysEvents(date);
-                  return <DayCell key={date} date={date} events={events} />;
+                  return (
+                    <DayCell
+                      key={date}
+                      date={date}
+                      events={events}
+                      handleDayClick={handleDayClick}
+                    />
+                  );
                 }
               })}
             </tr>
