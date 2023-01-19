@@ -30,6 +30,15 @@ const Profile = ( { setUser, user } ) => {
       axios
         .get(`http://54.144.2.231:3000/users/${Auth0User.sub}`)
         .then((data) => {
+          if (data.data._id === undefined) {
+            return axios.post(
+              `http://54.144.2.231:3000/users/${Auth0User.sub}`
+            );
+          } else {
+            setUser(data.data);
+          }
+        })
+        .then((data) => {
           setUser(data.data);
         })
         .catch((err) => {
