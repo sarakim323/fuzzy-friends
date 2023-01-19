@@ -196,11 +196,17 @@ const ChatPage: React.FC = () => {
     getChatHistory(mateInfo._id);
   };
 
+  //getting chat history of all messages
   useEffect(() => {
     axios.get(`http://54.144.2.231:3000/users/1/messages/2`).then((data) => {
       //data.data is the array of messages
       console.log(data.data[0].messageContent);
     });
+  });
+
+  //getting someone else's friend request to me
+  useEffect(() => {
+    axios.get(`http://54.144.2.231:3000/`);
   });
 
   return (
