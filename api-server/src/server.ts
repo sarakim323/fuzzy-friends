@@ -19,10 +19,10 @@ app.post('/users/:id/messages/:mateId', (req: Request, res: Response) => {
     .catch((err) => res.send(err));
 });
 
-app.post('users/:id/update', (req: Request, res: Response) => {
-  db.updateProfile(req.params.id, req.body.content)
+app.post('/users/:id/update', (req: Request, res: Response) => {
+  db.updateProfile(req.params.id, req.body)
     .then(() => res.sendStatus(201))
-    .catch(err) => res.send(err);
+    .catch(err => res.send(err));
 })
 
 app.get('/users/:id/messages/:mateId', (req: Request, res: Response) => {
