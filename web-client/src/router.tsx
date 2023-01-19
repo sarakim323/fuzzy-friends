@@ -17,7 +17,7 @@ import {
 
 export const Router = () => {
   const { isLoading } = useAuth0();
-  const [user, setUser]= useState<object>({});
+  const [user, setUser] = useState<object>({});
 
   if (isLoading) {
     return (
@@ -36,14 +36,23 @@ export const Router = () => {
       <Route path="/calendar" element={<Main section={<CalendarPage user={user} />} />} />
 
       {/* Add Protected Route here */}
-      {/* <Route path="/chat" element={<ProtectedRoute section={<Chat />} />} />
+      {/* <Route
+        path="/chat"
+        element={<ProtectedRoute section={<Chat user={user} />} />}
+      />
       <Route
         path="/profile"
-        element={<ProtectedRoute section={<Profile />} />}
+        element={
+          <ProtectedRoute section={<Profile user={user} setUser={setUser} />} />
+        }
+      />
+      <Route
+        path="/discover"
+        element={<ProtectedRoute section={<Discover user={user} />} />}
       />
       <Route
         path="/calendar"
-        element={<ProtectedRoute section={<CalendarPage />} />}
+        element={<ProtectedRoute section={<CalendarPage user={user} />} />}
       /> */}
 
       <Route path="/callback" element={<Main section={<Callback />} />} />

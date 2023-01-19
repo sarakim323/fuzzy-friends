@@ -5,8 +5,7 @@ import Description from '../components/profile/Description';
 import EditForm from '../components/profile/EditForm';
 import CarouselCard from '../components/profile/Carousel';
 
-const Profile = ( { setUser, user } ) => {
-
+const Profile = ({ setUser, user }) => {
   const Auth0User = useAuth0().user;
 
   // if (!user) {
