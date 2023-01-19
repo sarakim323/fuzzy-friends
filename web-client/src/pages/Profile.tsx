@@ -26,7 +26,7 @@ const Profile = ( { setUser, user } ) => {
   // );
   useEffect(() => {
     // setUser(user);
-    if (user._id === undefined) {
+    if (user._id === undefined && Auth0User && Auth0User.sub) {
       axios
         .get(`http://54.144.2.231:3000/users/${Auth0User.sub}`)
         .then((data) => {
@@ -36,10 +36,13 @@ const Profile = ( { setUser, user } ) => {
             );
           } else {
             setUser(data.data);
+            console.log('SET USER TO:', data.data);
           }
         })
         .then((data) => {
-          setUser(data.data);
+          if (data !== undefined) {
+            setUser(data.data);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -142,7 +145,7 @@ const Profile = ( { setUser, user } ) => {
         {/* Profile Name */}
         <div className="p-5">
           <h5 className="ml-28 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Lani, 5
+            {user ? `${user.name}` : null}
           </h5>
         </div>
         {/* Profile Breed */}
