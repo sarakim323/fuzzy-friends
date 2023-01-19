@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-// import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
 // import { io } from 'socket.io-client';
 // import { allUsersRoute, host } from '../utils/APIRoutes';
@@ -24,6 +24,7 @@ const ChatPage: React.FC = () => {
     calendarInvite: [],
     description: 'Hello my name is Henry, and I would love to chat with you!',
   });
+
   const [mate, setMate] = useState<Mate>({
     _id: '1',
     name: 'Sophie',
@@ -194,6 +195,13 @@ const ChatPage: React.FC = () => {
     // change the chat container
     getChatHistory(mateInfo._id);
   };
+
+  useEffect(() => {
+    axios.get(`http://54.144.2.231:3000/users/1/messages/2`).then((data) => {
+      //data.data is the array of messages
+      console.log(data.data[0].messageContent);
+    });
+  });
 
   return (
     <div>
