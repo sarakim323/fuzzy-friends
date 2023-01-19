@@ -60,7 +60,7 @@ const Discovery = ({ user }) => {
   useEffect(() => {
     setRanApiCall(false);
     axios
-      .get(`http://54.144.2.231:3000/users/3/discover`)
+      .get(`http://54.144.2.231:3000/users/${user.userId}/discover`)
       .then((data) => {
         setRanApiCall(true);
         setCurrentUser({ user: data.data[0], index: 0 });
