@@ -19,6 +19,7 @@ app.post('/users/:id/messages/:mateId', (req: Request, res: Response) => {
     .catch((err) => res.send(err));
 });
 
+
 app.get('/users/:id/messages/:mateId', (req: Request, res: Response) => {
   db.getMessages(req.params.id, req.params.mateId)
     .then((data) => {
@@ -55,6 +56,16 @@ app.get('/users/:id/requests', (req: Request, res: Response) => {
     });
 });
 
+app.delete('/users/:id/requests/:mateId', (req: Request, res: Response) => {
+  db.removeRequest(req.params.id, req.params.mateId)
+    .then(() => {
+      res.sendStatus(202);
+    })
+    .catch((err) => {
+      res.send(err);
+    })
+})
+
 app.post('/users/:id/requests/:mateId', (req: Request, res: Response) => {
   db.addRequest(req.params.id, req.params.mateId)
     .then(() => {
@@ -74,8 +85,18 @@ app.get('/users/:id/discover', (req: Request, res: Response) => {
   res.send(discover);
 });
 
-app.get('/test', (req, res) => {
-  db.addUser()
+app.get('/users/:id', (req: Request, res: Response) => {
+  db.getUser(req.params.id)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((err) => {
+      res.send(err)
+    })
+});
+
+app.post('/users/:id', (req: Request, res: Response) => {
+  db.addUser(req.params.id)
     .then((data) => {
       res.send(data);
     })

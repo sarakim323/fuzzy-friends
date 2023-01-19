@@ -4,16 +4,6 @@ mongoose
   .connect('mongodb://127.0.0.1:27017/fuzzy-friends')
   .catch((err) => console.log('unable to open mongodb', err));
 
-const UserSchema = new mongoose.Schema(
-  {
-    userId: String,
-    name: String,
-    friends: [String],
-  },
-  { timestamps: true }
-);
-const User = mongoose.model('User', UserSchema);
-
 const RequestSchema = new mongoose.Schema({
   userId: String,
   senderId: String,
@@ -27,7 +17,9 @@ const ProfileSchema = new mongoose.Schema({
   age: Number,
   breed: String,
   gender: String,
+  city: String,
   pictures: [String],
+  friends: [String],
 });
 const Profile = mongoose.model('Profile', ProfileSchema);
 
@@ -75,10 +67,6 @@ const messageSchema = new mongoose.Schema(
 const Message = mongoose.model('Message', messageSchema);
 
 export const db = {
-  addUser: () => {
-    const newUser = new User({ name: 'test', friends: ['1', '2'] });
-    return newUser.save();
-  },
   getMessages: (senderId: string, receiverId: string) => {
     let listOfMessages: object[] = [];
     return new Promise((resolve, reject) => {
@@ -121,7 +109,7 @@ export const db = {
     return newRequest.save();
   },
   getFriends: (userId: string) => {
-    return User.findOne({ userId: userId }).then((data) => {
+    return Profile.findOne({ userId: userId }).then((data) => {
       return Profile.find({
         userId: { $in: data.friends },
       });
@@ -131,11 +119,11 @@ export const db = {
     return new Promise((resolve, reject) => {
       Request.findOneAndRemove({ userId, senderId })
         .then(() => {
-          return User.findOne({ userId });
+          return Profile.findOne({ userId });
         })
-        .then((user) => {
-          user.friends.push(senderId);
-          return user.save();
+        .then((profile) => {
+          profile.friends.push(senderId);
+          return profile.save();
         })
         .then(() => {
           resolve('Success');
@@ -144,5 +132,18 @@ export const db = {
           reject(err);
         });
     });
+  },
+  getUser: ( userId: string ) => {
+    return Profile.find({ userId})
+  },
+  addUser: ( userId: string ) => {
+    // userId: String,
+    // name: String,
+    // friends: [String],
+    const newUser = new Profile({ userId });
+    return newUser.save();
+  },
+  removeRequest: ( userId: string, senderId: string) => {
+    return Request.findOneAndRemove({ userId, senderId});
   },
 };
