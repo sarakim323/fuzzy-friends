@@ -107,7 +107,7 @@ const Discovery = ({ user }) => {
                 transition={0.5}
               >
                 {/* Images */}
-                {currentUser.user.photos &&
+                {Array.isArray(currentUser.user.photos) &&
                   currentUser.user.photos.map((image, index) => (
                     <div
                       className="flex-col justify-center items-center"

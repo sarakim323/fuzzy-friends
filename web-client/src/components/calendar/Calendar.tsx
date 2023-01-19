@@ -60,7 +60,11 @@ export const Calendar: React.FC = () => {
             {date.getFullYear()} {monthsIdx[date.getMonth()]}
           </span>
           <div className="flex">
-            <ScheduleDateModal />
+            <ScheduleDateModal
+              modalIsOpen={modalIsOpen}
+              setModalIsOpen={setModalIsOpen}
+              handleDayClick={handleDayClick}
+            />
             <div className="buttons ml-8">
               <button id="previousMonth" className="p-1" onClick={handleClick}>
                 <svg
