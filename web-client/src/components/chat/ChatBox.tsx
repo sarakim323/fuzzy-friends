@@ -14,7 +14,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
 
   const sendMessage = async () => {
     let messageData;
-    const sendId = user._id;
+    const sendId = user.userId;
     const receiveId = mate._id;
     console.log(newMessage, 'hi');
     if (newMessage !== '') {

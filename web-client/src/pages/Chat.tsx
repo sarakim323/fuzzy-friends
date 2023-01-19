@@ -185,9 +185,9 @@ const ChatPage: React.FC = ({ user }) => {
 
   const getChatHistory = (mateId: string) => {
     // get chat history with mateid=2
-    console.log('before axios: ', user._id, mateId);
+    console.log('before axios: ', user.userId, mateId);
     axios
-      .get(`http://54.144.2.231:3000/users/${user._id}/messages/${mateId}`)
+      .get(`http://54.144.2.231:3000/users/${user.userId}/messages/${mateId}`)
       .then((data) => {
         console.log('updated chat history: ', data.data);
         setCurrentChat(data.data);
@@ -206,7 +206,7 @@ const ChatPage: React.FC = ({ user }) => {
 
   useEffect(() => {
     axios
-      .get(`http://54.144.2.231:3000/users/${user._id}/messages/${mate._id}`)
+      .get(`http://54.144.2.231:3000/users/${user.userId}/messages/${mate._id}`)
       .then((data) => {
         // console.log('initial chat history: ', data.data);
         setCurrentChat(data.data);
