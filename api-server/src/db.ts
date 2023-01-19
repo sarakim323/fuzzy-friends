@@ -127,6 +127,13 @@ export const db = {
           return profile.save();
         })
         .then(() => {
+          return Profile.findOne({ senderId });
+        })
+        .then((profile) => {
+          profile.friends.push(userId);
+          return profile.save();
+        })
+        .then(() => {
           resolve('Success');
         })
         .catch((err) => {
