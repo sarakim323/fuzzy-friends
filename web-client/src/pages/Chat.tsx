@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 // import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
-// import { io } from 'socket.io-client';
 // import { allUsersRoute, host } from '../utils/APIRoutes';
 
 import MatchList from '../components/chat/MatchList';

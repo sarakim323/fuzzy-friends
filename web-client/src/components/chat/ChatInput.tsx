@@ -11,7 +11,6 @@ interface ChatInputProps {
 }
 
 const ChatInput: React.FC<ChatInputProps> = ({ message, mate, user }) => {
-  // const [msg, setMsg] = useState('');
   // const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   // const handleEmojiPickerhideShow = () => {
@@ -25,13 +24,6 @@ const ChatInput: React.FC<ChatInputProps> = ({ message, mate, user }) => {
   //   setMsg(message);
   // };
 
-  // const sendChat = (event: FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   if (msg.length > 0) {
-  //     handleSendMsg(msg);
-  //     setMsg('');
-  //   }
-  // };
   if (user._id === message.userId) {
     return (
       <div className="flex items-center flex-row-reverse mb-4 p-5">
