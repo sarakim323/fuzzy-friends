@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface MatchListProps {
   matches: Match[];
+  tempMatches: TempMatch[];
   changeMate: (chat: string) => void;
 }
 
-const MatchList: React.FC<MatchListProps> = ({ matches, changeMate }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+const MatchList: React.FC<MatchListProps> = ({
+  matches,
+  tempMatches,
+  changeMate,
+}) => {
+  const [currentUserSelected, setCurrentUserSelected] = useState(undefined);
 
+  const [searchQuery, setSearchQuery] = useState('');
+  const [tempData, setTempData] = useState(matches);
+  const [currentData, setCurrentData] = useState(matches);
   const data = [
     {
       2: [
@@ -37,20 +45,27 @@ const MatchList: React.FC<MatchListProps> = ({ matches, changeMate }) => {
 
   const doSearch = (event: React.FormEvent) => {
     event.preventDefault();
-    if (searchQuery === '') {
-      setCurrentData(tempData);
-    }
-    const searchArr = [];
-    for (let i = 0; i < tempMatches.length; i++) {
-      if (tempMatches[i].name.toLowerCase() === searchQuery.toLowerCase()) {
-        searchArr.push(tempMatches[i]);
-      }
-    }
-    setCurrentData(searchArr);
+    handleSearch(searchQuery);
     setSearchQuery('');
   };
 
+  const handleSearch = (query: string) => {
+    const currentMatches = tempMatches.slice();
+    const resultArr = [];
+    if (searchQuery === '') {
+      setCurrentData(tempData);
+    }
+    for (let i = 0; i < currentMatches.length; i++) {
+      if (tempMatches[i].name.toLowerCase().includes(query.toLowerCase())) {
+        resultArr.push(tempMatches[i]);
+      }
+    }
+    setCurrentData(resultArr);
+  };
+
   const whileSearching = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    handleSearch(event.target.value);
     setSearchQuery(event.target.value);
   };
 
@@ -78,7 +93,13 @@ const MatchList: React.FC<MatchListProps> = ({ matches, changeMate }) => {
           {/* matches instead of data? */}
           {currentData.map((match, index) => {
             return (
-              <div key={match._id} onClick={() => changeMate(match)}>
+              <div
+                key={match._id}
+                // className={`match ${
+                //   index === currentUserSelected ? 'selected' : ''
+                // }`}
+                onClick={() => changeMate(match)}
+              >
                 <a className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
                   <img
                     className="object-cover w-10 h-10 rounded-full"
@@ -92,7 +113,7 @@ const MatchList: React.FC<MatchListProps> = ({ matches, changeMate }) => {
                       </span>
                       <span className="block ml-2 text-sm text-gray-600">
                         {/* <MatchListItem recentTime={data[match.id][1]} /> */}
-                        {console.log(data[match.id], '123')}
+                        {/* {console.log(data[match.id], '123')} */}
                       </span>
                     </div>
                     <span className="block ml-2 text-sm text-gray-600">
