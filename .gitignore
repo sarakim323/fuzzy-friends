@@ -3,3 +3,5 @@ pnpm-lock.yaml
 web-client/pnpm-lock.yaml
 web-client/package-lock.json
 api-server/pnpm-lock.yaml
+api-server/package-lock.json
+package-lock.json
