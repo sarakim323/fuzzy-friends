@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 import Description from '../components/profile/Description';
 import EditForm from '../components/profile/EditForm';
 import CarouselCard from '../components/profile/Carousel';
 
-const Profile = () => {
-  // const { user } = useAuth0();
+const Profile = ( { setUser } ) => {
+
+  const { user } = useAuth0();
+
+  console.log('my user object: ', user);
 
   // if (!user) {
   //   return 'Not a VALID user!';
@@ -21,6 +26,21 @@ const Profile = () => {
   //     </div>
   //   </div>
   // );
+
+  useEffect(() => {
+    axios
+      .get('http://127.0.0.1:3000/users/:id/profile')
+      .then((res) => {
+        console.log('what is the response:', res);
+      })
+      .catch((err) => {
+        console.log('error with axios call', err);
+      });
+  }, []);
+
+  useEffect(() => {
+    setUser(user);
+  }, [user]);
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
