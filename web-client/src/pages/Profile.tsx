@@ -8,30 +8,15 @@ import CarouselCard from '../components/profile/Carousel';
 const Profile = ({ setUser, user }) => {
   const Auth0User = useAuth0().user;
 
-  // if (!user) {
-  //   return 'Not a VALID user!';
-  // }
-
-  // return (
-  //   <div>
-  //     <h1>My Profile</h1>
-  //     <div>
-  //       <img src={user.picture} alt="profile" />
-  //       <div>
-  //         <h2>{user.name}</h2>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
   useEffect(() => {
     // setUser(user);
     if (user._id === undefined && Auth0User && Auth0User.sub) {
       axios
-        .get(`http://54.144.2.231:3000/users/${Auth0User.sub}`)
+        .get(`http://34.238.117.39:3000/users/${Auth0User.sub}`)
         .then((data) => {
           if (data.data._id === undefined) {
             return axios.post(
-              `http://54.144.2.231:3000/users/${Auth0User.sub}`
+              `http:/34.238.117.39:3000/users/${Auth0User.sub}`
             );
           } else {
             setUser(data.data);
@@ -144,13 +129,13 @@ const Profile = ({ setUser, user }) => {
         {/* Profile Name */}
         <div className="p-5">
           <h5 className="ml-28 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {user ? `${user.name}` : null}
+            {user ? `${user.name}, ${user.age}` : null}
           </h5>
         </div>
         {/* Profile Breed */}
         <div className="p-5">
           <h5 className="mb-4 pb-5 ml-32 text-m font-bold tracking-tight text-gray-900 dark:text-white">
-            Corgi
+            {user ? `${user.breed}` : null}
           </h5>
         </div>
         {/* Description */}
@@ -172,7 +157,7 @@ const Profile = ({ setUser, user }) => {
         </div>
       </div>
       <div>
-        <CarouselCard />
+        <CarouselCard user={user} />
       </div>
     </div>
   );
