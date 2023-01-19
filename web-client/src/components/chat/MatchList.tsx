@@ -45,20 +45,27 @@ const MatchList: React.FC<MatchListProps> = ({
 
   const doSearch = (event: React.FormEvent) => {
     event.preventDefault();
-    if (searchQuery === '') {
-      setCurrentData(tempData);
-    }
-    const searchArr = [];
-    for (let i = 0; i < tempMatches.length; i++) {
-      if (tempMatches[i].name.toLowerCase() === searchQuery.toLowerCase()) {
-        searchArr.push(tempMatches[i]);
-      }
-    }
-    setCurrentData(searchArr);
+    handleSearch(searchQuery);
     setSearchQuery('');
   };
 
+  const handleSearch = (query: string) => {
+    const currentMatches = tempMatches.slice();
+    const resultArr = [];
+    if (searchQuery === '') {
+      setCurrentData(tempData);
+    }
+    for (let i = 0; i < currentMatches.length; i++) {
+      if (tempMatches[i].name.toLowerCase().includes(query.toLowerCase())) {
+        resultArr.push(tempMatches[i]);
+      }
+    }
+    setCurrentData(resultArr);
+  };
+
   const whileSearching = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    handleSearch(event.target.value);
     setSearchQuery(event.target.value);
   };
 
@@ -106,7 +113,7 @@ const MatchList: React.FC<MatchListProps> = ({
                       </span>
                       <span className="block ml-2 text-sm text-gray-600">
                         {/* <MatchListItem recentTime={data[match.id][1]} /> */}
-                        {console.log(data[match.id], '123')}
+                        {/* {console.log(data[match.id], '123')} */}
                       </span>
                     </div>
                     <span className="block ml-2 text-sm text-gray-600">
