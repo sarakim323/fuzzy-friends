@@ -22,16 +22,14 @@ const style = {
   p: 2,
 };
 
-const ScheduleDateModal: React.FC = () => {
-  const [open, setOpen] = useState(false);
-  const [playEvent, setPlayEvent] = useState<object>({
-    title: 'Playdate',
-    friend: '',
-    description: '',
-    location: '',
-    start: '',
-    end: '',
-  });
+const ScheduleDateModal: React.FC = ({
+  setModalIsOpen,
+  modalIsOpen,
+  handleDayClick,
+  playEvent,
+  setPlayEvent,
+}) => {
+  console.log(modalIsOpen, 'modal is open status');
 
   const handleTime = (start: Dayjs | null, end: Dayjs | null) => {
     if (start !== null && end !== null) {
@@ -75,14 +73,6 @@ const ScheduleDateModal: React.FC = () => {
     setPlayEvent({ ...playEvent, [name]: value });
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleSubmit = () => {
     const data = {
       title: 'Play date with Biggie',
@@ -112,10 +102,9 @@ const ScheduleDateModal: React.FC = () => {
   };
   return (
     <div>
-      <Button onClick={handleOpen}>Schedule Event</Button>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={modalIsOpen}
+        onClose={handleDayClick}
         keepMounted
         aria-labelledby="keep-mounted-modal"
         aria-describedby="keep-mounted-modal-description"
@@ -147,7 +136,7 @@ const ScheduleDateModal: React.FC = () => {
               <Button sx={ModalStyles}>
                 <DeleteForeverIcon />
               </Button>
-              <Button onClick={handleClose} sx={ModalStyles}>
+              <Button onClick={handleDayClick} sx={ModalStyles}>
                 <CloseIcon />
               </Button>
             </Box>

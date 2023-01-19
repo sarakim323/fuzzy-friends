@@ -6,7 +6,6 @@ interface NavbarProps {
   setMenuOpen: (newValue: boolean) => void;
 }
 const Navbar: React.FC<NavbarProps> = ({ menuOpen, setMenuOpen }) => {
-  console.log(menuOpen);
   return (
     <nav className="fixed top-0 z-10 bg-nav-bar p-4 mt-0 w-full">
       <div className="container mx-auto flex flex-wrap items-center">
