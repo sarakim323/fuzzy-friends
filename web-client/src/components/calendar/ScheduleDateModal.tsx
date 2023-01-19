@@ -26,17 +26,10 @@ const ScheduleDateModal: React.FC = ({
   setModalIsOpen,
   modalIsOpen,
   handleDayClick,
+  playEvent,
+  setPlayEvent,
 }) => {
   console.log(modalIsOpen, 'modal is open status');
-  const [playEvent, setPlayEvent] = useState<object>({
-    title: 'Playdate',
-    friend: '',
-    description: '',
-    location: '',
-    start: '',
-    end: '',
-  });
-  console.log(playEvent);
 
   const handleTime = (start: Dayjs | null, end: Dayjs | null) => {
     if (start !== null && end !== null) {
