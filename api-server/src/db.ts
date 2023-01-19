@@ -134,7 +134,7 @@ export const db = {
     });
   },
   getUser: ( userId: string ) => {
-    return Profile.find({ userId})
+    return Profile.findOne({ userId })
   },
   addUser: ( userId: string ) => {
     // userId: String,
