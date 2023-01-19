@@ -41,9 +41,9 @@ const ChatInput: React.FC<ChatInputProps> = ({ message, mate, user }) => {
             {user.name}
           </a>
         </div>
-        <div className="flex-1 bg-indigo-400 text-white p-2 rounded-lg mb-2 relative">
+        <div className="flex-1 bg-[#714E2F] text-white p-2 rounded-lg mb-2 relative">
           <div>{message.message}</div>
-          <div className="absolute right-0 top-1/2 transform translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-400"></div>
+          <div className="absolute right-0 top-1/2 transform translate-x-1/2 rotate-45 w-2 h-2 bg-[#714E2F]"></div>
         </div>
       </div>
     );
@@ -56,9 +56,9 @@ const ChatInput: React.FC<ChatInputProps> = ({ message, mate, user }) => {
             {mate.name}
           </a>
         </div>
-        <div className="flex-1 bg-indigo-100 text-gray-800 p-2 rounded-lg mb-2 relative">
+        <div className="flex-1 bg-[#f3ece9] text-gray-800 p-2 rounded-lg mb-2 relative">
           <div>{message.message}</div>
-          <div className="absolute left-0 top-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-100"></div>
+          <div className="absolute left-0 top-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-[#f3ece9]"></div>
         </div>
       </div>
     );
