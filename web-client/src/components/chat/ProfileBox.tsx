@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ProfileBoxProps {
-  mate: Mate[];
+  mate: Mate;
 }
 
 const ProfileBox: React.FC<ProfileBoxProps> = ({ mate }) => {

@@ -161,7 +161,12 @@ export const Calendar: React.FC = () => {
               </th>
             </tr>
           </thead>
-          <CalendarView startDay={startDay} numOfDays={numOfDays} />
+          <CalendarView
+            month={date.getMonth()}
+            year={date.getFullYear()}
+            startDay={startDay}
+            numOfDays={numOfDays}
+          />
         </table>
       </div>
     </div>

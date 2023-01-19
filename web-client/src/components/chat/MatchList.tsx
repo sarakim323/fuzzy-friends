@@ -37,7 +37,16 @@ const MatchList: React.FC<MatchListProps> = ({ matches, changeMate }) => {
 
   const doSearch = (event: React.FormEvent) => {
     event.preventDefault();
-    // handleSubmit(searchQuery);
+    if (searchQuery === '') {
+      setCurrentData(tempData);
+    }
+    const searchArr = [];
+    for (let i = 0; i < tempMatches.length; i++) {
+      if (tempMatches[i].name.toLowerCase() === searchQuery.toLowerCase()) {
+        searchArr.push(tempMatches[i]);
+      }
+    }
+    setCurrentData(searchArr);
     setSearchQuery('');
   };
 
@@ -67,7 +76,7 @@ const MatchList: React.FC<MatchListProps> = ({ matches, changeMate }) => {
         <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
         <div className="matchList">
           {/* matches instead of data? */}
-          {matches.map((match, index) => {
+          {currentData.map((match, index) => {
             return (
               <div key={match._id} onClick={() => changeMate(match)}>
                 <a className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
@@ -87,7 +96,7 @@ const MatchList: React.FC<MatchListProps> = ({ matches, changeMate }) => {
                       </span>
                     </div>
                     <span className="block ml-2 text-sm text-gray-600">
-                      <h3>{'Nm - wbu?'}</h3>
+                      {/* <h3>{'Nm - wbu?'}</h3> */}
                     </span>
                   </div>
                 </a>
