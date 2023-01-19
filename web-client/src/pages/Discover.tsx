@@ -23,13 +23,9 @@ const Discovery = () => {
     'fa-solid rounded-full p-3 text-md hover:cursor-pointer bg-[#E3DCD9]';
   const barkSniffClasses =
     'rounded-2xl text-md hover:cursor-pointer text-center bg-[#E3DCD9] px-5 py-2 text-lg';
-  // const imageArray: string[] = [
-  //   'https://images.unsplash.com/photo-1587402092301-725e37c70fd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHVwcHklMjBkb2d8ZW58MHx8MHx8&w=1000&q=80',
-  //   'https://thumbs.dreamstime.com/b/beautiful-happy-reddish-havanese-puppy-dog-sitting-frontal-looking-camera-isolated-white-background-46868560.jpg',
-  //   'https://images.unsplash.com/photo-1587402092301-725e37c70fd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHVwcHklMjBkb2d8ZW58MHx8MHx8&w=1000&q=80',
-  //   'https://thumbs.dreamstime.com/b/beautiful-happy-reddish-havanese-puppy-dog-sitting-frontal-looking-camera-isolated-white-background-46868560.jpg',
-  // ];
+
   const [ranApiCall, setRanApiCall] = useState<boolean>(false);
+  const [reRender, setReRender] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<CurrentUser>({
     user: { id: 0, UserId: 0, photos: [], name: '', city: '' },
     index: 0,
@@ -44,6 +40,7 @@ const Discovery = () => {
       user: profileArray[currentUser.index + 1],
       index: (currentUser.index += 1),
     });
+    setReRender(true);
   };
 
   const handleSniff = () => {
@@ -52,10 +49,13 @@ const Discovery = () => {
         `http://54.144.2.231:3000/users/${user.id}/friends/${currentUser.user.id}`
       )
       .then(() => {
-        setCurrentUser({
+        const newUser = {
           user: profileArray[currentUser.index + 1],
           index: (currentUser.index += 1),
-        });
+        };
+        setCurrentUser(newUser);
+        setReRender(true);
+        console.log('NEW PHOTOS', currentUser.user.photos);
       });
   };
 
@@ -73,6 +73,11 @@ const Discovery = () => {
         setRanApiCall(true);
       });
   }, []);
+  useEffect(() => {
+    if (reRender) {
+      setReRender(false);
+    }
+  }, [reRender]);
 
   return (
     <div className="">
@@ -89,34 +94,37 @@ const Discovery = () => {
 
           {/* Carousel */}
           <div className="flex flex-col h-[90vh] justify-center items-center m-auto w-[100%]">
-            <Carousel
-              leftArrow={
-                <i className={buttonClassNames + ' fa-arrow-left'}></i>
-              }
-              rightArrow={
-                <i className={buttonClassNames + ' fa-arrow-right'}></i>
-              }
-              show={3}
-              slide={1}
-              swiping={true}
-              className="flex flex-row justify-evenly items-center max-w-[1000px] max-h-[80vh]"
-              transition={0.5}
-            >
-              {/* Images */}
-              {currentUser.user.photos.map((image, index) => (
-                <div
-                  className="flex-col justify-center items-center"
-                  key={index}
-                >
-                  {/* Main Image */}
-                  <img
-                    src={image}
-                    className={`h-[60vh] max-w-[333.33px] object-cover object-center rounded-lg`}
-                    alt=""
-                  />
-                </div>
-              ))}
-            </Carousel>
+            {!reRender && (
+              <Carousel
+                leftArrow={
+                  <i className={buttonClassNames + ' fa-arrow-left'}></i>
+                }
+                rightArrow={
+                  <i className={buttonClassNames + ' fa-arrow-right'}></i>
+                }
+                show={3}
+                slide={1}
+                swiping={true}
+                className="flex flex-row justify-evenly items-center max-w-[1000px] max-h-[80vh]"
+                transition={0.5}
+              >
+                {/* Images */}
+                {currentUser.user.photos &&
+                  currentUser.user.photos.map((image, index) => (
+                    <div
+                      className="flex-col justify-center items-center"
+                      key={index}
+                    >
+                      {/* Main Image */}
+                      <img
+                        src={image}
+                        className={`h-[60vh] max-w-[333.33px] object-cover object-center rounded-lg`}
+                        alt=""
+                      />
+                    </div>
+                  ))}
+              </Carousel>
+            )}
 
             {/* Yes/No buttons */}
             <div className="flex flex-row justify-between w-[50%] mt-[-5vh] mb-[8vh] z-[10]">
