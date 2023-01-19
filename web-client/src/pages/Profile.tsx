@@ -145,7 +145,7 @@ const Profile = ( { setUser, user } ) => {
         {/* Profile Name */}
         <div className="p-5">
           <h5 className="ml-28 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Lani, 5
+            {user ? `${user.name}` : null}
           </h5>
         </div>
         {/* Profile Breed */}
