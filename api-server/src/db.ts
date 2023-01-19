@@ -18,6 +18,7 @@ const ProfileSchema = new mongoose.Schema({
   breed: String,
   gender: String,
   city: String,
+  description: String,
   pictures: [String],
   friends: [String],
 });

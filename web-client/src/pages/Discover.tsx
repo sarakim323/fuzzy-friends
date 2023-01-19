@@ -10,7 +10,7 @@ import ProfileInfo from '../components/discover/ProfileInfo';
 export interface Profile {
   id: number;
   userId: number;
-  photos: string[];
+  pictures: string[];
   name: string;
   city: string;
 }
@@ -45,7 +45,7 @@ const Discovery = ({ user }) => {
   const handleSniff = () => {
     axios
       .post(
-        `http://54.144.2.231:3000/users/${user.userId}/friends/${currentUser.user.userId}`
+        `http://34.238.117.39:3000/users/${user.userId}/friends/${currentUser.user.userId}`
       )
       .then(() => {
         const newUser = {
@@ -61,11 +61,11 @@ const Discovery = ({ user }) => {
   useEffect(() => {
     setRanApiCall(false);
     axios
-      .get(`http://54.144.2.231:3000/users/${user.userId}/discover`)
+      .get(`http://34.238.117.39:3000/users/${user.userId}/discover`)
       .then((data) => {
         setRanApiCall(true);
         setCurrentUser({ user: data.data[0], index: 0 });
-        console.log('GET DISCOVER', data.data)
+        console.log('GET DISCOVER', data.data);
         setProfileArray(data.data);
       })
       .catch((err) => {
@@ -110,8 +110,8 @@ const Discovery = ({ user }) => {
                 transition={0.5}
               >
                 {/* Images */}
-                {Array.isArray(currentUser.user.photos) &&
-                  currentUser.user.photos.map((image, index) => (
+                {Array.isArray(currentUser.user.pictures) &&
+                  currentUser.user.pictures.map((image, index) => (
                     <div
                       className="flex-col justify-center items-center"
                       key={index}
