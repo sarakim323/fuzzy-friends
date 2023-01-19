@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 lockfileVersion: 5.4
 
 specifiers:
@@ -2030,3 +2031,5 @@ packages:
   /yaml/1.10.2:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
     engines: {node: '>= 6'}
+=======
+>>>>>>> 48251bbf2345801c7034e6a6e24da6ae450b8f8e
