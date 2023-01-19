@@ -10,7 +10,7 @@ import ProfileBox from '../components/chat/ProfileBox';
 
 const ChatPage: React.FC = ({ user }) => {
   useEffect(() => {
-    console.log(user, 'in chat');
+    console.log(user.userId, 'in chat');
   }, [user]);
 
   // const [user, setUser] = useState<User>({
