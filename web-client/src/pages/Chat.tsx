@@ -7,22 +7,26 @@ import MatchList from '../components/chat/MatchList';
 import ChatBox from '../components/chat/ChatBox';
 import ProfileBox from '../components/chat/ProfileBox';
 
-const ChatPage: React.FC = () => {
-  const [user, setUser] = useState<User>({
-    _id: '9',
-    name: 'Henry',
-    age: 7,
-    breed: 'Golden Retriever',
-    gender: 'male',
-    profilePic:
-      'https://images.unsplash.com/photo-1615233500064-caa995e2f9dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-    pictures: [
-      'https://images.unsplash.com/photo-1611003229186-80e40cd54966?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
-      'https://images.unsplash.com/photo-1591160690567-a6b0215b67ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1026&q=80',
-    ],
-    calendarInvite: [],
-    description: 'Hello my name is Henry, and I would love to chat with you!',
-  });
+const ChatPage: React.FC = ({ user }) => {
+  useEffect(() => {
+    console.log(user.userId, 'in chat');
+  }, [user]);
+
+  // const [user, setUser] = useState<User>({
+  //   _id: '9',
+  //   name: 'Henry',
+  //   age: 7,
+  //   breed: 'Golden Retriever',
+  //   gender: 'male',
+  //   profilePic:
+  //     'https://images.unsplash.com/photo-1615233500064-caa995e2f9dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+  //   pictures: [
+  //     'https://images.unsplash.com/photo-1611003229186-80e40cd54966?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
+  //     'https://images.unsplash.com/photo-1591160690567-a6b0215b67ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1026&q=80',
+  //   ],
+  //   calendarInvite: [],
+  //   description: 'Hello my name is Henry, and I would love to chat with you!',
+  // });
 
   const [mate, setMate] = useState<Mate>({
     _id: '1',
