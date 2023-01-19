@@ -7,6 +7,7 @@ import { default as FriendSelector } from './FriendSelector';
 import { default as Location } from './Location';
 import { default as Description } from './Description';
 import { Dayjs } from 'dayjs';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const style = {
   position: 'absolute',
@@ -78,6 +79,17 @@ const ScheduleDateModal = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const ModalStyles = {
+    minWidth: '30px',
+    color: 'white',
+    bgcolor: '#494036',
+    transition: 'transform 0.1s ease-in-out',
+    ':hover': {
+      transform: 'scale(1.1)',
+      bgcolor: '#494036',
+    },
+  };
   return (
     <div>
       <Button onClick={handleOpen}>Open Modal</Button>
@@ -94,7 +106,7 @@ const ScheduleDateModal = () => {
               display: 'flex',
               direction: 'row',
               alignItems: 'center',
-              justifyContent: 'center',
+              justifyContent: 'flex-end',
             }}
           >
             <Typography
@@ -105,26 +117,20 @@ const ScheduleDateModal = () => {
                 color: '#494036',
                 bgcolor: '#E3DCD9',
                 margin: '0 auto',
+                position: 'absolute',
+                left: 135,
               }}
             >
               Schedule a Playdate
             </Typography>
-            <Button
-              onClick={handleClose}
-              sx={{
-                width: '0px',
-                '& > :not(style)': { width: '1.2rem' },
-                color: 'white',
-                bgcolor: '#494036',
-                transition: 'transform 0.1s ease-in-out',
-                ':hover': {
-                  transform: 'scale(1.1)',
-                  bgcolor: '#494036',
-                },
-              }}
-            >
-              <CloseIcon />
-            </Button>
+            <Box sx={{ display: 'flex', direction: 'row', gap: 2 }}>
+              <Button sx={ModalStyles}>
+                <DeleteForeverIcon />
+              </Button>
+              <Button onClick={handleClose} sx={ModalStyles}>
+                <CloseIcon />
+              </Button>
+            </Box>
           </Box>
           <Box
             sx={{
