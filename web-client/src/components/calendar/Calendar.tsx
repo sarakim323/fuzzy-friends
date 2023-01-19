@@ -20,6 +20,15 @@ const monthsIdx = [
 export const Calendar: React.FC = () => {
   const [date, setDate] = useState(new Date());
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [playEvent, setPlayEvent] = useState<object>({
+    title: 'Playdate',
+    friend: '',
+    description: '',
+    location: '',
+    start: '',
+    end: '',
+  });
+  console.log(playEvent);
 
   let numOfDays = new Date(
     date.getFullYear(),
@@ -60,7 +69,13 @@ export const Calendar: React.FC = () => {
             {date.getFullYear()} {monthsIdx[date.getMonth()]}
           </span>
           <div className="flex">
-            <ScheduleDateModal />
+            <ScheduleDateModal
+              modalIsOpen={modalIsOpen}
+              setModalIsOpen={setModalIsOpen}
+              handleDayClick={handleDayClick}
+              playEvent={playEvent}
+              setPlayEvent={setPlayEvent}
+            />
             <div className="buttons ml-8">
               <button id="previousMonth" className="p-1" onClick={handleClick}>
                 <svg
