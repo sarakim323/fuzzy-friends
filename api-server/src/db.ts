@@ -143,7 +143,13 @@ export const db = {
     const newUser = new Profile({ userId });
     return newUser.save();
   },
+  updateProfile: (userId : string, profile : object) => {
+    return Profile.findOneAndUpdate({ userId }, profile );
+  },
   removeRequest: ( userId: string, senderId: string) => {
     return Request.findOneAndRemove({ userId, senderId});
   },
+  getProfiles: (userId: string) => {
+    return Profile.find()
+  }
 };
