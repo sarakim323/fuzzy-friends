@@ -2,13 +2,23 @@ import { Dayjs } from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
+import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-const TimeSelectors = () => {
+interface HandleTime {
+  (start: Dayjs | null, end: Dayjs | null): void;
+}
+const TimeSelectors: React.FC<{ handleTime: HandleTime }> = ({
+  handleTime,
+}) => {
   const [startTime, setStartTime] = useState<Dayjs | null>(null);
   const [endTime, setEndTime] = useState<Dayjs | null>(null);
+  useEffect(() => {
+    handleTime(startTime, endTime);
+  }, [startTime, endTime]);
   return (
     <Box sx={{ display: 'flex', direction: 'row' }}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -35,6 +45,10 @@ const TimeSelectors = () => {
       </LocalizationProvider>
     </Box>
   );
+};
+
+TimeSelectors.propTypes = {
+  handleTime: PropTypes.func.isRequired,
 };
 
 export default TimeSelectors;
