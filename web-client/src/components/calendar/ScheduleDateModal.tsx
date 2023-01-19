@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Modal, Button, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
@@ -8,6 +8,7 @@ import { default as Location } from './Location';
 import { default as Description } from './Description';
 import { Dayjs } from 'dayjs';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import axios from 'axios';
 
 const style = {
   position: 'absolute',
@@ -20,8 +21,9 @@ const style = {
   boxShadow: 24,
   p: 2,
 };
-const ScheduleDateModal = () => {
-  const [open, setOpen] = useState<boolean>(false);
+
+const ScheduleDateModal: React.FC = () => {
+  const [open, setOpen] = useState(false);
   const [playEvent, setPlayEvent] = useState<object>({
     title: 'Playdate',
     friend: '',
@@ -30,7 +32,6 @@ const ScheduleDateModal = () => {
     start: '',
     end: '',
   });
-  console.log(playEvent);
 
   const handleTime = (start: Dayjs | null, end: Dayjs | null) => {
     if (start !== null && end !== null) {
@@ -53,12 +54,14 @@ const ScheduleDateModal = () => {
       });
     }
   };
+
   const handleLocation = (str: string) => {
     const name = 'location';
     const value = str;
 
     setPlayEvent({ ...playEvent, [name]: value });
   };
+
   const handleFriend = (str: string) => {
     const name = 'friend';
     const value = str;
@@ -80,6 +83,23 @@ const ScheduleDateModal = () => {
     setOpen(false);
   };
 
+  const handleSubmit = () => {
+    const data = {
+      title: 'Play date with Biggie',
+      description: 'Evening playdate',
+      friend: 'biggie',
+      location: 'New York, NYC',
+      start: '16:00',
+      end: '16:30',
+    };
+
+    axios
+      .post('http://localhost:3000/users/test/events', data)
+      .then((resp) => console.log(resp))
+      .catch((err) => console.log('posting error:', err))
+      .finally(() => setOpen(false));
+  };
+
   const ModalStyles = {
     minWidth: '30px',
     color: 'white',
@@ -92,7 +112,7 @@ const ScheduleDateModal = () => {
   };
   return (
     <div>
-      <Button onClick={handleOpen}>Open Modal</Button>
+      <Button onClick={handleOpen}>Schedule Event</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -174,7 +194,7 @@ const ScheduleDateModal = () => {
                 }}
               >
                 <Button
-                  onClick={handleClose}
+                  onClick={handleSubmit}
                   sx={{
                     height: '35px',
                     width: '35px',
