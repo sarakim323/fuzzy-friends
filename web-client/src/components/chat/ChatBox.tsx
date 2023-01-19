@@ -49,18 +49,20 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
           </div>
         </div>
       </div>
-      <ScrollToBottom>
-        {currentChat.map((message) => {
-          return (
-            <ChatInput
-              key={message.userId}
-              message={message}
-              mate={mate}
-              user={user}
-            />
-          );
-        })}
-      </ScrollToBottom>
+      {currentChat.length !== 0 ? (
+        <ScrollToBottom>
+          {currentChat.map((message) => {
+            return (
+              <ChatInput
+                key={message._id}
+                message={message}
+                mate={mate}
+                user={user}
+              />
+            );
+          })}
+        </ScrollToBottom>
+      ) : null}
       <div className="flex items-center mb-4 p-4 w-full">
         <form
           className="w-full rounded-full border border-gray-200 px-4"
