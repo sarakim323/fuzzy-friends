@@ -16,32 +16,6 @@ const MatchList: React.FC<MatchListProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [tempData, setTempData] = useState(matches);
   const [currentData, setCurrentData] = useState(matches);
-  const data = [
-    {
-      2: [
-        { 2: ['User would like to match with you', '1 Day Ago'] },
-        { 1: ['Hey! Wassup?', '1hr'] },
-        { 2: ['Nm - wbu?', '49min'] },
-      ],
-    },
-    {
-      3: [
-        { 3: ['User would like to match with you', '1 Day Ago'] },
-        { 1: ['How do you do?', '4hr'] },
-        { 3: ['Hiii', '25min'] },
-      ],
-    },
-    {
-      4: [
-        { 1: ['You sent a match request to User', '10hrs'] },
-        { 4: ['What do you like to do', '2hr'] },
-        { 2: ['Dont talk to me', '12min'] },
-      ],
-    },
-    {
-      5: [{ 5: ['User would like to match with you', '30min'] }],
-    },
-  ];
 
   const doSearch = (event: React.FormEvent) => {
     event.preventDefault();

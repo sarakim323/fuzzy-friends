@@ -41,11 +41,7 @@ const ChatPage: React.FC = () => {
     description: 'Hi, my name is Sophie, and I like huskies',
   });
 
-  const [currentChat, setCurrentChat] = useState([
-    { userId: '1', message: 'User would like to match with you' },
-    { userId: '9', message: 'Hey! Wassup?' },
-    { userId: '1', message: 'Nm - wbu?' },
-  ]);
+  const [currentChat, setCurrentChat] = useState([]);
 
   const [matches, setMatches] = useState<Match[]>([
     {
@@ -183,30 +179,45 @@ const ChatPage: React.FC = () => {
   //if not logged in, then direct to log in page?
   //if logged in, setCurrentUser to user with latest message? or we display welcome message and allow user to select chat of his or her choice
 
-  const getChatHistory = (mateID) => {
-    // GET chat req - param (mateID)
-    // .then((res) => {setCurrentChat(res)})
+  const getChatHistory = (mateId: string) => {
+    // get chat history with mateid=2
+    console.log('before axios: ', user._id, mateId);
+    axios
+      .get(`http://54.144.2.231:3000/users/${user._id}/messages/${mateId}`)
+      .then((data) => {
+        console.log('updated chat history: ', data.data);
+        setCurrentChat(data.data);
+      })
+      .catch((err) => {
+        console.log('failed to get updated chat history: ', err);
+      });
   };
 
   const handleMateChange = (mateInfo) => {
-    console.log(mateInfo._id);
-    setMate(mateInfo);
-    // change the chat container
+    //mateInfo = obj w mateid2
+    console.log('changed mate info: ', mateInfo);
+    setMate(mateInfo); // not working
+    console.log('registered mate in chat.tsx: ', mateInfo._id);
     getChatHistory(mateInfo._id);
   };
 
-  //getting chat history of all messages
+  //getting chat history of all messages - user: 9, mate: 1
   useEffect(() => {
-    axios.get(`http://54.144.2.231:3000/users/1/messages/2`).then((data) => {
-      //data.data is the array of messages
-      console.log(data.data[0].messageContent);
-    });
-  });
+    axios
+      .get(`http://54.144.2.231:3000/users/${user._id}/messages/${mate._id}`)
+      .then((data) => {
+        console.log('initial chat history: ', data.data);
+        setCurrentChat(data.data);
+      })
+      .catch((err) => {
+        console.log('failed to get initial chat history: ', err);
+      });
+  }, []);
 
-  //getting someone else's friend request to me
-  useEffect(() => {
-    axios.get(`http://54.144.2.231:3000/`);
-  });
+  // //getting someone else's friend request to me
+  // useEffect(() => {
+  //   axios.get(`http://54.144.2.231:3000/`);
+  // });
 
   return (
     <div>
@@ -231,3 +242,12 @@ const ChatPage: React.FC = () => {
 };
 
 export default ChatPage;
+
+
+// chat initial
+/* [
+  { userId: '1', message: 'User would like to match with you' },
+  { userId: '9', message: 'Hey! Wassup?' },
+  { userId: '1', message: 'Nm - wbu?' },
+]
+*/

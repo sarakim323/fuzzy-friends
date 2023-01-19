@@ -46,6 +46,11 @@ interface User {
 }
 
 interface Chat {
-  userId: string;
-  message: string;
+  createdAt: string;
+  messageContent: string;
+  receiverId: string;
+  senderId: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
 }
