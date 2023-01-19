@@ -1,7 +1,10 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import * as PropTypes from 'prop-types';
 
-const FriendSelector = () => {
+const FriendSelector: React.FC<{
+  handleFriend: (value: string) => void;
+}> = ({ handleFriend }) => {
   return (
     <Autocomplete
       disablePortal
@@ -13,11 +16,17 @@ const FriendSelector = () => {
         overflowY: 'hidden',
         py: '5px',
       }}
+      onChange={(e: React.SyntheticEvent<Element, Event>) =>
+        handleFriend(e.currentTarget.innerHTML)
+      }
       renderInput={(params) => (
         <TextField {...params} label="Select a Playmate" />
       )}
     />
   );
+};
+FriendSelector.propTypes = {
+  handleFriend: PropTypes.func.isRequired,
 };
 
 export default FriendSelector;
