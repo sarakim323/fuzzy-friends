@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { ProtectedRoute } from './components/authentication/ProtectedRoute';
 import PageLoader from './components/authentication/PageLoader';
+import { useState } from 'react';
 
 import { Main } from './templates/Main';
 import {
@@ -16,6 +17,7 @@ import {
 
 export const Router = () => {
   const { isLoading } = useAuth0();
+  const [user, setUser]= useState<object>({});
 
   if (isLoading) {
     return (
@@ -27,11 +29,11 @@ export const Router = () => {
 
   return (
     <Routes>
-      <Route index element={<Main section={<Home />} />} />
-      <Route path="/chat" element={<Main section={<Chat />} />} />
-      <Route path="/discover" element={<Main section={<Discover />} />} />
-      <Route path="/profile" element={<Main section={<Profile />} />} />
-      <Route path="/calendar" element={<Main section={<CalendarPage />} />} />
+      <Route index element={<Main section={<Home user={user} />} />} />
+      <Route path="/chat" element={<Main section={<Chat user={user} />} />} />
+      <Route path="/discover" element={<Main section={<Discover user={user} />} />} />
+      <Route path="/profile" element={<Main section={<Profile user={user} setUser={setUser} />} />} />
+      <Route path="/calendar" element={<Main section={<CalendarPage user={user} />} />} />
 
       {/* Add Protected Route here */}
       {/* <Route path="/chat" element={<ProtectedRoute section={<Chat />} />} />
