@@ -94,7 +94,6 @@ app.get('/users/:id/discover', (req: Request, res: Response) => {
     .catch(err => {
       res.send(err)
     });
-  res.send(discover);
 });
 
 app.get('/users/:id', (req: Request, res: Response) => {
