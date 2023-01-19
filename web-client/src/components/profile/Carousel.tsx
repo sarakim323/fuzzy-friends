@@ -31,19 +31,19 @@ const CarouselCard = () => {
   ];
 
   return (
-    <div className="flex flex-col h-[90vh] justify-center items-center m-auto w-[100%]">
+    <div className="float-right max-w-[750px] p-5 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-110 grid grid-cols-1 gap-2 content-center">
       <Carousel
         show={1}
         slide={1}
         swiping={true}
-        className="flex flex-row justify-evenly items-center max-w-[50%]"
+        className="justify-evenly items-center"
         transition={0.5}
       >
         {images.map((image, index) => (
           <div className="flex-row justify-center items-center" key={index}>
             <img
               src={image.image}
-              className="max-h-[50vh] max-w-[500px] object-center rounded-3xl"
+              className="h-[50vh] max-w-[500px] object-cover object-center"
               alt=""
             />
           </div>

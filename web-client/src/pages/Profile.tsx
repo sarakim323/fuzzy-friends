@@ -5,11 +5,7 @@ import Description from '../components/profile/Description';
 import EditForm from '../components/profile/EditForm';
 import CarouselCard from '../components/profile/Carousel';
 
-const Profile = ( { setUser } ) => {
-
-  const { user } = useAuth0();
-
-  console.log('my user object: ', user);
+const Profile = ( { user, setUser } ) => {
 
   // if (!user) {
   //   return 'Not a VALID user!';
@@ -39,7 +35,8 @@ const Profile = ( { setUser } ) => {
   }, []);
 
   useEffect(() => {
-    setUser(user);
+    axios.get(`http://127.0.0.1:3000/users/${user.sub}`)
+      .then(data => {setUser(data.data);})
   }, [user]);
 
   const [title, setTitle] = useState('');
@@ -115,7 +112,7 @@ const Profile = ( { setUser } ) => {
   }
 
   return (
-    <div className="flow-root">
+    <div className="flex justify-evenly">
       <div className="float-left m-10 p-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-110 grid grid-cols-1 gap-2 content-center">
         {/* Profile Pic */}
         <div className="relative w-48 h-48 ml-16">
