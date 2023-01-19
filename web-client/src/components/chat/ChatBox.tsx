@@ -59,17 +59,11 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
         );
       })}
       <div className="flex items-center mb-4 p-4">
-        <form>
-          <input
-            className="w-full rounded-full border border-gray-200 px-4"
-            type="text"
-            value=""
-            placeholder="Aa"
-            autoFocus
-          />
+        <form className="w-full rounded-full border border-gray-200 px-4">
+          <input type="text" value="" placeholder="Aa" autoFocus />
         </form>
         <button
-          className="inline-flex hover:bg-indigo-50 rounded-full p-2"
+          className="inline-flex hover:bg-indigo-50 rounded-full ml-1 p-2"
           type="button"
         >
           <svg
