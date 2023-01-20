@@ -15,6 +15,7 @@ export const CalendarView: React.FC<CalendarView> = ({
   year,
   startDay,
   numOfDays,
+  userId,
 }) => {
   const [events, setEvents] = useState<Event[] | undefined>(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -86,6 +87,7 @@ export const CalendarView: React.FC<CalendarView> = ({
         handleDayClick={handleDayClick}
         playEvent={playEvent}
         setPlayEvent={setPlayEvent}
+        userId={userId}
       />
       {[0, 1, 2, 3, 4, 5].map((week) => {
         if (date < numOfDays) {

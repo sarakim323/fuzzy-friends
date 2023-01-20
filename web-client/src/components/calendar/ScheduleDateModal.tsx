@@ -34,9 +34,8 @@ const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
   handleDayClick,
   playEvent,
   setPlayEvent,
+  userId,
 }) => {
-  console.log(modalIsOpen, 'modal is open status');
-
   const handleTime = (start: Dayjs | null, end: Dayjs | null) => {
     if (start !== null && end !== null) {
       const startTime = start.toDate();
@@ -169,7 +168,7 @@ const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
               />
               <TimeSelectors handleTime={handleTime} />
               <Location handleLocation={handleLocation} />
-              <FriendSelector handleFriend={handleFriend} />
+              <FriendSelector handleFriend={handleFriend} userId={userId} />
               <Description handleChange={handleChange} />
               <Box
                 sx={{

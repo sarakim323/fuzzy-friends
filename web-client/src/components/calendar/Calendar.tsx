@@ -16,9 +16,9 @@ const monthsIdx = [
   'December',
 ];
 
-export const Calendar: React.FC = () => {
+export const Calendar: React.FC = ({ user }) => {
   const [date, setDate] = useState(new Date());
-
+  const { userId } = user;
   let numOfDays = new Date(
     date.getFullYear(),
     date.getMonth() + 1,
@@ -167,6 +167,7 @@ export const Calendar: React.FC = () => {
             year={date.getFullYear()}
             startDay={startDay}
             numOfDays={numOfDays}
+            userId={userId}
           />
         </table>
       </div>
