@@ -24,7 +24,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ message, mate, user }) => {
   //   setMsg(message);
   // };
 
-  if (message.receiverId === user._id || message.senderId === user._id) {
+  if (message.receiverId === user.userId || message.senderId === user.userId) {
     return (
       <div className="flex items-center flex-row-reverse mb-4 p-5">
         <div className="flex-none flex flex-col items-center space-y-1 ml-4">

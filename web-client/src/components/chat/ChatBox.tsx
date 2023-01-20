@@ -14,14 +14,14 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
 
   const sendMessage = async () => {
     let messageData;
-    const sendId = user._id;
-    const receiveId = mate._id;
+    const sendId = user.userId;
+    const receiveId = mate.userId;
     console.log(newMessage, 'hi');
     if (newMessage !== '') {
       messageData = { content: newMessage };
       await axios
         .post(
-          `http://54.144.2.231:3000/users/${sendId}/messages/${receiveId}`,
+          `http://34.238.117.39:3000/users/${sendId}/messages/${receiveId}`,
           messageData
         )
         .then((data) => {
