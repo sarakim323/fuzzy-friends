@@ -39,6 +39,7 @@ const InvitesSchema = new mongoose.Schema(
 const Invite = mongoose.model('Invite', InvitesSchema);
 
 const EventsSchema = new mongoose.Schema({
+  userId: String,
   title: String,
   description: String,
   friend: String,

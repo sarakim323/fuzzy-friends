@@ -13,6 +13,7 @@ interface CalendarView {
 
 const blankPlayEvent: PlayEvent = {
   _id: '',
+  userId: 'test',
   title: 'Playdate',
   description: '',
   friend: '',
