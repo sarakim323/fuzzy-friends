@@ -12,7 +12,9 @@ interface ChatBoxProps {
 const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
   const [newMessage, setnewMessage] = useState('');
 
-  console.log(user.userId, mate.userId, '1111');
+  const sortedChat = currentChat.sort(
+    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+  );
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -58,7 +60,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
       </div>
       {currentChat.length !== 0 ? (
         <ScrollToBottom>
-          {currentChat.map((message) => {
+          {sortedChat.map((message) => {
             return (
               <ChatInput
                 key={message._id}
