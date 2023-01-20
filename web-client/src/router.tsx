@@ -29,7 +29,8 @@ export const Router = () => {
 
   return (
     <Routes>
-      <Route index element={<Main section={<Home user={user} />} />} />
+      {/* <Route index element={<Main section={<Home user={user} />} />} /> */}
+      <Route index element={<Home user={user} />} />
       <Route path="/chat" element={<Main section={<Chat user={user} />} />} />
       <Route
         path="/discover"
