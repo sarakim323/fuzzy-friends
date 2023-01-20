@@ -216,6 +216,7 @@ const ChatPage: React.FC = ({ user }) => {
   };
 
   useEffect(() => {
+    console.log(user.userId, 'userid', mate.userId, 'mate user id')
     axios
       .get(
         `http://34.238.117.39:3000/users/${user.userId}/messages/${mate.userId}`
