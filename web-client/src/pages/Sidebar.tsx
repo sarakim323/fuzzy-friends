@@ -3,13 +3,40 @@
 import { Stack, Button } from '@mui/material';
 import { categories } from '../assets/icons';
 import { Link, useParams } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Sidebar = () => {
+  const { logout } = useAuth0();
+  const handleLogout = async () => {
+    logout({
+      returnTo: window.location.origin,
+    });
+  };
+
   const CustomButton = ({ children, to, ...rest }) => {
     return (
       <Button
         component={Link}
         to={to}
+        sx={{
+          background: '#494036',
+          color: 'white',
+          borderBottom: '1px solid black',
+          '&:hover': {
+            background: '#6a5339',
+          },
+          py: '13px',
+        }}
+        {...rest}
+      >
+        {children}
+      </Button>
+    );
+  };
+  const LogoutButton = ({ children, ...rest }) => {
+    return (
+      <Button
+        onClick={handleLogout}
         sx={{
           background: '#494036',
           color: 'white',
@@ -40,28 +67,45 @@ const Sidebar = () => {
     >
       {
         // Map over the categories array and return a button element for each item
-        categories.map((category) => (
-          <CustomButton
-            to={`/${
-              category.name === 'Events'
-                ? 'calendar'
-                : category.name === 'Message'
-                ? 'chat'
-                : category.name
-            }`}
-            key={category.name}
-          >
-            <span
-              style={{
-                color: '#be7b31',
-                marginRight: '15px',
-              }}
+        categories.map((category) => {
+          if (category.name === 'Logout') {
+            return (
+              <LogoutButton key={category.name}>
+                <span
+                  style={{
+                    color: '#be7b31',
+                    marginRight: '15px',
+                  }}
+                >
+                  {category.icon}
+                </span>
+                <span>{category.name}</span>
+              </LogoutButton>
+            );
+          }
+          return (
+            <CustomButton
+              to={`/${
+                category.name === 'Events'
+                  ? 'calendar'
+                  : category.name === 'Message'
+                  ? 'chat'
+                  : category.name
+              }`}
+              key={category.name}
             >
-              {category.icon}
-            </span>
-            <span>{category.name}</span>
-          </CustomButton>
-        ))
+              <span
+                style={{
+                  color: '#be7b31',
+                  marginRight: '15px',
+                }}
+              >
+                {category.icon}
+              </span>
+              <span>{category.name}</span>
+            </CustomButton>
+          );
+        })
       }
     </Stack>
   );
