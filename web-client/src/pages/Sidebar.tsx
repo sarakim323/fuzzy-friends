@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Stack, Button } from '@mui/material';
 import { categories } from '../assets/icons';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const Sidebar = () => {
   const CustomButton = ({ children, to, ...rest }) => {

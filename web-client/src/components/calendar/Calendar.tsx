@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { CalendarView } from './CalendarView';
-import ScheduleDateModal from './ScheduleDateModal';
 
 const monthsIdx = [
   'January',
@@ -19,7 +18,6 @@ const monthsIdx = [
 
 export const Calendar: React.FC = () => {
   const [date, setDate] = useState(new Date());
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   let numOfDays = new Date(
     date.getFullYear(),
@@ -47,11 +45,6 @@ export const Calendar: React.FC = () => {
     setDate(newDate);
   };
 
-  const handleDayClick = () => {
-    console.log('opening the modal now');
-    setModalIsOpen(!modalIsOpen);
-  };
-
   return (
     <div className="container mx-auto mt-10">
       <div className="wrapper bg-white rounded shadow w-full ">
@@ -59,56 +52,53 @@ export const Calendar: React.FC = () => {
           <span className="text-lg font-bold">
             {date.getFullYear()} {monthsIdx[date.getMonth()]}
           </span>
-          <div className="flex">
-            <ScheduleDateModal />
-            <div className="buttons ml-8">
-              <button id="previousMonth" className="p-1" onClick={handleClick}>
-                <svg
-                  width="1em"
-                  fill="gray"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  className="bi bi-arrow-left-circle"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M8.354 11.354a.5.5 0 0 0 0-.708L5.707 8l2.647-2.646a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708 0z"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M11.5 8a.5.5 0 0 0-.5-.5H6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5z"
-                  />
-                </svg>
-              </button>
-              <button id="nextMonth" className="p-1" onClick={handleClick}>
-                <svg
-                  width="1em"
-                  fill="gray"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  className="bi bi-arrow-right-circle"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M7.646 11.354a.5.5 0 0 1 0-.708L10.293 8 7.646 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M4.5 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"
-                  />
-                </svg>
-              </button>
-            </div>
+          <div className="buttons ml-8">
+            <button id="previousMonth" className="p-1" onClick={handleClick}>
+              <svg
+                width="1em"
+                fill="gray"
+                height="1em"
+                viewBox="0 0 16 16"
+                className="bi bi-arrow-left-circle"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                />
+                <path
+                  fillRule="evenodd"
+                  d="M8.354 11.354a.5.5 0 0 0 0-.708L5.707 8l2.647-2.646a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708 0z"
+                />
+                <path
+                  fillRule="evenodd"
+                  d="M11.5 8a.5.5 0 0 0-.5-.5H6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5z"
+                />
+              </svg>
+            </button>
+            <button id="nextMonth" className="p-1" onClick={handleClick}>
+              <svg
+                width="1em"
+                fill="gray"
+                height="1em"
+                viewBox="0 0 16 16"
+                className="bi bi-arrow-right-circle"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                />
+                <path
+                  fillRule="evenodd"
+                  d="M7.646 11.354a.5.5 0 0 1 0-.708L10.293 8 7.646 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"
+                />
+                <path
+                  fillRule="evenodd"
+                  d="M4.5 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"
+                />
+              </svg>
+            </button>
           </div>
         </div>
         <table className="w-full">
@@ -177,7 +167,6 @@ export const Calendar: React.FC = () => {
             year={date.getFullYear()}
             startDay={startDay}
             numOfDays={numOfDays}
-            handleDayClick={handleDayClick}
           />
         </table>
       </div>

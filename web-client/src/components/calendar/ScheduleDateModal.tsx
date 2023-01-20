@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Modal, Button, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
@@ -22,16 +22,20 @@ const style = {
   p: 2,
 };
 
-const ScheduleDateModal: React.FC = () => {
-  const [open, setOpen] = useState(false);
-  const [playEvent, setPlayEvent] = useState<object>({
-    title: 'Playdate',
-    friend: '',
-    description: '',
-    location: '',
-    start: '',
-    end: '',
-  });
+interface ScheduleDateModalProps {
+  modalIsOpen: boolean;
+  handleDayClick: (event: string) => void;
+  playEvent: object;
+  setPlayEvent: React.Dispatch<React.SetStateAction<object>>;
+}
+
+const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
+  modalIsOpen,
+  handleDayClick,
+  playEvent,
+  setPlayEvent,
+}) => {
+  console.log(modalIsOpen, 'modal is open status');
 
   const handleTime = (start: Dayjs | null, end: Dayjs | null) => {
     if (start !== null && end !== null) {
@@ -75,29 +79,12 @@ const ScheduleDateModal: React.FC = () => {
     setPlayEvent({ ...playEvent, [name]: value });
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleSubmit = () => {
-    const data = {
-      title: 'Play date with Biggie',
-      description: 'Evening playdate',
-      friend: 'biggie',
-      location: 'New York, NYC',
-      start: '16:00',
-      end: '16:30',
-    };
-
     axios
-      .post('http://localhost:3000/users/test/events', data)
+      .post('http://localhost:3000/users/test/events', playEvent)
       .then((resp) => console.log(resp))
       .catch((err) => console.log('posting error:', err))
-      .finally(() => setOpen(false));
+      .finally(() => handleDayClick('ADDED'));
   };
 
   const ModalStyles = {
@@ -112,10 +99,9 @@ const ScheduleDateModal: React.FC = () => {
   };
   return (
     <div>
-      <Button onClick={handleOpen}>Schedule Event</Button>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={modalIsOpen}
+        onClose={() => handleDayClick('CLOSE')}
         keepMounted
         aria-labelledby="keep-mounted-modal"
         aria-describedby="keep-mounted-modal-description"
@@ -144,10 +130,10 @@ const ScheduleDateModal: React.FC = () => {
               Schedule a Playdate
             </Typography>
             <Box sx={{ display: 'flex', direction: 'row', gap: 2 }}>
-              <Button sx={ModalStyles}>
+              <Button onClick={() => handleDayClick('DELETE')} sx={ModalStyles}>
                 <DeleteForeverIcon />
               </Button>
-              <Button onClick={handleClose} sx={ModalStyles}>
+              <Button onClick={() => handleDayClick('CLOSE')} sx={ModalStyles}>
                 <CloseIcon />
               </Button>
             </Box>

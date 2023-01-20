@@ -121,12 +121,22 @@ app.post('/users/:id', (req: Request, res: Response) => {
     - year
 */
 
-app.get('/users/:id/events/:year/:month', (req, res) => {
+app.get('/users/:id/events', (req, res) => {
   res.send(sampleEvents);
 });
 
 app.post('/users/:id/events', async (req, res) => {
   const event = new Event(req.body);
+  sampleEvents.push({
+    _id: '5',
+    title: event.title,
+    description: event.description,
+    friend: event.friend,
+    location: event.location,
+    start: event.start,
+    end: event.end,
+    date: new Date('2023-01-22'),
+  });
   try {
     const result = await event.save();
     console.log('what does mongoose send back?', result);

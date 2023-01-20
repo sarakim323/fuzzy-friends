@@ -8,21 +8,6 @@ import CarouselCard from '../components/profile/Carousel';
 const Profile = ({ setUser, user }) => {
   const Auth0User = useAuth0().user;
 
-  // if (!user) {
-  //   return 'Not a VALID user!';
-  // }
-
-  // return (
-  //   <div>
-  //     <h1>My Profile</h1>
-  //     <div>
-  //       <img src={user.picture} alt="profile" />
-  //       <div>
-  //         <h2>{user.name}</h2>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
   useEffect(() => {
     // setUser(user);
     if (user.userId === undefined && Auth0User && Auth0User.sub) {
@@ -50,11 +35,16 @@ const Profile = ({ setUser, user }) => {
   }, [Auth0User]);
 
   const [title, setTitle] = useState('');
+  const [age, setAge] = useState('');
+  const [breed, setBreed] = useState('');
   const [content, setContent] = useState('');
+
   const [all, setAll] = useState([
     {
       id: '1',
       title: 'About',
+      age: '5',
+      breed: 'corgi',
       content:
         'I am a very friendly and playful dog who loves strings very much!',
     },
@@ -68,6 +58,18 @@ const Profile = ({ setUser, user }) => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setContent(event.currentTarget.value);
+  };
+
+  const saveAgeContentToState = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setAge(event.currentTarget.value);
+  };
+
+  const saveBreedContentToState = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setBreed(event.currentTarget.value);
   };
 
   const toggleCreateNewDescription = () => {
@@ -93,6 +95,8 @@ const Profile = ({ setUser, user }) => {
           ...each,
           title: title || each.title,
           content: content || each.content,
+          age: age || each.age,
+          breed: breed || each.breed,
         };
       }
       return each;
@@ -105,14 +109,17 @@ const Profile = ({ setUser, user }) => {
     const description = all.find((description) => {
       return description.id === editID;
     });
-    console.log('description is ', description);
     return (
       <>
         {description && (
           <EditForm
             content={description.content}
+            age={description.age}
+            breed={description.breed}
             updateDescription={updateDescription}
             saveDescriptionContentToState={saveDescriptionContentToState}
+            saveAgeContentToState={saveAgeContentToState}
+            saveBreedContentToState={saveBreedContentToState}
             toggleCreateNewDescription={toggleCreateNewDescription}
             toggleEdit={toggleEdit}
           />
@@ -122,7 +129,7 @@ const Profile = ({ setUser, user }) => {
   }
 
   return (
-    <div className="flow-root">
+    <div className="flex justify-evenly">
       <div className="float-left m-10 p-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-110 grid grid-cols-1 gap-2 content-center">
         {/* Profile Pic */}
         <div className="relative w-48 h-48 ml-16">
@@ -143,14 +150,8 @@ const Profile = ({ setUser, user }) => {
         </div>
         {/* Profile Name */}
         <div className="p-5">
-          <h5 className="ml-28 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="ml-32 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {user ? `${user.name}` : null}
-          </h5>
-        </div>
-        {/* Profile Breed */}
-        <div className="p-5">
-          <h5 className="mb-4 pb-5 ml-32 text-m font-bold tracking-tight text-gray-900 dark:text-white">
-            Corgi
           </h5>
         </div>
         {/* Description */}
@@ -164,6 +165,8 @@ const Profile = ({ setUser, user }) => {
               <Description
                 id={each.id}
                 key={each.id}
+                age={each.age}
+                breed={each.breed}
                 content={each.content}
                 editDescription={editDescription}
               />
