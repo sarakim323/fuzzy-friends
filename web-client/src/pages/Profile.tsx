@@ -150,7 +150,7 @@ const Profile = ({ setUser, user }) => {
         </div>
         {/* Profile Name */}
         <div className="p-5">
-          <h5 className="ml-28 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="ml-32 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {user ? `${user.name}` : null}
           </h5>
         </div>
