@@ -4,7 +4,6 @@ import EventCell from './EventCell';
 interface DayCellProps {
   date?: number;
   events?: PlayEvent[];
-  setPlayEvent: React.Dispatch<React.SetStateAction<PlayEvent>>;
   handleDayClick: (event: string, payload?: object) => void;
 }
 

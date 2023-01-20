@@ -8,6 +8,7 @@ interface CalendarView {
   year: number;
   startDay: number;
   numOfDays: number;
+  userId: string | number;
 }
 
 const blankPlayEvent: PlayEvent = {
@@ -52,23 +53,21 @@ export const CalendarView: React.FC<CalendarView> = ({
     axios
       .get('http://127.0.0.1:3000/users/test/events')
       .then((resp) => {
-        console.log('what is the response:', resp);
         setEvents(resp.data);
       })
       .catch((err) => {
         console.log('got an error message', err);
       });
   };
+
   useEffect(() => {
     // use axios
     fetchEvents();
   }, []);
 
   const handleDayClick = (event: string, payload?: object) => {
-    if (event === 'ADDED') {
+    if (event === 'ADDED' || event === 'DELETED') {
       fetchEvents();
-    } else if (event === 'DELETED') {
-      // delete
     } else if (event === 'EDITED') {
       // put
     } else if (event === 'OPENDAY') {

@@ -23,8 +23,9 @@ const style = {
 
 interface ScheduleDateModalProps {
   modalIsOpen: boolean;
-  handleDayClick: (event: string) => void;
+  handleDayClick: (event: string, payload?: object) => void;
   playEvent: PlayEvent;
+  userId: string | number;
 }
 
 const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
@@ -90,6 +91,20 @@ const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
       .finally(() => handleDayClick('ADDED'));
   };
 
+  const handleDelete = () => {
+    //
+    console.log('send a delete with:', form._id);
+    axios
+      .delete('http://localhost:3000/users/test/events', {
+        params: { _id: form._id },
+      })
+      .then(() => {
+        console.log('deletred');
+      })
+      .catch((err) => console.log('error deleting:', err))
+      .finally(() => handleDayClick('DELETED'));
+  };
+
   const ModalStyles = {
     minWidth: '30px',
     color: 'white',
@@ -134,10 +149,7 @@ const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
             </Typography>
             <Box sx={{ display: 'flex', direction: 'row', gap: 2 }}>
               {form._id !== '' && (
-                <Button
-                  onClick={() => handleDayClick('DELETE')}
-                  sx={ModalStyles}
-                >
+                <Button onClick={handleDelete} sx={ModalStyles}>
                   <DeleteForeverIcon />
                 </Button>
               )}
