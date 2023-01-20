@@ -1,8 +1,7 @@
 import React from 'react';
 
 interface ProfileBoxProps {
-  matches: Match[];
-  mate: Mate[];
+  mate: Mate;
 }
 
 const ProfileBox: React.FC<ProfileBoxProps> = ({ mate }) => {
@@ -12,7 +11,7 @@ const ProfileBox: React.FC<ProfileBoxProps> = ({ mate }) => {
         <div className="relative w-48 h-48 ml-16">
           <img
             className="absolute rounded-full border border-gray-300 shadow=sm"
-            src={mate.profilePic}
+            src={mate.pictures ? mate.pictures[0] : null}
             alt="profile photo"
           />
           <div className="w-48 h-48 group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500">
@@ -32,7 +31,7 @@ const ProfileBox: React.FC<ProfileBoxProps> = ({ mate }) => {
         </div>
         <div className="mb-5 font-normal text-gray-700 dark:text-gray-400 text-center">
           <div className="content-center card card-width bg-dark">
-            <section className="flex-row justify-center space-x-20">
+            <section className="flex-row items-center">
               <h3 className="mb-5 text-l font-bold tracking-tight text-gray-700 dark:text-gray">
                 Age: {mate.age}
               </h3>

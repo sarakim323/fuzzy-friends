@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import ChatInput from './ChatInput';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 interface ChatBoxProps {
-  matches: Match[];
-  mate: Mate[];
-  user: User[];
-  chat: Chat[];
+  mate: Mate;
+  user: User;
+  currentChat: Chat[];
 }
 
-const ChatBox: React.FC<ChatBoxProps> = ({ mate, user }) => {
-  // const [messages, setMessages] = useState([]);
-  // const scrollRef = useRef();
-  // const [arrivalMessage, setArrivalMessage] = useState(null);
+const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
+  const [newMessage, setnewMessage] = useState('');
+
+  console.log(user.userId, mate.userId, '1111');
+
+  const sendMessage = async (event) => {
+    event.preventDefault();
+    let messageData;
+    const sendId = user.userId;
+    const receiveId = mate.userId;
+    console.log(newMessage, 'hi');
+    if (newMessage !== '') {
+      messageData = { content: newMessage };
+      await axios
+        .post(
+          `http://34.238.117.39:3000/users/${sendId}/messages/${receiveId}`,
+          messageData
+        )
+        .then((data) => {
+          // console.log(data);
+          setnewMessage('');
+          return;
+        })
+        .catch((err) => {
+          console.log('message did not ge sent', err);
+        });
+    }
+  };
+
   return (
-    <div className="m-10 max-w-sm min-h-fit flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center">
+    <div className="m-10 max-w-sm max-h-[90vh] flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center overflow-auto">
       <div className="flex items-center justify-between border-b p-5">
         <div className="flex items-center">
           <img className="rounded-full w-10 h-10" src={mate.profilePic} />
@@ -25,63 +52,40 @@ const ChatBox: React.FC<ChatBoxProps> = ({ mate, user }) => {
             <div className="text-xs text-gray-600">{mate.breed}</div>
           </div>
         </div>
-        <div>
-          <button
-            className="inline-flex hover:bg-indigo-50 rounded-full p-2"
-            type="button"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
+      </div>
+      {currentChat.length !== 0 ? (
+        <ScrollToBottom>
+          {currentChat.map((message) => {
+            return (
+              <ChatInput
+                key={message._id}
+                message={message}
+                mate={mate}
+                user={user}
               />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div className="flex items-center mb-4 p-5">
-        <div className="flex-none flex flex-col items-center space-y-1 mr-4">
-          <img className="rounded-full w-10 h-10" src={user.profilePic} />
-          <a href="#" className="block text-xs hover:underline">
-            {user.name}
-          </a>
-        </div>
-        <div className="flex-1 bg-indigo-100 text-gray-800 p-2 rounded-lg mb-2 relative">
-          <div>Hey! Wassup?</div>
-          <div className="absolute left-0 top-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-100"></div>
-        </div>
-      </div>
-      <div className="flex items-center flex-row-reverse mb-4 p-5">
-        <div className="flex-none flex flex-col items-center space-y-1 ml-4">
-          <img className="rounded-full w-10 h-10" src={mate.profilePic} />
-          <a href="#" className="block text-xs hover:underline">
-            {mate.name}
-          </a>
-        </div>
-        <div className="flex-1 bg-indigo-400 text-white p-2 rounded-lg mb-2 relative">
-          <div>That&apos;s for me to know and you to find out :D</div>
-          <div className="absolute right-0 top-1/2 transform translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-400"></div>
-        </div>
-      </div>
-      <div className="flex items-center mb-4 p-4">
-        <input
+            );
+          })}
+        </ScrollToBottom>
+      ) : null}
+      <div className="flex items-center mb-4 p-4 w-full">
+        <form
           className="w-full rounded-full border border-gray-200 px-4"
-          type="text"
-          value=""
-          placeholder="Aa"
-          autoFocus
-        />
+          onSubmit={(event) => sendMessage(event)}
+        >
+          <input
+            type="text"
+            value={newMessage}
+            onChange={(event) => {
+              setnewMessage(event.target.value);
+            }}
+            placeholder="Aa"
+            autoFocus
+          />
+        </form>
         <button
           className="inline-flex hover:bg-indigo-50 rounded-full p-2"
           type="button"
+          onClick={sendMessage}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +98,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ mate, user }) => {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
-              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
             />
           </svg>
         </button>

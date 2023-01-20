@@ -45,6 +45,17 @@ export const Router = () => {
       />
 
       {/* Add Protected Route here */}
+      {/* <Route path="/chat" element={<ProtectedRoute section={<Chat />} />} />
+      <Route
+        path="/profile"
+        element={<Main section={<Profile user={user} setUser={setUser} />} />}
+      />
+      <Route
+        path="/calendar"
+        element={<Main section={<CalendarPage user={user} />} />}
+      />
+
+      {/* Add Protected Route here */}
       {/* <Route
         path="/chat"
         element={<ProtectedRoute section={<Chat user={user} />} />}

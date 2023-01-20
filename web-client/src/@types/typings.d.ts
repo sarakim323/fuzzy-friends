@@ -7,6 +7,7 @@ interface Match {
   profilePic: string;
   pictures: string[];
   calendarInvite: string[];
+  description: string;
 }
 interface TempMatch {
   _id: string;
@@ -17,6 +18,7 @@ interface TempMatch {
   profilePic: string;
   pictures: string[];
   calendarInvite: string[];
+  description: string;
 }
 
 interface Mate {
@@ -44,7 +46,13 @@ interface User {
 }
 
 interface Chat {
-  integer: string;
+  createdAt: string;
+  messageContent: string;
+  receiverId: string;
+  senderId: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
 }
 
 interface Event {
