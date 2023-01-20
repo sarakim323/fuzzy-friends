@@ -42,7 +42,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
     <div className="m-10 max-w-sm max-h-[90vh] flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center overflow-auto">
       <div className="flex items-center justify-between border-b p-5">
         <div className="flex items-center">
-          <img className="rounded-full w-10 h-10" src={mate.pictures[0]} />
+          <img className="rounded-full w-10 h-10" src={mate.pictures} />
           <div className="pl-2">
             <div className="font-semibold">
               <a className="hover:underline" href="#">
