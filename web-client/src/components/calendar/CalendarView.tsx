@@ -21,6 +21,9 @@ const blankPlayEvent: PlayEvent = {
   end: '',
   date: new Date(),
 };
+
+const today = new Date();
+
 export const CalendarView: React.FC<CalendarView> = ({
   month,
   year,
@@ -34,18 +37,20 @@ export const CalendarView: React.FC<CalendarView> = ({
 
   let date = 0;
 
+  const sameDay = (ds: Date) => {
+    return (
+      ds.getFullYear() === year &&
+      ds.getMonth() === month &&
+      ds.getDate() === date
+    );
+  };
   const daysEvents = (date: number) => {
     if (events === undefined) {
       return [];
     }
 
     return events.filter((evt) => {
-      const evtDate = new Date(evt.date);
-      return (
-        evtDate.getFullYear() === year &&
-        evtDate.getMonth() === month &&
-        evtDate.getDate() === date
-      );
+      return sameDay(new Date(evt.date));
     });
   };
 
@@ -100,13 +105,20 @@ export const CalendarView: React.FC<CalendarView> = ({
                     <DayCell
                       key={`blank-${week}+${dayOfWeek}`}
                       handleDayClick={handleDayClick}
+                      isToday={false}
                     />
                   );
                 }
 
                 date++;
                 if (date > numOfDays) {
-                  return <DayCell key={date} handleDayClick={handleDayClick} />;
+                  return (
+                    <DayCell
+                      key={date}
+                      handleDayClick={handleDayClick}
+                      isToday={false}
+                    />
+                  );
                 } else {
                   const events = daysEvents(date);
                   return (
@@ -115,6 +127,7 @@ export const CalendarView: React.FC<CalendarView> = ({
                       date={date}
                       events={events}
                       handleDayClick={handleDayClick}
+                      isToday={sameDay(today)}
                     />
                   );
                 }

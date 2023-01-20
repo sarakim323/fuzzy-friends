@@ -3,12 +3,14 @@ import EventCell from './EventCell';
 
 interface DayCellProps {
   date?: number;
+  isToday: boolean;
   events?: PlayEvent[];
   handleDayClick: (event: string, payload?: object) => void;
 }
 
 export const DayCell: React.FC<DayCellProps> = ({
   date,
+  isToday,
   events,
   handleDayClick,
 }) => {
@@ -17,6 +19,9 @@ export const DayCell: React.FC<DayCellProps> = ({
 
   if (date === undefined) {
     containerClass += ' bg-gray-100';
+  }
+  if (isToday) {
+    containerClass += 'bg-amber-100';
   }
 
   const handleClick = () => {
