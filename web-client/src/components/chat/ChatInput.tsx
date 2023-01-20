@@ -23,7 +23,6 @@ const ChatInput: React.FC<ChatInputProps> = ({ message, mate, user }) => {
   //   message += emoji.emoji;
   //   setMsg(message);
   // };
-
   if (message.senderId === user.userId) {
     return (
       <div className="flex items-center flex-row-reverse mb-4 p-5">

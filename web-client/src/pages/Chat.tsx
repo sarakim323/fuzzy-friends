@@ -224,7 +224,7 @@ const ChatPage: React.FC = ({ user }) => {
         )
         .then((data) => {
           if (data) {
-            console.log('initial chat history: ', data);
+            console.log('initial chat history: ', data.data);
             setCurrentChat(data.data);
           }
         })
