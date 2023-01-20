@@ -89,11 +89,7 @@ export const CalendarView: React.FC<CalendarView> = ({
         modalIsOpen={modalIsOpen}
         handleDayClick={handleDayClick}
         playEvent={playEvent}
-<<<<<<< HEAD
-        setPlayEvent={setPlayEvent}
         userId={userId}
-=======
->>>>>>> events
       />
       {[0, 1, 2, 3, 4, 5].map((week) => {
         if (date < numOfDays) {
