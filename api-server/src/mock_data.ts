@@ -97,7 +97,7 @@ export const sampleEvents = [
   {
     _id: '2',
     title: 'Group play at Majors Hill Park',
-    description: 'Meeting with Lola for some park time.',
+    description: 'This is going to be so much fun',
     friend: 'lola',
     location: 'NYC, New York',
     start: '13:00',
@@ -107,7 +107,7 @@ export const sampleEvents = [
   {
     _id: '3',
     title: 'Coffee time w/ Banshee',
-    description: 'Meeting with Lola for some park time.',
+    description: 'Lots of cool times',
     friend: 'lola',
     location: 'NYC, New York',
     start: '11:00',
@@ -117,7 +117,7 @@ export const sampleEvents = [
   {
     _id: '4',
     title: 'Sarge Bday',
-    description: 'Meeting with Lola for some park time.',
+    description: 'meeting up with the cool guy',
     friend: 'lola',
     location: 'NYC, New York',
     start: '17:00',
