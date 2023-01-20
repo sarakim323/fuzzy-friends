@@ -8,7 +8,7 @@ export const Home = ({ user }) => {
 
   return (
     <div className="container mx-auto flex flex-wrap items-center">
-      <div>This is the home page ${user.sub}</div>
+      <div>This is the home page</div>
       <div className="container mx-auto flex flex-wrap items-center">
         {!isAuthenticated && (
           <>

@@ -5,8 +5,7 @@ import Description from '../components/profile/Description';
 import EditForm from '../components/profile/EditForm';
 import CarouselCard from '../components/profile/Carousel';
 
-const Profile = ( { setUser, user } ) => {
-
+const Profile = ({ setUser, user }) => {
   const Auth0User = useAuth0().user;
 
   // if (!user) {
@@ -26,7 +25,7 @@ const Profile = ( { setUser, user } ) => {
   // );
   useEffect(() => {
     // setUser(user);
-    if (user._id === undefined && Auth0User && Auth0User.sub) {
+    if (user.userId === undefined && Auth0User && Auth0User.sub) {
       axios
         .get(`http://34.238.117.39:3000/users/${Auth0User.sub}`)
         .then((data) => {
