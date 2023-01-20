@@ -27,7 +27,7 @@ const Upload = () => {
 
   return (
     <>
-      <div className="flex justify-center h-screen items-center px-3">
+      <div className="flex justify-center h-[40vh] items-center px-3">
         <div className="rounded-lg shadow-xl bg-gray-50 md:w-1/2 w-[360px]">
           <div className="m-4">
             <span className="flex justify-center items-center text-[12px] mb-1 text-red-500">

@@ -30,7 +30,7 @@ const EditForm = ({
 }: Props) => {
   return (
     <>
-      <form className="m-10 p-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-110 grid grid-cols-1 gap-4 content-center">
+      <form className="m-10 ml-[40%] p-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-110 grid grid-cols-1 gap-2 content-center">
         <h2 className="mb-2 ml-28 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           Edit Form
         </h2>
