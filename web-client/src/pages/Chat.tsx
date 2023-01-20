@@ -201,6 +201,7 @@ const ChatPage: React.FC = ({ user }) => {
       .get(`http://34.238.117.39:3000/users/${user.userId}/messages/${mateId}`)
       .then((data) => {
         console.log('updated chat history: ', data.data);
+
         setCurrentChat(data.data);
       })
       .catch((err) => {
