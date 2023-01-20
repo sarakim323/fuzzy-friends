@@ -12,21 +12,25 @@ interface ChatBoxProps {
 const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
   const [newMessage, setnewMessage] = useState('');
 
-  const sendMessage = async () => {
+  console.log(user.userId, mate.userId, '1111');
+
+  const sendMessage = async (event) => {
+    event.preventDefault();
     let messageData;
     const sendId = user.userId;
-    const receiveId = mate._id;
+    const receiveId = mate.userId;
     console.log(newMessage, 'hi');
     if (newMessage !== '') {
       messageData = { content: newMessage };
       await axios
         .post(
-          `http://54.144.2.231:3000/users/${sendId}/messages/${receiveId}`,
+          `http://34.238.117.39:3000/users/${sendId}/messages/${receiveId}`,
           messageData
         )
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setnewMessage('');
+          return;
         })
         .catch((err) => {
           console.log('message did not ge sent', err);
@@ -35,7 +39,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
   };
 
   return (
-    <div className="m-10 max-w-sm min-h-fit flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center">
+    <div className="m-10 max-w-sm max-h-[90vh] flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center overflow-auto">
       <div className="flex items-center justify-between border-b p-5">
         <div className="flex items-center">
           <img className="rounded-full w-10 h-10" src={mate.profilePic} />
@@ -66,7 +70,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
       <div className="flex items-center mb-4 p-4 w-full">
         <form
           className="w-full rounded-full border border-gray-200 px-4"
-          onSubmit={sendMessage}
+          onSubmit={(event) => sendMessage(event)}
         >
           <input
             type="text"

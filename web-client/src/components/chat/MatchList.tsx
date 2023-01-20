@@ -14,8 +14,21 @@ const MatchList: React.FC<MatchListProps> = ({
   const [currentUserSelected, setCurrentUserSelected] = useState(undefined);
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [tempData, setTempData] = useState(matches);
-  const [currentData, setCurrentData] = useState(matches);
+  const [tempData, setTempData] = useState([]);
+  const [currentData, setCurrentData] = useState([]);
+
+  useEffect(() => {
+    // try {
+    const copy = JSON.stringify(matches);
+    setTempData(JSON.parse(copy));
+    console.log(JSON.parse(copy), 'SETTING CURRENT DATA');
+    setCurrentData(JSON.parse(copy));
+    console.log(currentData, 'currentData');
+
+    // } catch (err) {
+    //   console.log('error here');
+    // }
+  }, [matches]);
 
   const doSearch = (event: React.FormEvent) => {
     event.preventDefault();
@@ -26,12 +39,12 @@ const MatchList: React.FC<MatchListProps> = ({
   const handleSearch = (query: string) => {
     const currentMatches = tempMatches.slice();
     const resultArr = [];
-    if (searchQuery === '') {
-      setCurrentData(tempData);
-    }
     for (let i = 0; i < currentMatches.length; i++) {
-      if (tempMatches[i].name.toLowerCase().includes(query.toLowerCase())) {
-        resultArr.push(tempMatches[i]);
+      if (
+        currentMatches[i].name &&
+        currentMatches[i].name.toLowerCase().includes(query.toLowerCase())
+      ) {
+        resultArr.push(currentMatches[i]);
       }
     }
     setCurrentData(resultArr);
@@ -66,6 +79,7 @@ const MatchList: React.FC<MatchListProps> = ({
         <div className="matchList">
           {/* matches instead of data? */}
           {currentData.map((match, index) => {
+            console.log('RENDERING MATCH', match);
             return (
               <div
                 key={match._id}
@@ -77,7 +91,7 @@ const MatchList: React.FC<MatchListProps> = ({
                 <a className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
                   <img
                     className="object-cover w-10 h-10 rounded-full"
-                    src={match.profilePic}
+                    src={match.pictures[0]}
                     alt=""
                   />
                   <div className="w-full pb-2">

@@ -45,7 +45,7 @@ const EventsSchema = new mongoose.Schema({
   location: String,
   start: String,
   end: String,
-  eventDate: Date,
+  date: Date,
 });
 
 export const Event = mongoose.model('Event', EventsSchema);
@@ -125,6 +125,13 @@ export const db = {
         })
         .then((profile) => {
           profile.friends.push(senderId);
+          return profile.save();
+        })
+        .then(() => {
+          return Profile.findOne({ senderId });
+        })
+        .then((profile) => {
+          profile.friends.push(userId);
           return profile.save();
         })
         .then(() => {
