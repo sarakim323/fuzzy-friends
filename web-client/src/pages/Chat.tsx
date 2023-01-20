@@ -24,34 +24,7 @@ const ChatPage: React.FC = ({ user }) => {
   //   description: 'Hello my name is Henry, and I would love to chat with you!',
   // });
 
-  const [mate, setMate] = useState<Mate>({
-    _id: '63c99ba11bd1f55ad0d5af61',
-    userId: 'auth0|63c80c4deb4ea7348299dfb2',
-    pictures: [
-      'https://th-thumbnailer.cdn-si-edu.com/C4MIxDa_YxisZm2EtoTNHweBKZU=/fit-in/1600x0/filters:focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg',
-      'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-2-150x150.jpg',
-      'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-1.jpg',
-      'https://outdoordogfun.com/wp-content/uploads/2021/07/5-Facts-Your-Have-to-Know-About-The-Golden-Labrador1.jpg',
-    ],
-    friends: [
-      'auth0|63c990b4778811821e76bde3',
-      'auth0|63c990b4778811821e76bde3',
-      'auth0|63c9935beb4ea734829a5168',
-      '5',
-      '5',
-      'auth0|63c80c4deb4ea7348299dfb2',
-      '5',
-      'auth0|63c80c4deb4ea7348299dfb2',
-      'auth0|63c990b4778811821e76bde3',
-      'auth0|63c9935beb4ea734829a5168',
-      'google-oauth2|109843152645165024442',
-      '5',
-      'auth0|63c990b4778811821e76bde3',
-      'auth0|63c9935beb4ea734829a5168',
-    ],
-    __v: 14,
-    name: 'Terry',
-  });
+  const [mate, setMate] = useState<Mate>({});
 
   const [currentChat, setCurrentChat] = useState([]);
 
@@ -236,7 +209,7 @@ const ChatPage: React.FC = ({ user }) => {
   };
 
   const handleMateChange = (mateInfo) => {
-    // console.log('changed mate info: ', mateInfo);
+    console.log('changed mate info: ', mateInfo);
     setMate(mateInfo);
     // console.log('registered mate in chat.tsx: ', mateInfo._id);
     getChatHistory(mateInfo._id);
@@ -248,8 +221,8 @@ const ChatPage: React.FC = ({ user }) => {
         `http://34.238.117.39:3000/users/${user.userId}/messages/${mate.userId}`
       )
       .then((data) => {
-        // console.log('initial chat history: ', data.data);
-        setCurrentChat(data.data);
+        console.log('initial chat history: ', data);
+        // setCurrentChat(data.data);
       })
       .catch((err) => {
         console.log('failed to get initial chat history: ', err);
@@ -270,7 +243,6 @@ const ChatPage: React.FC = ({ user }) => {
             tempMatches={tempMatches}
             changeMate={handleMateChange}
           />
-          {console.log(matches.length, 'RENDERING MATCHLIST', matches)}
         </div>
         <div className="flex-1 w-20">
           <ChatBox currentChat={currentChat} mate={mate} user={user} />
