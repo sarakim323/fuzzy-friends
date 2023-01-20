@@ -14,51 +14,45 @@ const MatchList: React.FC<MatchListProps> = ({
   const [currentUserSelected, setCurrentUserSelected] = useState(undefined);
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [tempData, setTempData] = useState(matches);
-  const [currentData, setCurrentData] = useState(matches);
-  const data = [
-    {
-      2: [
-        { 2: ['User would like to match with you', '1 Day Ago'] },
-        { 1: ['Hey! Wassup?', '1hr'] },
-        { 2: ['Nm - wbu?', '49min'] },
-      ],
-    },
-    {
-      3: [
-        { 3: ['User would like to match with you', '1 Day Ago'] },
-        { 1: ['How do you do?', '4hr'] },
-        { 3: ['Hiii', '25min'] },
-      ],
-    },
-    {
-      4: [
-        { 1: ['You sent a match request to User', '10hrs'] },
-        { 4: ['What do you like to do', '2hr'] },
-        { 2: ['Dont talk to me', '12min'] },
-      ],
-    },
-    {
-      5: [{ 5: ['User would like to match with you', '30min'] }],
-    },
-  ];
+  const [tempData, setTempData] = useState([]);
+  const [currentData, setCurrentData] = useState([]);
+
+  useEffect(() => {
+    // try {
+    const copy = JSON.stringify(matches);
+    setTempData(JSON.parse(copy));
+    console.log(JSON.parse(copy), 'SETTING CURRENT DATA');
+    setCurrentData(JSON.parse(copy));
+    console.log(currentData, 'currentData');
+
+    // } catch (err) {
+    //   console.log('error here');
+    // }
+  }, [matches]);
 
   const doSearch = (event: React.FormEvent) => {
     event.preventDefault();
-    if (searchQuery === '') {
-      setCurrentData(tempData);
-    }
-    const searchArr = [];
-    for (let i = 0; i < tempMatches.length; i++) {
-      if (tempMatches[i].name.toLowerCase() === searchQuery.toLowerCase()) {
-        searchArr.push(tempMatches[i]);
-      }
-    }
-    setCurrentData(searchArr);
+    handleSearch(searchQuery);
     setSearchQuery('');
   };
 
+  const handleSearch = (query: string) => {
+    const currentMatches = tempMatches.slice();
+    const resultArr = [];
+    for (let i = 0; i < currentMatches.length; i++) {
+      if (
+        currentMatches[i].name &&
+        currentMatches[i].name.toLowerCase().includes(query.toLowerCase())
+      ) {
+        resultArr.push(currentMatches[i]);
+      }
+    }
+    setCurrentData(resultArr);
+  };
+
   const whileSearching = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    handleSearch(event.target.value);
     setSearchQuery(event.target.value);
   };
 
@@ -85,18 +79,19 @@ const MatchList: React.FC<MatchListProps> = ({
         <div className="matchList">
           {/* matches instead of data? */}
           {currentData.map((match, index) => {
+            console.log('RENDERING MATCH', match);
             return (
               <div
                 key={match._id}
-                className={`match ${
-                  index === currentUserSelected ? 'selected' : ''
-                }`}
+                // className={`match ${
+                //   index === currentUserSelected ? 'selected' : ''
+                // }`}
                 onClick={() => changeMate(match)}
               >
                 <a className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
                   <img
                     className="object-cover w-10 h-10 rounded-full"
-                    src={match.profilePic}
+                    src={match.pictures[0]}
                     alt=""
                   />
                   <div className="w-full pb-2">
@@ -106,7 +101,7 @@ const MatchList: React.FC<MatchListProps> = ({
                       </span>
                       <span className="block ml-2 text-sm text-gray-600">
                         {/* <MatchListItem recentTime={data[match.id][1]} /> */}
-                        {console.log(data[match.id], '123')}
+                        {/* {console.log(data[match.id], '123')} */}
                       </span>
                     </div>
                     <span className="block ml-2 text-sm text-gray-600">
