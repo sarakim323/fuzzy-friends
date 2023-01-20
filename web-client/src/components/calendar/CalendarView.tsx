@@ -1,13 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import DayCell from './DayCell';
+import ScheduleDateModal from './ScheduleDateModal';
 
 interface CalendarView {
   month: number;
   year: number;
   startDay: number;
   numOfDays: number;
-  handleDayClick: (event: string) => void;
 }
 
 export const CalendarView: React.FC<CalendarView> = ({
@@ -15,9 +15,18 @@ export const CalendarView: React.FC<CalendarView> = ({
   year,
   startDay,
   numOfDays,
-  handleDayClick,
 }) => {
   const [events, setEvents] = useState<Event[] | undefined>(undefined);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [playEvent, setPlayEvent] = useState<object>({
+    title: 'Playdate',
+    friend: '',
+    description: '',
+    location: '',
+    start: '',
+    end: '',
+  });
+  console.log(playEvent);
 
   let date = 0;
 
@@ -36,8 +45,7 @@ export const CalendarView: React.FC<CalendarView> = ({
     });
   };
 
-  useEffect(() => {
-    // use axios
+  const fetchEvents = () => {
     axios
       .get('http://127.0.0.1:3000/users/test/events')
       .then((resp) => {
@@ -47,10 +55,38 @@ export const CalendarView: React.FC<CalendarView> = ({
       .catch((err) => {
         console.log('got an error message', err);
       });
+  };
+  useEffect(() => {
+    // use axios
+    fetchEvents();
   }, []);
+
+  const handleDayClick = (event: string) => {
+    console.log('handleDayClick event:', event);
+    if (event === 'ADDED') {
+      // refresh event listings
+      fetchEvents();
+    } else if (event === 'DELETED') {
+      // delete
+    } else if (event === 'EDITED') {
+      // put
+    }
+
+    // CLOSE
+    // OPEN
+    // ADDED
+    // DELETE
+    setModalIsOpen(!modalIsOpen);
+  };
 
   return (
     <tbody>
+      <ScheduleDateModal
+        modalIsOpen={modalIsOpen}
+        handleDayClick={handleDayClick}
+        playEvent={playEvent}
+        setPlayEvent={setPlayEvent}
+      />
       {[0, 1, 2, 3, 4, 5].map((week) => {
         if (date < numOfDays) {
           return (
