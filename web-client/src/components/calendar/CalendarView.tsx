@@ -10,6 +10,16 @@ interface CalendarView {
   numOfDays: number;
 }
 
+const blankPlayEvent: PlayEvent = {
+  _id: '',
+  title: 'Playdate',
+  description: '',
+  friend: '',
+  location: '',
+  start: '',
+  end: '',
+  date: new Date(),
+};
 export const CalendarView: React.FC<CalendarView> = ({
   month,
   year,
@@ -17,17 +27,9 @@ export const CalendarView: React.FC<CalendarView> = ({
   numOfDays,
   userId,
 }) => {
-  const [events, setEvents] = useState<Event[] | undefined>(undefined);
+  const [events, setEvents] = useState<PlayEvent[] | undefined>(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [playEvent, setPlayEvent] = useState<object>({
-    title: 'Playdate',
-    friend: '',
-    description: '',
-    location: '',
-    start: '',
-    end: '',
-  });
-  console.log(playEvent);
+  const [playEvent, setPlayEvent] = useState<PlayEvent>(blankPlayEvent);
 
   let date = 0;
 
@@ -62,21 +64,22 @@ export const CalendarView: React.FC<CalendarView> = ({
     fetchEvents();
   }, []);
 
-  const handleDayClick = (event: string) => {
-    console.log('handleDayClick event:', event);
+  const handleDayClick = (event: string, payload?: object) => {
     if (event === 'ADDED') {
-      // refresh event listings
       fetchEvents();
     } else if (event === 'DELETED') {
       // delete
     } else if (event === 'EDITED') {
       // put
+    } else if (event === 'OPENDAY') {
+      setPlayEvent(blankPlayEvent);
+    } else if (event === 'OPENEVENT') {
+      setPlayEvent(payload as PlayEvent);
     }
-
-    // CLOSE
-    // OPEN
-    // ADDED
-    // DELETE
+    // // CLOSE
+    // // OPEN
+    // // ADDED
+    // // DELETE
     setModalIsOpen(!modalIsOpen);
   };
 
@@ -86,8 +89,11 @@ export const CalendarView: React.FC<CalendarView> = ({
         modalIsOpen={modalIsOpen}
         handleDayClick={handleDayClick}
         playEvent={playEvent}
+<<<<<<< HEAD
         setPlayEvent={setPlayEvent}
         userId={userId}
+=======
+>>>>>>> events
       />
       {[0, 1, 2, 3, 4, 5].map((week) => {
         if (date < numOfDays) {

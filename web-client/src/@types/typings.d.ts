@@ -55,7 +55,7 @@ interface Chat {
   _id: string;
 }
 
-interface Event {
+interface PlayEvent {
   _id: string;
   title: string;
   description: string;
