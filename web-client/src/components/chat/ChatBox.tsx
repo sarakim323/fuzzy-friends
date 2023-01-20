@@ -41,7 +41,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
   };
 
   return (
-    <div className="m-10 max-w-sm max-h-[90vh] flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center overflow-auto">
+    <div className="m-10 max-w-sm max-h-[90vh] overflow-scroll flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center overflow-auto">
       <div className="flex items-center justify-between border-b p-5">
         <div className="flex items-center">
           <img
