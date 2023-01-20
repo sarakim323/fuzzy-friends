@@ -58,21 +58,21 @@ export const Router = () => {
       {/* Add Protected Route here */}
       {/* <Route
         path="/chat"
-        element={<ProtectedRoute section={<Chat user={user} />} />}
+        element={<ProtectedRoute component={<Chat user={user} />} />}
       />
       <Route
         path="/profile"
         element={
-          <ProtectedRoute section={<Profile user={user} setUser={setUser} />} />
+          <ProtectedRoute component={<Profile user={user} setUser={setUser} />} />
         }
       />
       <Route
         path="/discover"
-        element={<ProtectedRoute section={<Discover user={user} />} />}
+        element={<ProtectedRoute component={<Discover user={user} />} />}
       />
       <Route
         path="/calendar"
-        element={<ProtectedRoute section={<CalendarPage user={user} />} />}
+        element={<ProtectedRoute component={<CalendarPage user={user} />} />}
       /> */}
 
       <Route path="/callback" element={<Main section={<Callback />} />} />

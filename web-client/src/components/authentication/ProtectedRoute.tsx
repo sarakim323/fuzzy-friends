@@ -1,18 +1,18 @@
-import React from 'react';
-import { withAuthenticationRequired } from '@auth0/auth0-react';
+import React, { FC } from 'react';
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import PageLoader from './PageLoader';
 
-interface Props {
-  section: React.ReactNode;
+interface PropType {
+  component: React.FC;
 }
 
-export const ProtectedRoute: React.FC<Props> = ({ section }) => {
-  const Section = withAuthenticationRequired(section, {
+export const ProtectedRoute: FC<PropType> = ({ component }) => {
+  const Component = withAuthenticationRequired(component, {
     onRedirecting: () => (
       <div>
         <PageLoader />
       </div>
     ),
   });
-  return <Section />;
+  return <Component />;
 };
