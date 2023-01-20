@@ -25,7 +25,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
           messageData
         )
         .then((data) => {
-          console.log(data);
+          console.log('message got sent!: ', data);
           setnewMessage('');
         })
         .catch((err) => {
