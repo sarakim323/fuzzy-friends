@@ -212,7 +212,7 @@ const ChatPage: React.FC = ({ user }) => {
       const interval = setInterval(() => {
         getUserMatchList();
       }, 1000);
-      return () => interval();
+      return () => clearInterval(interval);
       // axios.get(`http://34.238.117.39:3000/users/${user.userId}/friends`);
     },
     [user]
