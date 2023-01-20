@@ -9,8 +9,8 @@ import ProfileInfo from '../components/discover/ProfileInfo';
 // }
 export interface Profile {
   id: number;
-  UserId: number;
-  photos: string[];
+  userId: number;
+  pictures: string[];
   name: string;
   city: string;
 }
@@ -27,11 +27,12 @@ const Discovery = ({ user }) => {
   const [ranApiCall, setRanApiCall] = useState<boolean>(false);
   const [reRender, setReRender] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<CurrentUser>({
-    user: { id: 0, UserId: 0, photos: [], name: '', city: '' },
+    user: { id: 0, userId: 0, photos: [], name: '', city: '' },
     index: 0,
   });
   console.log('USER', user);
   const [profileArray, setProfileArray] = useState<Profile[]>([]);
+  console.log('PROFILE ARRAY');
 
   const handleBark = () => {
     setCurrentUser({
@@ -43,8 +44,8 @@ const Discovery = ({ user }) => {
 
   const handleSniff = () => {
     axios
-      .put(
-        `http://54.144.2.231:3000/users/${user.id}/friends/${currentUser.user.id}`
+      .post(
+        `http://34.238.117.39:3000/users/${user.userId}/friends/${currentUser.user.userId}`
       )
       .then(() => {
         const newUser = {
@@ -60,10 +61,11 @@ const Discovery = ({ user }) => {
   useEffect(() => {
     setRanApiCall(false);
     axios
-      .get(`http://54.144.2.231:3000/users/${user.userId}/discover`)
+      .get(`http://34.238.117.39:3000/users/${user.userId}/discover`)
       .then((data) => {
         setRanApiCall(true);
         setCurrentUser({ user: data.data[0], index: 0 });
+        console.log('GET DISCOVER', data.data);
         setProfileArray(data.data);
       })
       .catch((err) => {
@@ -75,11 +77,12 @@ const Discovery = ({ user }) => {
     if (reRender) {
       setReRender(false);
     }
+    console.log('PROFILE ARRAy', profileArray);
   }, [reRender]);
 
   return (
     <div className="">
-      {ranApiCall && currentUser.user.id !== 0 ? (
+      {ranApiCall && currentUser.user.userId !== 0 ? (
         <>
           {/* Title */}
           <div className="flex flex-row justify-center text-6xl">
@@ -107,8 +110,8 @@ const Discovery = ({ user }) => {
                 transition={0.5}
               >
                 {/* Images */}
-                {currentUser.user.photos &&
-                  currentUser.user.photos.map((image, index) => (
+                {Array.isArray(currentUser.user.pictures) &&
+                  currentUser.user.pictures.map((image, index) => (
                     <div
                       className="flex-col justify-center items-center"
                       key={index}

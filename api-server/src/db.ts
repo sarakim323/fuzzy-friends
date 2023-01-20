@@ -18,6 +18,7 @@ const ProfileSchema = new mongoose.Schema({
   breed: String,
   gender: String,
   city: String,
+  description: String,
   pictures: [String],
   friends: [String],
 });
@@ -44,6 +45,7 @@ const EventsSchema = new mongoose.Schema({
   location: String,
   start: String,
   end: String,
+  eventDate: Date,
 });
 
 export const Event = mongoose.model('Event', EventsSchema);
@@ -126,6 +128,13 @@ export const db = {
           return profile.save();
         })
         .then(() => {
+          return Profile.findOne({ senderId });
+        })
+        .then((profile) => {
+          profile.friends.push(userId);
+          return profile.save();
+        })
+        .then(() => {
           resolve('Success');
         })
         .catch((err) => {
@@ -133,23 +142,23 @@ export const db = {
         });
     });
   },
-  getUser: ( userId: string ) => {
-    return Profile.findOne({ userId })
+  getUser: (userId: string) => {
+    return Profile.findOne({ userId });
   },
-  addUser: ( userId: string ) => {
+  addUser: (userId: string) => {
     // userId: String,
     // name: String,
     // friends: [String],
     const newUser = new Profile({ userId });
     return newUser.save();
   },
-  updateProfile: (userId : string, profile : object) => {
-    return Profile.findOneAndUpdate({ userId }, profile );
+  updateProfile: (userId: string, profile: object) => {
+    return Profile.findOneAndUpdate({ userId }, profile);
   },
-  removeRequest: ( userId: string, senderId: string) => {
-    return Request.findOneAndRemove({ userId, senderId});
+  removeRequest: (userId: string, senderId: string) => {
+    return Request.findOneAndRemove({ userId, senderId });
   },
   getProfiles: (userId: string) => {
-    return Profile.find()
-  }
+    return Profile.find();
+  },
 };
