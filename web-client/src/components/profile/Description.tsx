@@ -4,15 +4,17 @@ import EditIcon from '@mui/icons-material/Edit';
 interface Props {
   id: string;
   content: string;
+  age: string;
+  breed: string;
   editDescription: (id: string) => void;
 }
 
-const Description = ({ id, content, editDescription }: Props) => {
+const Description = ({ id, age, breed, content, editDescription }: Props) => {
   return (
     <>
       <div className="card card-width bg-dark">
         <section className="flex justify-center space-x-20">
-          <h3 className="mb-5 text-l font-bold tracking-tight text-gray-700 dark:text-gray">
+          <h3 className="mb-2 text-l font-bold tracking-tight text-gray-700 dark:text-gray">
             About
           </h3>
           <span
@@ -24,7 +26,9 @@ const Description = ({ id, content, editDescription }: Props) => {
           </span>
         </section>
         <hr className="w-48 h-1 mx-auto my-1 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700"></hr>
-        <p>{content}</p>
+        <p>Age: {age}</p>
+        <p>Breed: {breed}</p>
+        <p className="mt-5">{content}</p>
       </div>
     </>
   );
