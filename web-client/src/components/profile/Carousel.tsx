@@ -10,17 +10,17 @@ const CarouselCard = () => {
     },
     {
       image:
-        'https://www.purina.com.au/-/media/project/purina/main/breeds/puppies/puppy-chihuahua/puppy-corgi.jpg',
+        'https://paradepets.com/.image/t_share/MTkxMzY1Nzg4NjczMzIwNTQ2/cutest-dog-breeds-jpg.jpg',
       caption: '2',
     },
     {
       image:
-        'https://www.rover.com/blog/wp-content/uploads/2019/01/6342530545_45ec8696c8_b.jpg',
+        'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-2-150x150.jpg',
       caption: '3',
     },
     {
       image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Archie_the_Pembroke_Welsh_Corgi.jpg/222px-Archie_the_Pembroke_Welsh_Corgi.jpg',
+        'https://animalso.com/wp-content/uploads/2016/10/husky-corgi-mix-1.jpg',
       caption: '4',
     },
     {
