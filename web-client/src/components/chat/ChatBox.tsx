@@ -29,7 +29,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
           setnewMessage('');
         })
         .catch((err) => {
-          console.log('message did not ge sent', err);
+          console.log('message did not get sent', err);
         });
     }
   };
