@@ -3,8 +3,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { LoginButton } from '../components/authentication/LoginButton';
 import { SignupButton } from '../components/authentication/SignupButton';
 
-export const Home = () => {
-  const { isAuthenticated, user } = useAuth0();
+export const Home = ({ user }) => {
+  const { isAuthenticated } = useAuth0();
 
   return (
     <div className="container mx-auto flex flex-wrap items-center">
