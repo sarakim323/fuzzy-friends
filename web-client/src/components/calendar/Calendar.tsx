@@ -56,8 +56,20 @@ export const Calendar: React.FC = () => {
     setDate(newDate);
   };
 
-  const handleDayClick = () => {
-    console.log('opening the modal now');
+  const handleDayClick = (event: string) => {
+    console.log('handleDayClick event:', event);
+    if (event === 'ADDED') {
+      // refresh event listings
+    } else if (event === 'DELETED') {
+      // delete
+    } else if (event === 'EDITED') {
+      // put
+    }
+
+    // CLOSE
+    // OPEN
+    // ADDED
+    // DELETE
     setModalIsOpen(!modalIsOpen);
   };
 
@@ -71,7 +83,6 @@ export const Calendar: React.FC = () => {
           <div className="flex">
             <ScheduleDateModal
               modalIsOpen={modalIsOpen}
-              setModalIsOpen={setModalIsOpen}
               handleDayClick={handleDayClick}
               playEvent={playEvent}
               setPlayEvent={setPlayEvent}

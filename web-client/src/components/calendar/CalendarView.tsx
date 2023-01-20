@@ -19,9 +19,12 @@ const EventCell: React.FC<EventCellProps> = ({ title, start, end }) => {
 };
 
 interface Event {
-  id: string;
-  date: Date;
+  _id: string;
   title: string;
+  description: string;
+  friend: string;
+  location: string;
+  date: Date;
   start: string;
   end: string;
 }
@@ -29,7 +32,7 @@ interface Event {
 interface DayCellProps {
   date?: number;
   events?: Event[];
-  handleDayClick: () => void;
+  handleDayClick: (event: string) => void;
 }
 
 const DayCell: React.FC<DayCellProps> = ({ date, events, handleDayClick }) => {
@@ -41,7 +44,7 @@ const DayCell: React.FC<DayCellProps> = ({ date, events, handleDayClick }) => {
   }
 
   const handleClick = () => {
-    handleDayClick();
+    handleDayClick('OPEN');
   };
 
   return (
@@ -54,7 +57,7 @@ const DayCell: React.FC<DayCellProps> = ({ date, events, handleDayClick }) => {
           {events?.map((event) => {
             return (
               <EventCell
-                key={event.id}
+                key={event._id}
                 title={event.title}
                 start={event.start}
                 end={event.end}
@@ -72,7 +75,7 @@ interface CalendarView {
   year: number;
   startDay: number;
   numOfDays: number;
-  handleDayClick: () => void;
+  handleDayClick: (event: string) => void;
 }
 
 export const CalendarView: React.FC<CalendarView> = ({
