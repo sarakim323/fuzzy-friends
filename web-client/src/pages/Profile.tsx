@@ -43,7 +43,7 @@ const Profile = ({ setUser, user }) => {
     {
       id: '1',
       title: 'About',
-      age: '5',
+      age: '2',
       breed: 'corgi',
       content:
         'I am a very friendly and playful dog who loves strings very much!',
