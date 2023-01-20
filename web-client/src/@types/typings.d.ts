@@ -46,3 +46,14 @@ interface User {
 interface Chat {
   integer: string;
 }
+
+interface Event {
+  _id: string;
+  title: string;
+  description: string;
+  friend: string;
+  location: string;
+  date: Date;
+  start: string;
+  end: string;
+}

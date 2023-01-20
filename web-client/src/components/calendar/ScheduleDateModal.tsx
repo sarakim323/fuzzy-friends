@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Modal, Button, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
@@ -22,8 +22,14 @@ const style = {
   p: 2,
 };
 
-const ScheduleDateModal: React.FC = ({
-  setModalIsOpen,
+interface ScheduleDateModalProps {
+  modalIsOpen: boolean;
+  handleDayClick: (event: string) => void;
+  playEvent: object;
+  setPlayEvent: React.Dispatch<React.SetStateAction<object>>;
+}
+
+const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
   modalIsOpen,
   handleDayClick,
   playEvent,
@@ -74,20 +80,11 @@ const ScheduleDateModal: React.FC = ({
   };
 
   const handleSubmit = () => {
-    const data = {
-      title: 'Play date with Biggie',
-      description: 'Evening playdate',
-      friend: 'biggie',
-      location: 'New York, NYC',
-      start: '16:00',
-      end: '16:30',
-    };
-
     axios
-      .post('http://localhost:3000/users/test/events', data)
+      .post('http://localhost:3000/users/test/events', playEvent)
       .then((resp) => console.log(resp))
       .catch((err) => console.log('posting error:', err))
-      .finally(() => setOpen(false));
+      .finally(() => handleDayClick('ADDED'));
   };
 
   const ModalStyles = {
@@ -104,7 +101,7 @@ const ScheduleDateModal: React.FC = ({
     <div>
       <Modal
         open={modalIsOpen}
-        onClose={handleDayClick}
+        onClose={() => handleDayClick('CLOSE')}
         keepMounted
         aria-labelledby="keep-mounted-modal"
         aria-describedby="keep-mounted-modal-description"
@@ -133,10 +130,10 @@ const ScheduleDateModal: React.FC = ({
               Schedule a Playdate
             </Typography>
             <Box sx={{ display: 'flex', direction: 'row', gap: 2 }}>
-              <Button sx={ModalStyles}>
+              <Button onClick={() => handleDayClick('DELETE')} sx={ModalStyles}>
                 <DeleteForeverIcon />
               </Button>
-              <Button onClick={handleDayClick} sx={ModalStyles}>
+              <Button onClick={() => handleDayClick('CLOSE')} sx={ModalStyles}>
                 <CloseIcon />
               </Button>
             </Box>
