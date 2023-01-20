@@ -6,3 +6,4 @@ api-server/pnpm-lock.yaml
 api-server/package-lock.json
 package-lock.json
 api-server/build/
+.env
