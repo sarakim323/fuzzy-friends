@@ -12,7 +12,9 @@ interface ChatBoxProps {
 const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
   const [newMessage, setnewMessage] = useState('');
 
-  console.log(user.userId, mate.userId, '1111');
+  const sortedChat = currentChat.sort(
+    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+  );
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -33,16 +35,19 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
           return;
         })
         .catch((err) => {
-          console.log('message did not ge sent', err);
+          console.log('message did not get sent', err);
         });
     }
   };
 
   return (
-    <div className="m-10 max-w-sm max-h-[90vh] flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center overflow-auto">
+    <div className="m-10 max-w-sm max-h-[90vh] overflow-scroll flex flex-col border shadow-md bg-white rounded-lg bg-white border border-gray-200 shadow-md dark:bg-warmGray-700 dark:border-gray- gap-2 content-center overflow-auto">
       <div className="flex items-center justify-between border-b p-5">
         <div className="flex items-center">
-          <img className="rounded-full w-10 h-10" src={mate.profilePic} />
+          <img
+            className="rounded-full w-10 h-10"
+            src={mate.pictures ? mate.pictures[0] : null}
+          />
           <div className="pl-2">
             <div className="font-semibold">
               <a className="hover:underline" href="#">
@@ -55,7 +60,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
       </div>
       {currentChat.length !== 0 ? (
         <ScrollToBottom>
-          {currentChat.map((message) => {
+          {sortedChat.map((message) => {
             return (
               <ChatInput
                 key={message._id}
