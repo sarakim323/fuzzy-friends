@@ -130,7 +130,7 @@ const Profile = ({ setUser, user }) => {
 
   return (
     <div className="flex justify-evenly">
-      <div className="float-left m-10 p-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-110 grid grid-cols-1 gap-2 content-center">
+      <div className="float-left m-10 ml-36 p-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-110 grid grid-cols-1 gap-2 content-center">
         {/* Profile Pic */}
         <div className="relative w-48 h-48 ml-16">
           <img
