@@ -132,7 +132,7 @@ const Profile = ({ setUser, user }) => {
     <div className="flex justify-evenly">
       <div className="float-left m-10 ml-36 p-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-110 grid grid-cols-1 gap-2 content-center">
         {/* Profile Pic */}
-        <div className="relative w-48 h-48 ml-16">
+        <div className="relative w-48 h-48 ml-[23%]">
           <img
             className="absolute rounded-full border border-gray-300 shadow=sm"
             src="https://mymodernmet.com/wp/wp-content/uploads/2020/10/cooper-baby-corgi-dogs-8.jpg"
@@ -150,8 +150,8 @@ const Profile = ({ setUser, user }) => {
         </div>
         {/* Profile Name */}
         <div className="p-5">
-          <h5 className="ml-32 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {user ? `${user.name}` : null}
+          <h5 className="ml-[45%] pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {user ? `${user.name}` : 'Lani'}
           </h5>
         </div>
         {/* Description */}

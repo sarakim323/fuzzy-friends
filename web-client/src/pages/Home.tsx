@@ -10,15 +10,15 @@ export const Home = () => {
 
   return (
     <div className="container mx-auto items-center text-center">
+      <h1 className="ml-[5%] pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-orange">
+        Welcome to Fuzzy Friends Home Page
+      </h1>
       <img
-        className="mt-10 ml-20 max-w-[10.5rem] justify-center"
+        className="m-10 ml-[48%] max-w-[10.5rem] justify-center"
         src={logo}
         alt="Fuzzy Friends Logo"
         width="120"
       />
-      <h1 className="ml-28 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-orange">
-        Welcome to Fuzzy Friends Home Page
-      </h1>
       <div className="container mx-auto flex flex-wrap items-center">
         {!isAuthenticated && (
           <>
