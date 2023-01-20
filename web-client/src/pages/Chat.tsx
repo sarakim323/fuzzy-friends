@@ -216,18 +216,24 @@ const ChatPage: React.FC = ({ user }) => {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `http://34.238.117.39:3000/users/${user.userId}/messages/${mate.userId}`
-      )
-      .then((data) => {
-        console.log('initial chat history: ', data);
-        // setCurrentChat(data.data);
-      })
-      .catch((err) => {
-        console.log('failed to get initial chat history: ', err);
-      });
-  }, []);
+    console.log('pleaseuser', user.userId, mate.userId);
+    const interval = setInterval(() => {
+      axios
+        .get(
+          `http://34.238.117.39:3000/users/${user.userId}/messages/${mate.userId}`
+        )
+        .then((data) => {
+          if (data) {
+            console.log('initial chat history: ', data);
+            setCurrentChat(data.data);
+          }
+        })
+        .catch((err) => {
+          console.log('failed to get initial chat history: ', err);
+        });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [mate]);
 
   // //getting someone else's friend request to me
   // useEffect(() => {

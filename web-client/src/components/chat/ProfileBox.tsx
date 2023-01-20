@@ -31,7 +31,7 @@ const ProfileBox: React.FC<ProfileBoxProps> = ({ mate }) => {
         </div>
         <div className="mb-5 font-normal text-gray-700 dark:text-gray-400 text-center">
           <div className="content-center card card-width bg-dark">
-            <section className="flex-row justify-center space-x-20">
+            <section className="flex-row items-center">
               <h3 className="mb-5 text-l font-bold tracking-tight text-gray-700 dark:text-gray">
                 Age: {mate.age}
               </h3>
