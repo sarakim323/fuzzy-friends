@@ -216,19 +216,24 @@ const ChatPage: React.FC = ({ user }) => {
   };
 
   useEffect(() => {
-    console.log(user.userId, 'userid', mate.userId, 'mate user id')
-    axios
-      .get(
-        `http://34.238.117.39:3000/users/${user.userId}/messages/${mate.userId}`
-      )
-      .then((data) => {
-        console.log('initial chat history: ', data);
-        // setCurrentChat(data.data);
-      })
-      .catch((err) => {
-        console.log('failed to get initial chat history: ', err);
-      });
-  }, []);
+    console.log('pleaseuser', user.userId, mate.userId);
+    const interval = setInterval(() => {
+      axios
+        .get(
+          `http://34.238.117.39:3000/users/${user.userId}/messages/${mate.userId}`
+        )
+        .then((data) => {
+          if (data) {
+            console.log('initial chat history: ', data);
+            setCurrentChat(data.data);
+          }
+        })
+        .catch((err) => {
+          console.log('failed to get initial chat history: ', err);
+        });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [mate]);
 
   // //getting someone else's friend request to me
   // useEffect(() => {
@@ -258,3 +263,11 @@ const ChatPage: React.FC = ({ user }) => {
 };
 
 export default ChatPage;
+
+// chat initial
+/* [
+  { userId: '1', message: 'User would like to match with you' },
+  { userId: '9', message: 'Hey! Wassup?' },
+  { userId: '1', message: 'Nm - wbu?' },
+]
+*/

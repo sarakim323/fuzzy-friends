@@ -1,78 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-
-interface EventCellProps {
-  title: string;
-  start: string;
-  end: string;
-}
-
-const EventCell: React.FC<EventCellProps> = ({ title, start, end }) => {
-  return (
-    <div className="event bg-purple-400 text-white rounded p-1 text-sm mb-1">
-      <span className="event-name block">{title}</span>
-      <span className="time">
-        {start}-{end}
-      </span>
-    </div>
-  );
-};
-
-interface Event {
-  id: string;
-  date: Date;
-  title: string;
-  start: string;
-  end: string;
-}
-
-interface DayCellProps {
-  date?: number;
-  events?: Event[];
-  handleDayClick: () => void;
-}
-
-const DayCell: React.FC<DayCellProps> = ({ date, events, handleDayClick }) => {
-  let containerClass =
-    'border p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ';
-
-  if (date === undefined) {
-    containerClass += ' bg-gray-100';
-  }
-
-  const handleClick = () => {
-    handleDayClick();
-  };
-
-  return (
-    <td className={containerClass} onClick={handleClick}>
-      <div className="flex flex-col h-40 mx-auto xl:w-40 lg:w-30 md:w-30 sm:w-full w-10 mx-auto overflow-hidden">
-        <div className="top h-5 w-full">
-          <span className="text-gray-500">{date}</span>
-        </div>
-        <div className="bottom flex-grow h-30 py-1 w-full cursor-pointer">
-          {events?.map((event) => {
-            return (
-              <EventCell
-                key={event.id}
-                title={event.title}
-                start={event.start}
-                end={event.end}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </td>
-  );
-};
+import DayCell from './DayCell';
+import ScheduleDateModal from './ScheduleDateModal';
 
 interface CalendarView {
   month: number;
   year: number;
   startDay: number;
   numOfDays: number;
-  handleDayClick: () => void;
 }
 
 export const CalendarView: React.FC<CalendarView> = ({
@@ -80,9 +15,18 @@ export const CalendarView: React.FC<CalendarView> = ({
   year,
   startDay,
   numOfDays,
-  handleDayClick,
 }) => {
   const [events, setEvents] = useState<Event[] | undefined>(undefined);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [playEvent, setPlayEvent] = useState<object>({
+    title: 'Playdate',
+    friend: '',
+    description: '',
+    location: '',
+    start: '',
+    end: '',
+  });
+  console.log(playEvent);
 
   let date = 0;
 
@@ -101,8 +45,7 @@ export const CalendarView: React.FC<CalendarView> = ({
     });
   };
 
-  useEffect(() => {
-    // use axios
+  const fetchEvents = () => {
     axios
       .get('http://127.0.0.1:3000/users/test/events')
       .then((resp) => {
@@ -112,10 +55,38 @@ export const CalendarView: React.FC<CalendarView> = ({
       .catch((err) => {
         console.log('got an error message', err);
       });
+  };
+  useEffect(() => {
+    // use axios
+    fetchEvents();
   }, []);
+
+  const handleDayClick = (event: string) => {
+    console.log('handleDayClick event:', event);
+    if (event === 'ADDED') {
+      // refresh event listings
+      fetchEvents();
+    } else if (event === 'DELETED') {
+      // delete
+    } else if (event === 'EDITED') {
+      // put
+    }
+
+    // CLOSE
+    // OPEN
+    // ADDED
+    // DELETE
+    setModalIsOpen(!modalIsOpen);
+  };
 
   return (
     <tbody>
+      <ScheduleDateModal
+        modalIsOpen={modalIsOpen}
+        handleDayClick={handleDayClick}
+        playEvent={playEvent}
+        setPlayEvent={setPlayEvent}
+      />
       {[0, 1, 2, 3, 4, 5].map((week) => {
         if (date < numOfDays) {
           return (
