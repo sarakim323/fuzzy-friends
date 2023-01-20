@@ -121,13 +121,14 @@ app.post('/users/:id', (req: Request, res: Response) => {
     - year
 */
 
+let evts = sampleEvents;
 app.get('/users/:id/events', (req, res) => {
-  res.send(sampleEvents);
+  res.send(evts);
 });
 
 app.post('/users/:id/events', async (req, res) => {
   const event = new Event(req.body);
-  sampleEvents.push({
+  evts.push({
     _id: '5',
     title: event.title,
     description: event.description,
@@ -160,6 +161,20 @@ app.put('/users/:id/events', async (req, res) => {
     return res.sendStatus(200);
   } catch (err) {
     console.log('PUT events error:', err);
+    res.sendStatus(500);
+  }
+});
+
+app.delete('/users/:id/events', async (req, res) => {
+  evts = evts.filter((evt) => evt._id !== req.query._id);
+  try {
+    const result = await Event.deleteOne({ _id: req.query._id });
+    if (result.deletedCount === 0) {
+      return res.sendStatus(404);
+    }
+    return res.sendStatus(200);
+  } catch (err) {
+    console.log('DELETE events error:', err);
     res.sendStatus(500);
   }
 });

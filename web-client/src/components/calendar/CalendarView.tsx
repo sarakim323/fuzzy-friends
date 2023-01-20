@@ -8,7 +8,21 @@ interface CalendarView {
   year: number;
   startDay: number;
   numOfDays: number;
+  userId: string | number;
 }
+
+const blankPlayEvent: PlayEvent = {
+  _id: '',
+  title: 'Playdate',
+  description: '',
+  friend: '',
+  location: '',
+  start: '',
+  end: '',
+  date: new Date(),
+};
+
+const today = new Date();
 
 export const CalendarView: React.FC<CalendarView> = ({
   month,
@@ -17,32 +31,26 @@ export const CalendarView: React.FC<CalendarView> = ({
   numOfDays,
   userId,
 }) => {
-  const [events, setEvents] = useState<Event[] | undefined>(undefined);
+  const [events, setEvents] = useState<PlayEvent[] | undefined>(undefined);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [playEvent, setPlayEvent] = useState<object>({
-    title: 'Playdate',
-    friend: '',
-    description: '',
-    location: '',
-    start: '',
-    end: '',
-  });
-  console.log(playEvent);
+  const [playEvent, setPlayEvent] = useState<PlayEvent>(blankPlayEvent);
 
   let date = 0;
 
+  const sameDay = (ds: Date) => {
+    return (
+      ds.getFullYear() === year &&
+      ds.getMonth() === month &&
+      ds.getDate() === date
+    );
+  };
   const daysEvents = (date: number) => {
     if (events === undefined) {
       return [];
     }
 
     return events.filter((evt) => {
-      const evtDate = new Date(evt.date);
-      return (
-        evtDate.getFullYear() === year &&
-        evtDate.getMonth() === month &&
-        evtDate.getDate() === date
-      );
+      return sameDay(new Date(evt.date));
     });
   };
 
@@ -50,33 +58,32 @@ export const CalendarView: React.FC<CalendarView> = ({
     axios
       .get('http://127.0.0.1:3000/users/test/events')
       .then((resp) => {
-        console.log('what is the response:', resp);
         setEvents(resp.data);
       })
       .catch((err) => {
         console.log('got an error message', err);
       });
   };
+
   useEffect(() => {
     // use axios
     fetchEvents();
   }, []);
 
-  const handleDayClick = (event: string) => {
-    console.log('handleDayClick event:', event);
-    if (event === 'ADDED') {
-      // refresh event listings
+  const handleDayClick = (event: string, payload?: object) => {
+    if (event === 'ADDED' || event === 'DELETED') {
       fetchEvents();
-    } else if (event === 'DELETED') {
-      // delete
     } else if (event === 'EDITED') {
       // put
+    } else if (event === 'OPENDAY') {
+      setPlayEvent(blankPlayEvent);
+    } else if (event === 'OPENEVENT') {
+      setPlayEvent(payload as PlayEvent);
     }
-
-    // CLOSE
-    // OPEN
-    // ADDED
-    // DELETE
+    // // CLOSE
+    // // OPEN
+    // // ADDED
+    // // DELETE
     setModalIsOpen(!modalIsOpen);
   };
 
@@ -86,7 +93,6 @@ export const CalendarView: React.FC<CalendarView> = ({
         modalIsOpen={modalIsOpen}
         handleDayClick={handleDayClick}
         playEvent={playEvent}
-        setPlayEvent={setPlayEvent}
         userId={userId}
       />
       {[0, 1, 2, 3, 4, 5].map((week) => {
@@ -99,13 +105,20 @@ export const CalendarView: React.FC<CalendarView> = ({
                     <DayCell
                       key={`blank-${week}+${dayOfWeek}`}
                       handleDayClick={handleDayClick}
+                      isToday={false}
                     />
                   );
                 }
 
                 date++;
                 if (date > numOfDays) {
-                  return <DayCell key={date} handleDayClick={handleDayClick} />;
+                  return (
+                    <DayCell
+                      key={date}
+                      handleDayClick={handleDayClick}
+                      isToday={false}
+                    />
+                  );
                 } else {
                   const events = daysEvents(date);
                   return (
@@ -114,6 +127,7 @@ export const CalendarView: React.FC<CalendarView> = ({
                       date={date}
                       events={events}
                       handleDayClick={handleDayClick}
+                      isToday={sameDay(today)}
                     />
                   );
                 }

@@ -16,7 +16,7 @@ const monthsIdx = [
   'December',
 ];
 
-export const Calendar: React.FC = ({ user }) => {
+export const Calendar: React.FC<{ user: object }> = ({ user }) => {
   const [date, setDate] = useState(new Date());
   const { userId } = user;
   let numOfDays = new Date(
