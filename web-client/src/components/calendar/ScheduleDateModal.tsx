@@ -225,7 +225,7 @@ const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
                     },
                   }}
                 >
-                  Schedule
+                  {form._id === '' ? 'Schedule' : 'Update'}
                 </Button>
               </Box>
             </Box>
