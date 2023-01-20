@@ -72,7 +72,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ currentChat, mate, user }) => {
           })}
         </ScrollToBottom>
       ) : null}
-      <div className="flex items-center mb-4 p-4 w-full">
+      <div className="flex items-center mb-4 p-4 w-full self-end">
         <form
           className="w-full rounded-full border border-gray-200 px-4"
           onSubmit={(event) => sendMessage(event)}
