@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Modal, Button, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
 import { default as TimeSelectors } from './TimeSelectors';
 import { default as FriendSelector } from './FriendSelector';
 import { default as Location } from './Location';
-import { default as Description } from './Description';
 import { Dayjs } from 'dayjs';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import axios from 'axios';
@@ -25,17 +24,19 @@ const style = {
 interface ScheduleDateModalProps {
   modalIsOpen: boolean;
   handleDayClick: (event: string) => void;
-  playEvent: object;
-  setPlayEvent: React.Dispatch<React.SetStateAction<object>>;
+  playEvent: PlayEvent;
 }
 
 const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
   modalIsOpen,
   handleDayClick,
   playEvent,
-  setPlayEvent,
 }) => {
-  console.log(modalIsOpen, 'modal is open status');
+  const [form, setForm] = useState(playEvent);
+
+  useEffect(() => {
+    setForm(playEvent);
+  }, [playEvent]);
 
   const handleTime = (start: Dayjs | null, end: Dayjs | null) => {
     if (start !== null && end !== null) {
@@ -51,8 +52,9 @@ const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
         minute: 'numeric',
         hour12: false,
       });
-      setPlayEvent({
-        ...playEvent,
+
+      setForm({
+        ...form,
         ['start']: formattedStartTime,
         ['end']: formattedEndTime,
       });
@@ -63,25 +65,25 @@ const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
     const name = 'location';
     const value = str;
 
-    setPlayEvent({ ...playEvent, [name]: value });
+    setForm({ ...playEvent, [name]: value });
   };
 
   const handleFriend = (str: string) => {
     const name = 'friend';
     const value = str;
-    setPlayEvent({ ...playEvent, [name]: value });
+    setForm({ ...form, [name]: value });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
 
-    setPlayEvent({ ...playEvent, [name]: value });
+    setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = () => {
     axios
-      .post('http://localhost:3000/users/test/events', playEvent)
+      .post('http://localhost:3000/users/test/events', form)
       .then((resp) => console.log(resp))
       .catch((err) => console.log('posting error:', err))
       .finally(() => handleDayClick('ADDED'));
@@ -130,9 +132,14 @@ const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
               Schedule a Playdate
             </Typography>
             <Box sx={{ display: 'flex', direction: 'row', gap: 2 }}>
-              <Button onClick={() => handleDayClick('DELETE')} sx={ModalStyles}>
-                <DeleteForeverIcon />
-              </Button>
+              {form._id !== '' && (
+                <Button
+                  onClick={() => handleDayClick('DELETE')}
+                  sx={ModalStyles}
+                >
+                  <DeleteForeverIcon />
+                </Button>
+              )}
               <Button onClick={() => handleDayClick('CLOSE')} sx={ModalStyles}>
                 <CloseIcon />
               </Button>
@@ -160,7 +167,8 @@ const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
                 label="Playdate Title"
                 variant="outlined"
                 name="title"
-                defaultValue="Playdate"
+                value={form.title}
+                defaultValue={form.title}
                 required={true}
                 size="medium"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -168,9 +176,20 @@ const ScheduleDateModal: React.FC<ScheduleDateModalProps> = ({
                 }
               />
               <TimeSelectors handleTime={handleTime} />
-              <Location handleLocation={handleLocation} />
+              <Location
+                initialLocation={form.location}
+                handleLocation={handleLocation}
+              />
               <FriendSelector handleFriend={handleFriend} />
-              <Description handleChange={handleChange} />
+              <TextField
+                id="outlined-multiline-static"
+                label="Description"
+                multiline
+                rows={4}
+                name="description"
+                value={form.description}
+                onChange={handleChange}
+              />
               <Box
                 sx={{
                   display: 'flex',

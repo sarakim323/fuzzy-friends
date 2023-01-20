@@ -3,8 +3,9 @@ import EventCell from './EventCell';
 
 interface DayCellProps {
   date?: number;
-  events?: Event[];
-  handleDayClick: (event: string) => void;
+  events?: PlayEvent[];
+  setPlayEvent: React.Dispatch<React.SetStateAction<PlayEvent>>;
+  handleDayClick: (event: string, payload?: object) => void;
 }
 
 export const DayCell: React.FC<DayCellProps> = ({
@@ -20,7 +21,7 @@ export const DayCell: React.FC<DayCellProps> = ({
   }
 
   const handleClick = () => {
-    handleDayClick('OPEN');
+    handleDayClick('OPENDAY');
   };
 
   return (
@@ -34,9 +35,8 @@ export const DayCell: React.FC<DayCellProps> = ({
             return (
               <EventCell
                 key={event._id}
-                title={event.title}
-                start={event.start}
-                end={event.end}
+                event={event}
+                handleDayClick={handleDayClick}
               />
             );
           })}
