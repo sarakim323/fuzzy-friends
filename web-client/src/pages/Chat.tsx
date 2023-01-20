@@ -263,11 +263,3 @@ const ChatPage: React.FC = ({ user }) => {
 };
 
 export default ChatPage;
-
-// chat initial
-/* [
-  { userId: '1', message: 'User would like to match with you' },
-  { userId: '9', message: 'Hey! Wassup?' },
-  { userId: '1', message: 'Nm - wbu?' },
-]
-*/
