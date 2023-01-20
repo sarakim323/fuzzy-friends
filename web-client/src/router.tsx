@@ -30,7 +30,7 @@ export const Router = () => {
   return (
     <Routes>
       <Route index element={<Main section={<Home user={user} />} />} />
-      {/* <Route path="/chat" element={<Main section={<Chat user={user} />} />} />
+      <Route path="/chat" element={<Main section={<Chat user={user} />} />} />
       <Route
         path="/discover"
         element={<Main section={<Discover user={user} />} />}
@@ -42,10 +42,10 @@ export const Router = () => {
       <Route
         path="/calendar"
         element={<Main section={<CalendarPage user={user} />} />}
-      /> */}
+      />
 
       {/* Add Protected Route here */}
-      <Route
+      {/* <Route
         path="/chat"
         element={<ProtectedRoute component={<Chat user={user} />} />}
       />
@@ -62,7 +62,7 @@ export const Router = () => {
       <Route
         path="/calendar"
         element={<ProtectedRoute component={<CalendarPage user={user} />} />}
-      />
+      /> */}
 
       <Route path="/callback" element={<Main section={<Callback />} />} />
       <Route path="*" element={<NotFound />} />
